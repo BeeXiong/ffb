@@ -1,0 +1,1207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{03872659-107A-4004-9897-B36EA82511D9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FantasyFootballPlayoffs</RootNamespace>
+    <AssemblyName>FantasyFootballPlayoffs</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.7</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabases>true</PublishDatabases>
+    <TypeScriptExperimentalDecorators>True</TypeScriptExperimentalDecorators>
+    <TypeScriptEmitDecoratorMetadata>True</TypeScriptEmitDecoratorMetadata>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptExperimentalDecorators>True</TypeScriptExperimentalDecorators>
+    <TypeScriptEmitDecoratorMetadata>True</TypeScriptEmitDecoratorMetadata>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.Core.3.3.29.3\lib\net45\AWSSDK.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\EnvDTE.8.0.2\lib\net10\EnvDTE.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\EnvDTE80.8.0.3\lib\net10\EnvDTE80.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.8.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.8.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.8.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.8.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.8.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.8.1\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.4\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.0\lib\net451\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.0\lib\net451\Microsoft.Owin.Security.Google.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.0\lib\net451\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.0\lib\net451\Microsoft.Owin.Security.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6071\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.7.10.6072\lib\net11\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.10.0.10.0.30320\lib\net20\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.11.0.11.0.61031\lib\net20\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.12.0.12.0.30111\lib\net20\Microsoft.VisualStudio.Shell.Interop.12.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0.8.0.50728\lib\net11\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VSSDK.TemplateWizardInterface.12.0.4\lib\net20\Microsoft.VisualStudio.TemplateWizardInterface.dll</HintPath>
+      <Private>True</Private>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.7.10.6071\lib\net11\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.8.0.8.0.50728\lib\net11\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.VisualStudio, Version=4.8.0.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.VisualStudio.4.8.0\lib\net46\NuGet.VisualStudio.dll</HintPath>
+      <Private>True</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="SendGrid, Version=9.10.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.9.10.0\lib\net452\SendGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\stdole.7.0.3303\lib\net10\stdole.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DraftController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaguesController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ScoreController.cs" />
+    <Compile Include="Controllers\StatsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711230324310_create database.cs" />
+    <Compile Include="Migrations\201711230324310_create database.Designer.cs">
+      <DependentUpon>201711230324310_create database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711230332187_add zRawNFLRosters.cs" />
+    <Compile Include="Migrations\201711230332187_add zRawNFLRosters.Designer.cs">
+      <DependentUpon>201711230332187_add zRawNFLRosters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711230336134_create zRawNFLRoster Table.cs" />
+    <Compile Include="Migrations\201711230336134_create zRawNFLRoster Table.Designer.cs">
+      <DependentUpon>201711230336134_create zRawNFLRoster Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711230423252_fix foreign key player table.cs" />
+    <Compile Include="Migrations\201711230423252_fix foreign key player table.Designer.cs">
+      <DependentUpon>201711230423252_fix foreign key player table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711230430105_fixed FK%27s to all tables.cs" />
+    <Compile Include="Migrations\201711230430105_fixed FK%27s to all tables.Designer.cs">
+      <DependentUpon>201711230430105_fixed FK%27s to all tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711230440349_Fix FK team Table.cs" />
+    <Compile Include="Migrations\201711230440349_Fix FK team Table.Designer.cs">
+      <DependentUpon>201711230440349_Fix FK team Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711230521334_change names of identity tables.cs" />
+    <Compile Include="Migrations\201711230521334_change names of identity tables.Designer.cs">
+      <DependentUpon>201711230521334_change names of identity tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711242337491_seed roles table.cs" />
+    <Compile Include="Migrations\201711242337491_seed roles table.Designer.cs">
+      <DependentUpon>201711242337491_seed roles table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711260246163_check team table.cs" />
+    <Compile Include="Migrations\201711260246163_check team table.Designer.cs">
+      <DependentUpon>201711260246163_check team table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711260250559_update team table to remove Collection of Games.cs" />
+    <Compile Include="Migrations\201711260250559_update team table to remove Collection of Games.Designer.cs">
+      <DependentUpon>201711260250559_update team table to remove Collection of Games.cs</DependentUpon>
+    </Compile>
+    <!--<<<<<<< HEAD-->
+    <Compile Include="Migrations\201712041613576_reset.cs" />
+    <Compile Include="Migrations\201712041613576_reset.Designer.cs">
+      <DependentUpon>201712041613576_reset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061938023_update fantasy team tables.cs" />
+    <Compile Include="Migrations\201712061938023_update fantasy team tables.Designer.cs">
+      <DependentUpon>201712061938023_update fantasy team tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061945184_update fantasy_Roster tab le.cs" />
+    <Compile Include="Migrations\201712061945184_update fantasy_Roster tab le.Designer.cs">
+      <DependentUpon>201712061945184_update fantasy_Roster tab le.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061952163_reworked stats tables.cs" />
+    <Compile Include="Migrations\201712061952163_reworked stats tables.Designer.cs">
+      <DependentUpon>201712061952163_reworked stats tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712062016209_update team table.cs" />
+    <Compile Include="Migrations\201712062016209_update team table.Designer.cs">
+      <DependentUpon>201712062016209_update team table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712062059516_team table id reset.cs" />
+    <Compile Include="Migrations\201712062059516_team table id reset.Designer.cs">
+      <DependentUpon>201712062059516_team table id reset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712062100341_team table id set.cs" />
+    <Compile Include="Migrations\201712062100341_team table id set.Designer.cs">
+      <DependentUpon>201712062100341_team table id set.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712062145429_reset due to merge conflicts.cs" />
+    <Compile Include="Migrations\201712062145429_reset due to merge conflicts.Designer.cs">
+      <DependentUpon>201712062145429_reset due to merge conflicts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712062207530_remove teamName requirement from team table.cs" />
+    <Compile Include="Migrations\201712062207530_remove teamName requirement from team table.Designer.cs">
+      <DependentUpon>201712062207530_remove teamName requirement from team table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070326175_remove sport from team table.cs" />
+    <Compile Include="Migrations\201712070326175_remove sport from team table.Designer.cs">
+      <DependentUpon>201712070326175_remove sport from team table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070402401_create home and away team tables.cs" />
+    <Compile Include="Migrations\201712070402401_create home and away team tables.Designer.cs">
+      <DependentUpon>201712070402401_create home and away team tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070411444_revised awayTeam Table.cs" />
+    <Compile Include="Migrations\201712070411444_revised awayTeam Table.Designer.cs">
+      <DependentUpon>201712070411444_revised awayTeam Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070416515_update game to include foreign keys.cs" />
+    <Compile Include="Migrations\201712070416515_update game to include foreign keys.Designer.cs">
+      <DependentUpon>201712070416515_update game to include foreign keys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070419340_home and away foreign keys.cs" />
+    <Compile Include="Migrations\201712070419340_home and away foreign keys.Designer.cs">
+      <DependentUpon>201712070419340_home and away foreign keys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070443563_added date to game table.cs" />
+    <Compile Include="Migrations\201712070443563_added date to game table.Designer.cs">
+      <DependentUpon>201712070443563_added date to game table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070452583_date column in game adjusted.cs" />
+    <Compile Include="Migrations\201712070452583_date column in game adjusted.Designer.cs">
+      <DependentUpon>201712070452583_date column in game adjusted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070506496_change date column in game table.cs" />
+    <Compile Include="Migrations\201712070506496_change date column in game table.Designer.cs">
+      <DependentUpon>201712070506496_change date column in game table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070515502_added new table for playoff round.cs" />
+    <Compile Include="Migrations\201712070515502_added new table for playoff round.Designer.cs">
+      <DependentUpon>201712070515502_added new table for playoff round.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070517122_game table updated to include round.cs" />
+    <Compile Include="Migrations\201712070517122_game table updated to include round.Designer.cs">
+      <DependentUpon>201712070517122_game table updated to include round.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070525263_remove round.cs" />
+    <Compile Include="Migrations\201712070525263_remove round.Designer.cs">
+      <DependentUpon>201712070525263_remove round.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070526113_insert round to game table.cs" />
+    <Compile Include="Migrations\201712070526113_insert round to game table.Designer.cs">
+      <DependentUpon>201712070526113_insert round to game table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070538539_fixing errors.cs" />
+    <Compile Include="Migrations\201712070538539_fixing errors.Designer.cs">
+      <DependentUpon>201712070538539_fixing errors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070540195_fixing errors part 2.cs" />
+    <Compile Include="Migrations\201712070540195_fixing errors part 2.Designer.cs">
+      <DependentUpon>201712070540195_fixing errors part 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070553223_remove game date to fix error.cs" />
+    <Compile Include="Migrations\201712070553223_remove game date to fix error.Designer.cs">
+      <DependentUpon>201712070553223_remove game date to fix error.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070554471_game date included in team table.cs" />
+    <Compile Include="Migrations\201712070554471_game date included in team table.Designer.cs">
+      <DependentUpon>201712070554471_game date included in team table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712072234539_InitialMigration.cs" />
+    <Compile Include="Migrations\201712072234539_InitialMigration.Designer.cs">
+      <DependentUpon>201712072234539_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712091650326_update stat table to include game.cs" />
+    <Compile Include="Migrations\201712091650326_update stat table to include game.Designer.cs">
+      <DependentUpon>201712091650326_update stat table to include game.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712091736488_adjustments to stat an player tables.cs" />
+    <Compile Include="Migrations\201712091736488_adjustments to stat an player tables.Designer.cs">
+      <DependentUpon>201712091736488_adjustments to stat an player tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712100653547_adjusted isA columns to be Bool.cs" />
+    <Compile Include="Migrations\201712100653547_adjusted isA columns to be Bool.Designer.cs">
+      <DependentUpon>201712100653547_adjusted isA columns to be Bool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712110127234_revise stat table.cs" />
+    <Compile Include="Migrations\201712110127234_revise stat table.Designer.cs">
+      <DependentUpon>201712110127234_revise stat table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712110611406_remove requirement for stat table.cs" />
+    <Compile Include="Migrations\201712110611406_remove requirement for stat table.Designer.cs">
+      <DependentUpon>201712110611406_remove requirement for stat table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712120006176_create nullable fields in stats tabl.cs" />
+    <Compile Include="Migrations\201712120006176_create nullable fields in stats tabl.Designer.cs">
+      <DependentUpon>201712120006176_create nullable fields in stats tabl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712160539338_fantasy League table Annanotations.cs" />
+    <Compile Include="Migrations\201712160539338_fantasy League table Annanotations.Designer.cs">
+      <DependentUpon>201712160539338_fantasy League table Annanotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712161604081_updated fantasy league and roster tables for owner.cs" />
+    <Compile Include="Migrations\201712161604081_updated fantasy league and roster tables for owner.Designer.cs">
+      <DependentUpon>201712161604081_updated fantasy league and roster tables for owner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712180707300_connecting user table with fantansy league table.cs" />
+    <Compile Include="Migrations\201712180707300_connecting user table with fantansy league table.Designer.cs">
+      <DependentUpon>201712180707300_connecting user table with fantansy league table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712190354586_add entry code to league table.cs" />
+    <Compile Include="Migrations\201712190354586_add entry code to league table.Designer.cs">
+      <DependentUpon>201712190354586_add entry code to league table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712190524519_remove FK for Fantasy owner to fantasy team table.cs" />
+    <Compile Include="Migrations\201712190524519_remove FK for Fantasy owner to fantasy team table.Designer.cs">
+      <DependentUpon>201712190524519_remove FK for Fantasy owner to fantasy team table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712190526034_add user FK to fantasy team table.cs" />
+    <Compile Include="Migrations\201712190526034_add user FK to fantasy team table.Designer.cs">
+      <DependentUpon>201712190526034_add user FK to fantasy team table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712190548461_create new table for Fantasy League Details.cs" />
+    <Compile Include="Migrations\201712190548461_create new table for Fantasy League Details.Designer.cs">
+      <DependentUpon>201712190548461_create new table for Fantasy League Details.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712190550309_add new column for team count in Fantasy League Detail.cs" />
+    <Compile Include="Migrations\201712190550309_add new column for team count in Fantasy League Detail.Designer.cs">
+      <DependentUpon>201712190550309_add new column for team count in Fantasy League Detail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712210840403_adjust amountOfTeams location.cs" />
+    <Compile Include="Migrations\201712210840403_adjust amountOfTeams location.Designer.cs">
+      <DependentUpon>201712210840403_adjust amountOfTeams location.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712210855158_add to fantasy league detail.cs" />
+    <Compile Include="Migrations\201712210855158_add to fantasy league detail.Designer.cs">
+      <DependentUpon>201712210855158_add to fantasy league detail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712210907580_update fantasy_team table for display name.cs" />
+    <Compile Include="Migrations\201712210907580_update fantasy_team table for display name.Designer.cs">
+      <DependentUpon>201712210907580_update fantasy_team table for display name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712220828499_convert userId to string from Int.cs" />
+    <Compile Include="Migrations\201712220828499_convert userId to string from Int.Designer.cs">
+      <DependentUpon>201712220828499_convert userId to string from Int.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712220838271_remove fantasy owner from league details.cs" />
+    <Compile Include="Migrations\201712220838271_remove fantasy owner from league details.Designer.cs">
+      <DependentUpon>201712220838271_remove fantasy owner from league details.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712280119498_moved userid to fantasy league details table.cs" />
+    <Compile Include="Migrations\201712280119498_moved userid to fantasy league details table.Designer.cs">
+      <DependentUpon>201712280119498_moved userid to fantasy league details table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712292039377_reworked fantasy Roster table to include FK.cs" />
+    <Compile Include="Migrations\201712292039377_reworked fantasy Roster table to include FK.Designer.cs">
+      <DependentUpon>201712292039377_reworked fantasy Roster table to include FK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712310005558_create tables for drafting.cs" />
+    <Compile Include="Migrations\201712310005558_create tables for drafting.Designer.cs">
+      <DependentUpon>201712310005558_create tables for drafting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712310155280_add conference table.cs" />
+    <Compile Include="Migrations\201712310155280_add conference table.Designer.cs">
+      <DependentUpon>201712310155280_add conference table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712310202236_populate conference.cs" />
+    <Compile Include="Migrations\201712310202236_populate conference.Designer.cs">
+      <DependentUpon>201712310202236_populate conference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712310227175_update display names and playoffTeams table.cs" />
+    <Compile Include="Migrations\201712310227175_update display names and playoffTeams table.Designer.cs">
+      <DependentUpon>201712310227175_update display names and playoffTeams table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712311930378_update fantasy league roster to have details instead of league and team.cs" />
+    <Compile Include="Migrations\201712311930378_update fantasy league roster to have details instead of league and team.Designer.cs">
+      <DependentUpon>201712311930378_update fantasy league roster to have details instead of league and team.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712311933055_change name of draft pick information.cs" />
+    <Compile Include="Migrations\201712311933055_change name of draft pick information.Designer.cs">
+      <DependentUpon>201712311933055_change name of draft pick information.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801012022297_create fantasy player slot.cs" />
+    <Compile Include="Migrations\201801012022297_create fantasy player slot.Designer.cs">
+      <DependentUpon>201801012022297_create fantasy player slot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120644327_reworking player slot table.cs" />
+    <Compile Include="Migrations\201801120644327_reworking player slot table.Designer.cs">
+      <DependentUpon>201801120644327_reworking player slot table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120823519_remove player slots table.cs" />
+    <Compile Include="Migrations\201801120823519_remove player slots table.Designer.cs">
+      <DependentUpon>201801120823519_remove player slots table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120834127_remove fantasy player slots.cs" />
+    <Compile Include="Migrations\201801120834127_remove fantasy player slots.Designer.cs">
+      <DependentUpon>201801120834127_remove fantasy player slots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120835259_re add player slots table.cs" />
+    <Compile Include="Migrations\201801120835259_re add player slots table.Designer.cs">
+      <DependentUpon>201801120835259_re add player slots table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120836530_re add player slot FK.cs" />
+    <Compile Include="Migrations\201801120836530_re add player slot FK.Designer.cs">
+      <DependentUpon>201801120836530_re add player slot FK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801120939136_seed player slot table.cs" />
+    <Compile Include="Migrations\201801120939136_seed player slot table.Designer.cs">
+      <DependentUpon>201801120939136_seed player slot table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801232057388_reworking stats table for FG and Points allowed.cs" />
+    <Compile Include="Migrations\201801232057388_reworking stats table for FG and Points allowed.Designer.cs">
+      <DependentUpon>201801232057388_reworking stats table for FG and Points allowed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802161950502_added calendar years and current year tables.cs" />
+    <Compile Include="Migrations\201802161950502_added calendar years and current year tables.Designer.cs">
+      <DependentUpon>201802161950502_added calendar years and current year tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802161951511_seed calendar years table.cs" />
+    <Compile Include="Migrations\201802161951511_seed calendar years table.Designer.cs">
+      <DependentUpon>201802161951511_seed calendar years table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802162005009_seed current year.cs" />
+    <Compile Include="Migrations\201802162005009_seed current year.Designer.cs">
+      <DependentUpon>201802162005009_seed current year.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802162204347_seed only.cs" />
+    <Compile Include="Migrations\201802162204347_seed only.Designer.cs">
+      <DependentUpon>201802162204347_seed only.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802162223103_add calendar years FK to players table.cs" />
+    <Compile Include="Migrations\201802162223103_add calendar years FK to players table.Designer.cs">
+      <DependentUpon>201802162223103_add calendar years FK to players table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\awayTeam.cs" />
+    <Compile Include="Models\conference.cs" />
+    <Compile Include="Models\currentYear.cs" />
+    <Compile Include="Models\playoffTeam.cs" />
+    <Compile Include="Models\fantasy_League_Detail.cs" />
+    <Compile Include="Models\fantasy_Player_Slot.cs" />
+    <!--=======-->
+    <!--<Compile Include="Migrations\201711260601510_reworked database.cs" />
+    <Compile Include="Migrations\201711260601510_reworked database.Designer.cs">
+      <DependentUpon>201711260601510_reworked database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711260645465_updates.cs" />
+    <Compile Include="Migrations\201711260645465_updates.Designer.cs">
+      <DependentUpon>201711260645465_updates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711270254087_update team table.cs" />
+    <Compile Include="Migrations\201711270254087_update team table.Designer.cs">
+      <DependentUpon>201711270254087_update team table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711270325241_update game table with home and away ID%27s.cs" />
+    <Compile Include="Migrations\201711270325241_update game table with home and away ID%27s.Designer.cs">
+      <DependentUpon>201711270325241_update game table with home and away ID%27s.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711270328196_add foreign keys for away and home team.cs" />
+    <Compile Include="Migrations\201711270328196_add foreign keys for away and home team.Designer.cs">
+      <DependentUpon>201711270328196_add foreign keys for away and home team.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711292239436_reset on 11.29.17.cs" />
+    <Compile Include="Migrations\201711292239436_reset on 11.29.17.Designer.cs">
+      <DependentUpon>201711292239436_reset on 11.29.17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711292310098_modify foreign keys.cs" />
+    <Compile Include="Migrations\201711292310098_modify foreign keys.Designer.cs">
+      <DependentUpon>201711292310098_modify foreign keys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300434410_new junction tables.cs" />
+    <Compile Include="Migrations\201711300434410_new junction tables.Designer.cs">
+      <DependentUpon>201711300434410_new junction tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300435595_update for junction tables.cs" />
+    <Compile Include="Migrations\201711300435595_update for junction tables.Designer.cs">
+      <DependentUpon>201711300435595_update for junction tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300459546_added stats table.cs" />
+    <Compile Include="Migrations\201711300459546_added stats table.Designer.cs">
+      <DependentUpon>201711300459546_added stats table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300500598_fix of league deatil table pt 1.cs" />
+    <Compile Include="Migrations\201711300500598_fix of league deatil table pt 1.Designer.cs">
+      <DependentUpon>201711300500598_fix of league deatil table pt 1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300509269_remove fantasy team FK.cs" />
+    <Compile Include="Migrations\201711300509269_remove fantasy team FK.Designer.cs">
+      <DependentUpon>201711300509269_remove fantasy team FK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300514203_remove fantansy teams table.cs" />
+    <Compile Include="Migrations\201711300514203_remove fantansy teams table.Designer.cs">
+      <DependentUpon>201711300514203_remove fantansy teams table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300515301_add fantasy teams table.cs" />
+    <Compile Include="Migrations\201711300515301_add fantasy teams table.Designer.cs">
+      <DependentUpon>201711300515301_add fantasy teams table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300529264_modify fantansy roster table.cs" />
+    <Compile Include="Migrations\201711300529264_modify fantansy roster table.Designer.cs">
+      <DependentUpon>201711300529264_modify fantansy roster table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300535339_added game stat junction table.cs" />
+    <Compile Include="Migrations\201711300535339_added game stat junction table.Designer.cs">
+      <DependentUpon>201711300535339_added game stat junction table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300538405_added team info table.cs" />
+    <Compile Include="Migrations\201711300538405_added team info table.Designer.cs">
+      <DependentUpon>201711300538405_added team info table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300618251_reset zraw roster table.cs" />
+    <Compile Include="Migrations\201711300618251_reset zraw roster table.Designer.cs">
+      <DependentUpon>201711300618251_reset zraw roster table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300619227_added zraw rosters.cs" />
+    <Compile Include="Migrations\201711300619227_added zraw rosters.Designer.cs">
+      <DependentUpon>201711300619227_added zraw rosters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711300627103_added to zraw rosters table.cs" />
+    <Compile Include="Migrations\201711300627103_added to zraw rosters table.Designer.cs">
+      <DependentUpon>201711300627103_added to zraw rosters table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\fantasy_League_Detail.cs" />
+    <Compile Include="Models\gameStat.cs" />
+>>>>>>> 91adba68a650e30f901ef7335ce92cf9bdfaa5e4-->
+    <Compile Include="Models\playerinformation.cs" />
+    <Compile Include="Models\playoffRound.cs" />
+    <Compile Include="Models\roundPoints.cs" />
+    <Compile Include="Models\roundStats.cs" />
+    <Compile Include="Models\teamInformation.cs" />
+    <Compile Include="Models\calendarYear.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="Models\fantasy_League.cs" />
+    <Compile Include="Models\fantasy_Owner.cs" />
+    <Compile Include="Models\fantasy_Roster.cs" />
+    <Compile Include="Models\fantasy_Team.cs" />
+    <Compile Include="Models\game.cs" />
+    <Compile Include="Models\stat.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\location.cs" />
+    <Compile Include="ViewModels\CreateGameViewModel.cs" />
+    <Compile Include="ViewModels\CreateLeagueViewModel.cs" />
+    <Compile Include="ViewModels\CreateTeamsViewModel.cs" />
+    <Compile Include="ViewModels\fantasyTeamViewModel.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="Models\player.cs" />
+    <Compile Include="Models\playerPosition.cs" />
+    <Compile Include="Models\sport.cs" />
+    <Compile Include="Models\statisticalCategory.cs" />
+    <Compile Include="Models\homeTeam.cs" />
+    <Compile Include="Models\zRawNFLRosters.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\playerDraftViewModel.cs" />
+    <Compile Include="ViewModels\ScoreViewModel.cs" />
+    <Compile Include="ViewModels\StatEntryViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\football_field.JPG" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Leagues.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\stats.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Stats\createGames.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Stats\Index.cshtml" />
+    <Content Include="Views\Stats\statEntry.cshtml" />
+    <Content Include="Views\Leagues\createLeagues.cshtml" />
+    <Content Include="Views\Leagues\createTeams.cshtml" />
+    <Content Include="Views\Score\view.cshtml" />
+    <Content Include="Views\Leagues\manageLeague.cshtml" />
+    <Content Include="Views\Leagues\createTeamsError.cshtml" />
+    <Content Include="Views\Draft\players.cshtml" />
+    <Content Include="Views\Stats\selectPlayoffTeams.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711230324310_create database.resx">
+      <DependentUpon>201711230324310_create database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711230332187_add zRawNFLRosters.resx">
+      <DependentUpon>201711230332187_add zRawNFLRosters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711230336134_create zRawNFLRoster Table.resx">
+      <DependentUpon>201711230336134_create zRawNFLRoster Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711230423252_fix foreign key player table.resx">
+      <DependentUpon>201711230423252_fix foreign key player table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711230430105_fixed FK%27s to all tables.resx">
+      <DependentUpon>201711230430105_fixed FK%27s to all tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711230440349_Fix FK team Table.resx">
+      <DependentUpon>201711230440349_Fix FK team Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711230521334_change names of identity tables.resx">
+      <DependentUpon>201711230521334_change names of identity tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711242337491_seed roles table.resx">
+      <DependentUpon>201711242337491_seed roles table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711260246163_check team table.resx">
+      <DependentUpon>201711260246163_check team table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711260250559_update team table to remove Collection of Games.resx">
+      <DependentUpon>201711260250559_update team table to remove Collection of Games.cs</DependentUpon>
+    </EmbeddedResource>
+    <!--<<<<<<< HEAD-->
+    <EmbeddedResource Include="Migrations\201712041613576_reset.resx">
+      <DependentUpon>201712041613576_reset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061938023_update fantasy team tables.resx">
+      <DependentUpon>201712061938023_update fantasy team tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061945184_update fantasy_Roster tab le.resx">
+      <DependentUpon>201712061945184_update fantasy_Roster tab le.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061952163_reworked stats tables.resx">
+      <DependentUpon>201712061952163_reworked stats tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712062016209_update team table.resx">
+      <DependentUpon>201712062016209_update team table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712062059516_team table id reset.resx">
+      <DependentUpon>201712062059516_team table id reset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712062100341_team table id set.resx">
+      <DependentUpon>201712062100341_team table id set.cs</DependentUpon>
+      <!--=======-->
+      <!--<EmbeddedResource Include="Migrations\201711260601510_reworked database.resx">
+      <DependentUpon>201711260601510_reworked database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711260645465_updates.resx">
+      <DependentUpon>201711260645465_updates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711270254087_update team table.resx">
+      <DependentUpon>201711270254087_update team table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711270325241_update game table with home and away ID%27s.resx">
+      <DependentUpon>201711270325241_update game table with home and away ID%27s.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711270328196_add foreign keys for away and home team.resx">
+      <DependentUpon>201711270328196_add foreign keys for away and home team.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711292239436_reset on 11.29.17.resx">
+      <DependentUpon>201711292239436_reset on 11.29.17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711292310098_modify foreign keys.resx">
+      <DependentUpon>201711292310098_modify foreign keys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300434410_new junction tables.resx">
+      <DependentUpon>201711300434410_new junction tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300435595_update for junction tables.resx">
+      <DependentUpon>201711300435595_update for junction tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300459546_added stats table.resx">
+      <DependentUpon>201711300459546_added stats table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300500598_fix of league deatil table pt 1.resx">
+      <DependentUpon>201711300500598_fix of league deatil table pt 1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300509269_remove fantasy team FK.resx">
+      <DependentUpon>201711300509269_remove fantasy team FK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300514203_remove fantansy teams table.resx">
+      <DependentUpon>201711300514203_remove fantansy teams table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300515301_add fantasy teams table.resx">
+      <DependentUpon>201711300515301_add fantasy teams table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300529264_modify fantansy roster table.resx">
+      <DependentUpon>201711300529264_modify fantansy roster table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300535339_added game stat junction table.resx">
+      <DependentUpon>201711300535339_added game stat junction table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300538405_added team info table.resx">
+      <DependentUpon>201711300538405_added team info table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300618251_reset zraw roster table.resx">
+      <DependentUpon>201711300618251_reset zraw roster table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300619227_added zraw rosters.resx">
+      <DependentUpon>201711300619227_added zraw rosters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711300627103_added to zraw rosters table.resx">
+      <DependentUpon>201711300627103_added to zraw rosters table.cs</DependentUpon>
+>>>>>>> 91adba68a650e30f901ef7335ce92cf9bdfaa5e4-->
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712062145429_reset due to merge conflicts.resx">
+      <DependentUpon>201712062145429_reset due to merge conflicts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712062207530_remove teamName requirement from team table.resx">
+      <DependentUpon>201712062207530_remove teamName requirement from team table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070326175_remove sport from team table.resx">
+      <DependentUpon>201712070326175_remove sport from team table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070402401_create home and away team tables.resx">
+      <DependentUpon>201712070402401_create home and away team tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070411444_revised awayTeam Table.resx">
+      <DependentUpon>201712070411444_revised awayTeam Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070416515_update game to include foreign keys.resx">
+      <DependentUpon>201712070416515_update game to include foreign keys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070419340_home and away foreign keys.resx">
+      <DependentUpon>201712070419340_home and away foreign keys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070443563_added date to game table.resx">
+      <DependentUpon>201712070443563_added date to game table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070452583_date column in game adjusted.resx">
+      <DependentUpon>201712070452583_date column in game adjusted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070506496_change date column in game table.resx">
+      <DependentUpon>201712070506496_change date column in game table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070515502_added new table for playoff round.resx">
+      <DependentUpon>201712070515502_added new table for playoff round.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070517122_game table updated to include round.resx">
+      <DependentUpon>201712070517122_game table updated to include round.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070525263_remove round.resx">
+      <DependentUpon>201712070525263_remove round.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070526113_insert round to game table.resx">
+      <DependentUpon>201712070526113_insert round to game table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070538539_fixing errors.resx">
+      <DependentUpon>201712070538539_fixing errors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070540195_fixing errors part 2.resx">
+      <DependentUpon>201712070540195_fixing errors part 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070553223_remove game date to fix error.resx">
+      <DependentUpon>201712070553223_remove game date to fix error.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070554471_game date included in team table.resx">
+      <DependentUpon>201712070554471_game date included in team table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712072234539_InitialMigration.resx">
+      <DependentUpon>201712072234539_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712091650326_update stat table to include game.resx">
+      <DependentUpon>201712091650326_update stat table to include game.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712091736488_adjustments to stat an player tables.resx">
+      <DependentUpon>201712091736488_adjustments to stat an player tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712100653547_adjusted isA columns to be Bool.resx">
+      <DependentUpon>201712100653547_adjusted isA columns to be Bool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712110127234_revise stat table.resx">
+      <DependentUpon>201712110127234_revise stat table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712110611406_remove requirement for stat table.resx">
+      <DependentUpon>201712110611406_remove requirement for stat table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712120006176_create nullable fields in stats tabl.resx">
+      <DependentUpon>201712120006176_create nullable fields in stats tabl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712160539338_fantasy League table Annanotations.resx">
+      <DependentUpon>201712160539338_fantasy League table Annanotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712161604081_updated fantasy league and roster tables for owner.resx">
+      <DependentUpon>201712161604081_updated fantasy league and roster tables for owner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712180707300_connecting user table with fantansy league table.resx">
+      <DependentUpon>201712180707300_connecting user table with fantansy league table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712190354586_add entry code to league table.resx">
+      <DependentUpon>201712190354586_add entry code to league table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712190524519_remove FK for Fantasy owner to fantasy team table.resx">
+      <DependentUpon>201712190524519_remove FK for Fantasy owner to fantasy team table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712190526034_add user FK to fantasy team table.resx">
+      <DependentUpon>201712190526034_add user FK to fantasy team table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712190548461_create new table for Fantasy League Details.resx">
+      <DependentUpon>201712190548461_create new table for Fantasy League Details.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712190550309_add new column for team count in Fantasy League Detail.resx">
+      <DependentUpon>201712190550309_add new column for team count in Fantasy League Detail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712210840403_adjust amountOfTeams location.resx">
+      <DependentUpon>201712210840403_adjust amountOfTeams location.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712210855158_add to fantasy league detail.resx">
+      <DependentUpon>201712210855158_add to fantasy league detail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712210907580_update fantasy_team table for display name.resx">
+      <DependentUpon>201712210907580_update fantasy_team table for display name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712220828499_convert userId to string from Int.resx">
+      <DependentUpon>201712220828499_convert userId to string from Int.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712220838271_remove fantasy owner from league details.resx">
+      <DependentUpon>201712220838271_remove fantasy owner from league details.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712280119498_moved userid to fantasy league details table.resx">
+      <DependentUpon>201712280119498_moved userid to fantasy league details table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712292039377_reworked fantasy Roster table to include FK.resx">
+      <DependentUpon>201712292039377_reworked fantasy Roster table to include FK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712310005558_create tables for drafting.resx">
+      <DependentUpon>201712310005558_create tables for drafting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712310155280_add conference table.resx">
+      <DependentUpon>201712310155280_add conference table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712310202236_populate conference.resx">
+      <DependentUpon>201712310202236_populate conference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712310227175_update display names and playoffTeams table.resx">
+      <DependentUpon>201712310227175_update display names and playoffTeams table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712311930378_update fantasy league roster to have details instead of league and team.resx">
+      <DependentUpon>201712311930378_update fantasy league roster to have details instead of league and team.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712311933055_change name of draft pick information.resx">
+      <DependentUpon>201712311933055_change name of draft pick information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801012022297_create fantasy player slot.resx">
+      <DependentUpon>201801012022297_create fantasy player slot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120644327_reworking player slot table.resx">
+      <DependentUpon>201801120644327_reworking player slot table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120823519_remove player slots table.resx">
+      <DependentUpon>201801120823519_remove player slots table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120834127_remove fantasy player slots.resx">
+      <DependentUpon>201801120834127_remove fantasy player slots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120835259_re add player slots table.resx">
+      <DependentUpon>201801120835259_re add player slots table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120836530_re add player slot FK.resx">
+      <DependentUpon>201801120836530_re add player slot FK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801120939136_seed player slot table.resx">
+      <DependentUpon>201801120939136_seed player slot table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801232057388_reworking stats table for FG and Points allowed.resx">
+      <DependentUpon>201801232057388_reworking stats table for FG and Points allowed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802161950502_added calendar years and current year tables.resx">
+      <DependentUpon>201802161950502_added calendar years and current year tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802161951511_seed calendar years table.resx">
+      <DependentUpon>201802161951511_seed calendar years table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802162005009_seed current year.resx">
+      <DependentUpon>201802162005009_seed current year.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802162204347_seed only.resx">
+      <DependentUpon>201802162204347_seed only.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802162223103_add calendar years FK to players table.resx">
+      <DependentUpon>201802162223103_add calendar years FK to players table.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49934</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49934/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets'))" />
+    <Error Condition="!Exists('..\packages\NuGet.VisualStudio.4.8.0\build\NuGet.VisualStudio.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NuGet.VisualStudio.4.8.0\build\NuGet.VisualStudio.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" />
+  <Import Project="..\packages\NuGet.VisualStudio.4.8.0\build\NuGet.VisualStudio.targets" Condition="Exists('..\packages\NuGet.VisualStudio.4.8.0\build\NuGet.VisualStudio.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

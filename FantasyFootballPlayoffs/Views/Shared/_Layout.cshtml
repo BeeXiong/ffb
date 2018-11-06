@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Fantasy Football Playoff Survival Pool</title>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery/required")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval/required")
+    @Styles.Render("~/Content/css")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #004C00;">
+        <a class="navbar-brand" href="#">PP Fantasy Sports</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })                    
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle navbar-brand" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Manage
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("Create Games", "createGames", "Stats", routeValues: null, htmlAttributes: new { @class = "dropdown-item" })
+                        @Html.ActionLink("Create/Manage Leagues", "createLeagues", "Leagues", routeValues: null, htmlAttributes: new { @class = "dropdown-item" })
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Create/View Teams", "createTeams", "Leagues", routeValues: null, htmlAttributes: new { @class = "dropdown-item" })
+                    </div>
+                </li>
+
+            </ul>
+            @Html.Partial("_LoginPartial")
+
+        </div>
+    </nav>
+
+    <div class="contentContainer">
+        @RenderBody()
+        <hr />
+        @*<footer>
+            <p>&copy; @DateTime.Now.Year - Bee Xiong</p>
+        </footer>*@
+
+    </div>
+    <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark" style="background-color: #004C00;">
+        <div class="container">
+            <p class="reversed-Text mx-auto">
+                @DateTime.Now.Year - PP Fantasy Sports
+            </p>
+        </div>
+        
+    </nav>
+
+</body>
+</html>

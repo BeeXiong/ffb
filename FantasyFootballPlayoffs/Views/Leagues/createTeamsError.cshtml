@@ -1,0 +1,37 @@
+﻿@model FantasyFootballPlayoffs.ViewModels.CreateTeamsViewModel
+@{
+    ViewBag.Title = "createTeamsError";
+}
+
+<div class="card w-100 border-blueSummer px-3" id="SelectError">
+    <div class="row">
+        <div class="card-header w-100"><h2>Create Teams</h2></div>
+        <div class="px-5 my-2 w-100">
+            <p class="text-blueSummer">An error occurred when trying to Add Teams.</p>
+                @if (Model.fantasy_League_Error.amountOfTeams >= 6)
+                {
+                    <div class="w-100">
+                        <p class="text-blueSummer">The league you are attempting to join currently is full. Please Try Again</p>
+                    </div>
+                }
+                else
+                {
+                if (Model.fantasy_League_Detail.fantasy_League.entryCode != Model.fantasy_League_Error.entryCode)
+                {
+            
+                    <div class="w-100">
+                        <p class="text-blueSummer">Invalid entry code. Please Try Again.</p>
+                    </div>
+                }
+                else
+                {       
+                    <div class="w-100">
+                        <p class="text-blueSummer">Please try again.</p>
+                    </div>
+                }
+            }
+            <div>@Html.ActionLink("Try Again", "createTeams", null, new { @class = "btn btn-primary" })</div>        
+        </div>
+    </div>
+</div>
+

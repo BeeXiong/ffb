@@ -1,0 +1,88 @@
+﻿@model FantasyFootballPlayoffs.ViewModels.CreateGameViewModel
+@{
+    ViewBag.Title = "createGames";
+}
+
+    <div class="card w-100 border-blueSummer px-3" id="teamSelectError">
+        <div class="row">
+            <div class="card-header w-100"><h2>Create A Game</h2></div>
+            <div class="card-body">
+                <h3>Select Teams</h3>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="col-lg-3 dropdown-inline py-2">
+                            @Html.LabelFor(m => m.homeTeamId, htmlAttributes: new { @class = "text-blueSummer" })
+                            @Html.DropDownListFor(m => m.homeTeamId, new SelectList(Model.HomeTeamNames, "Id", "fullTeamName"), "Select Home Team", new { @class = "form-control", id = "HomeTeam" })
+                            @Html.HiddenFor(m => m.Id)
+                        </div>
+
+                        <div class="col-lg-3 dropdown-inline py-2">
+                            @Html.LabelFor(m => m.awayTeamId, htmlAttributes: new { @class = "text-blueSummer" })
+                            @Html.DropDownListFor(m => m.awayTeamId, new SelectList(Model.AwayTeamNames, "Id", "fullTeamName"), "Select Away Team", new { @class = "form-control", id = "AwayTeam" })
+                        </div>
+
+                    </div>
+                    <div class="col-12">
+                        <div class="col-lg-3 dropdown-inline py-2">
+                            <label for="team_teamName" class="text-blueSummer">Sport</label>
+                            <select class="form-control" data-val="true" id="sportDropdown">
+                                <option value="">Select Sport</option>
+                                <option value="1">Football</option>
+                                <option value="2">NCAA Basketball</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 dropdown-inline py-2">
+                            <label for="team_teamName" class="text-blueSummer">Playoff Round</label>
+                            <select class="form-control" data-val="true" id="playoffRound">
+                                <option value="">Select Playoff Round</option>
+                                <option value="1">Wildcard</option>
+                                <option value="2">Divisional</option>
+                                <option value="3">Conference</option>
+                                <option value="4">Super Bowls</option>
+                            </select>
+                        </div>
+                    </div>
+       
+
+                    <div class="col-12" style="padding-top:40px">
+                        <button class="btn-primary btn" id="submitNewGame">Create Game</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="pt-3">
+        <table id="gameTable" class="table table-responsive-md table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th id="headerHomeTeam">Home Team</th>
+                    <th id="vs"></th>
+                    <th id="headerAwayTeam">Away Team</th>
+                    <th id="headerDate">Date of Game</th>
+                    <th id="headerRound"> Playoff Round</th>
+                    <th>Edit Game</th>
+                    <th>Delete Game</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var game in Model.currentGames)
+                {
+                    <tr>           
+                        <td>@game.homeTeam.location.teamLocation.ToString() @game.homeTeam.homeTeamName.ToString()</td>
+                        <td>vs</td>
+                        <td>@game.awayTeam.location.teamLocation.ToString() @game.awayTeam.awayTeamName.ToString()</td>
+                        <td>@game.gameDate.ToString()</td>
+                        <td>@game.playoffRound.round.ToString()</td>
+                        <td>@Html.ActionLink("Add Stats", "AddStats", new {gameId = game.Id }, new { @class = "btn btn-primary" })</td>
+                        <td><button class="btn-danger btn" data-gameId="@game.Id" onclick="deleteGame(this)">Delete Game</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+<div class="padding">
+    <td>@Html.ActionLink("Select Playoff team", "selectPlayoffTeams", "Stats", new { @class = "btn btn-primary" })</td>
+</div>
+
+<script src="~/Scripts/stats.js"></script>

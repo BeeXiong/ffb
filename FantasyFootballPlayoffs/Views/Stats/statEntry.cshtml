@@ -1,0 +1,271 @@
+﻿@model FantasyFootballPlayoffs.ViewModels.StatEntryViewModel
+
+@{
+    ViewBag.Title = "statEntry";
+}
+
+
+<div class="card w-100 border-blueSummer px-3" id="Validation">
+    <div class="row">
+        <div class="card-header w-100"><h2>Create A Stat</h2></div>
+        <div class="card-body">
+            <h3>Enter Stat</h3>
+            <div class="row">
+                <div class="col-12">
+                    <div class="col-lg-3">
+                        @Html.LabelFor(m => m.gameStat.player, htmlAttributes: new { @class = "text-blueSummer" })
+                        @if (Model.gameStat != null)
+                        {
+                            @Html.DropDownListFor(m => m.gameStat.playerId, new SelectList(Model.gamePlayers, "playerId", "fullName", Model.gameStat.playerId), "Select Player", new { @class = "form-control", id = "gamePlayer" })
+                            @Html.HiddenFor(m => m.Id, new { @id = "id", Value = Model.gameStat.Id })
+                            @Html.HiddenFor(m => m.gameId, new { @id = "gameId" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(m => m.gameStat.playerId, new SelectList(Model.gamePlayers, "playerId", "fullName"), "Select Player", new { @class = "form-control", id = "gamePlayer" })
+                            @Html.HiddenFor(m => m.Id, new { @id = "id", Value = -1 })
+                            @Html.HiddenFor(m => m.gameId, new { @id = "gameId" })
+                        }
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="col-lg-2 dropdown-inline py-2 align-top" id="PassStats">
+                        <div>
+                            @if (Model.gameStat != null)
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isAPassTouchdown, new { @type = "checkbox", id = "PassTD", @checked = true }) <label class="checkbox-inline text-blueSummer" for="PassTD" style="padding-right:20px">Pass TD</label>
+                            }
+                            else
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isAPassTouchdown, new { @type = "checkbox", id = "PassTD" }) <label class="checkbox-inline text-blueSummer" for="PassTD" style="padding-right:20px">Pass TD</label>
+                            }
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.passAttempt, new { @type = "checkbox", id = "PassAtt" }) <label class="checkbox-inline text-blueSummer" for="PassAtt" style="padding-right:20px">Pass Att</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.passCompletion, new { @type = "checkbox", id = "PassCom" }) <label class="checkbox-inline text-blueSummer" for="PassCom" style="padding-right:20px">Completion</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAinterception, new { @type = "checkbox", id = "PassInt" }) <label class="checkbox-inline text-blueSummer" for="PassInt" style="padding-right:20px">Pass Int</label>
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.gameStat.passYards, htmlAttributes: new { @class = "text-blueSummer" })
+                            @Html.TextBoxFor(m => m.gameStat.passYards, new { @class = "form-control", id = "PassYards" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 dropdown-inline py-2" id="rushStats">
+                        <div>
+                            @if (Model.gameStat != null)
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isARushTouchdown, new { @type = "checkbox", id = "RushTD", @checked = true }) <label class="checkbox-inline text-blueSummer" for="RushTD" style="padding-right:20px">Rush TD</label>
+                            }
+                            else
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isARushTouchdown, new { @type = "checkbox", id = "RushTD" }) <label class="checkbox-inline text-blueSummer" for="RushTD" style="padding-right:20px">Rush TD</label>
+                            }
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.rushAttempt, new { @type = "checkbox", id = "RushAtt" }) <label class="checkbox-inline text-blueSummer" for="RushAtt" style="padding-right:20px">Rush Att</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAFumble, new { @type = "checkbox", id = "Fumble" }) <label class="checkbox-inline text-blueSummer" for="Fumble" style="padding-right:20px">Fumble</label>
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.gameStat.rushYards, htmlAttributes: new { @class = "text-blueSummer" })
+                            @Html.TextBoxFor(m => m.gameStat.rushYards, new { @class = "form-control", id = "RushYards" })
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3 dropdown-inline py-2" id="RecStats">
+                        <div>
+                            @if (Model.gameStat != null)
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isARecTouchdown, new { @type = "checkbox", id = "RecTD", @checked = true }) <label class="checkbox-inline text-blueSummer" for="RecTD" style="padding-right:20px">Rec TD</label>
+                            }
+                            else
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isARecTouchdown, new { @type = "checkbox", id = "RecTD" }) <label class="checkbox-inline text-blueSummer" for="RecTD" style="padding-right:20px">Rec TD</label>
+                            }
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.target, new { @type = "checkbox", id = "Target" }) <label class="checkbox-inline text-blueSummer" for="Target" style="padding-right:20px">Target</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.reception, new { @type = "checkbox", id = "Catch" }) <label class="checkbox-inline text-blueSummer" for="Catch" style="padding-right:20px">Rec</label>
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.gameStat.recYards, htmlAttributes: new { @class = "text-blueSummer" })
+                            @Html.TextBoxFor(m => m.gameStat.recYards, new { @class = "form-control", id = "RecYards" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 dropdown-inline py-2" id="DefStats">
+                        <div>
+                            @if (Model.gameStat != null)
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isADefensiveTD, new { @type = "checkbox", id = "DefTD", @checked = true }) <label class="checkbox-inline text-blueSummer" for="DefTD" style="padding-right:20px">Def/Special Teams TD</label>
+                            }
+                            else
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isADefensiveTD, new { @type = "checkbox", id = "DefTD" }) <label class="checkbox-inline text-blueSummer" for="DefTD" style="padding-right:20px">Def/Special Teams TD</label>
+                            }
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAFumbleRecovery, new { @type = "checkbox", id = "FumRec" }) <label class="checkbox-inline text-blueSummer" for="FumRec" style="padding-right:20px">Fumble Rec </label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAinterception, new { @type = "checkbox", id = "Int" }) <label class="checkbox-inline text-blueSummer" for="Int" style="padding-right:20px">INT</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isASack, new { @type = "checkbox", id = "Sack" }) <label class="checkbox-inline text-blueSummer" for="Sack" style="padding-right:20px">Sack</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isASafety, new { @type = "checkbox", id = "Safety" }) <label class="checkbox-inline text-blueSummer" for="Safety" style="padding-right:20px">Safety</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12" id="bonusPoints">
+                    <div class="col-lg-3 dropdown-inline py-2 align-top" id="bonusStats">
+                        <div>
+                            @if (Model.gameStat != null)
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isAtdbetween35_49, new { @type = "checkbox", id = "TD35_49", @checked = true }) <label class="checkbox-inline text-blueSummer" for="TD35_49" style="padding-right:20px">Touchdown 35-49</label>
+                            }
+                            else
+                            {
+                                @Html.CheckBoxFor(m => m.gameStat.isAtdbetween35_49, new { @type = "checkbox", id = "TD35_49" }) <label class="checkbox-inline text-blueSummer" for="TD35_49" style="padding-right:20px">Touchdown 35-49</label>
+                            }
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAtdOver50, new { @type = "checkbox", id = "TDOver50" }) <label class="checkbox-inline text-blueSummer" for="TDOver50" style="padding-right:20px">Touchdown 50+</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-3 dropdown-inline py-2 align-top" id="FGs">
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.PAT, new { @type = "checkbox", id = "PAT" }) <label class="checkbox-inline text-blueSummer" for="PAT" style="padding-right:20px">PAT</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAFG39, new { @type = "checkbox", id = "isAFG39" }) <label class="checkbox-inline text-blueSummer" for="isAFG39" style="padding-right:20px">FG 17-39</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAFG49, new { @type = "checkbox", id = "isAFG49" }) <label class="checkbox-inline text-blueSummer" for="isAFG49" style="padding-right:20px">FG 40-49</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAFG59, new { @type = "checkbox", id = "isAFG59" }) <label class="checkbox-inline text-blueSummer" for="isAFG59" style="padding-right:20px">FG 50-59</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isAFG60, new { @type = "checkbox", id = "isAFG60" }) <label class="checkbox-inline text-blueSummer" for="isAFG60" style="padding-right:20px">FG 60+</label>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 dropdown-inline py-2" id="pointsAllowed">
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.points0, new { @type = "checkbox", id = "points0" }) <label class="checkbox-inline text-blueSummer" for="points0" style="padding-right:20px">Points Allowed - 0</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.points7, new { @type = "checkbox", id = "points7" }) <label class="checkbox-inline text-blueSummer" for="points7" style="padding-right:20px">Points Allowed - 1-7</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.points20, new { @type = "checkbox", id = "points20" }) <label class="checkbox-inline text-blueSummer" for="points20" style="padding-right:20px">Points Allowed - 8-20</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.points27, new { @type = "checkbox", id = "points27" }) <label class="checkbox-inline text-blueSummer" for="points27" style="padding-right:20px">Points Allowed - 21-27</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.points34, new { @type = "checkbox", id = "points34" }) <label class="checkbox-inline text-blueSummer" for="points34" style="padding-right:20px">Points Allowed - 28-34</label>
+                        </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.points35, new { @type = "checkbox", id = "points35" }) <label class="checkbox-inline text-blueSummer" for="points35" style="padding-right:20px">Points Allowed - 35+</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="p-3">
+                        <button class="btn-primary btn" type="submit" id="submitStat">Submit Stat</button>
+                        @if (Model.gameStat != null)
+                        {
+                            <td>@Html.ActionLink("Create New Stat", "AddStats", new { gameId = Model.gameStat.gameId }, new { @class = "btn btn-primary" })</td>
+                        }
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="pt-3">
+    <table id="statTable" class="table table-responsive-md table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th align="center" id="playerName">Player Name</th>
+                <th align="center" id="statTableYards">Yardage</th>
+                <th align="center" id="typeOfPlay">Att/Rush/Tar</th>
+                <th align="center" id="resultOfPlay">Comp/Rec</th>
+                <th align="center" id="typeOfTD">Type of Score</th>
+                <th align="center" id="typeofTO">Fum/Int</th>
+                <th align="center" id="sack">Sack</th>
+                <th align="center" id="defTakeaway">Fum Rec/Int</th>
+                <th align="center" id="FG">FG</th>
+                <th align="center" id="pointsAllowed">Pts Allowed</th>
+                <th align="center" id="Bonus">Bonus</th>
+                <th align="center" >Edit Stat</th>
+                <th align="center" >Delete Stat</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stat in Model.gamestats)
+            {
+                <tr>
+                    <td align="center">@stat.player.firstName @stat.player.lastName</td>
+                    <td align="center">
+                        @if (@stat.passYards != null) { <p>@stat.passYards</p>} else if (@stat.rushYards != null) {<p> @stat.rushYards </p> } else if (@stat.recYards != null) {<p> @stat.recYards </p>} else { <p></p> }
+                    </td>
+                    <td align="center">
+                        @if (@stat.rushAttempt == true ) { <p>Rush</p> } else if (@stat.passAttempt == true ) { <p>Pass Att</p> } else if ( @stat.target == true ) { <p>Target</p> }
+                    </td>
+                    <td align="center">
+                        @if (@stat.passCompletion == true ) { <p>Comp</p> } else if (@stat.reception == true ) { <p>Rec</p> }
+                    </td>
+                    <td align="center">
+                        @if (@stat.isAPassTouchdown == true) { <p>Pass TD</p>} else if (@stat.isARushTouchdown == true) {<p>Rush TD</p> } else if (@stat.isARecTouchdown == true) {<p> Rec TD </p>} else if (@stat.isADefensiveTD == true) {<p> Def TD </p>} else if (@stat.isA2Point == true) {<p> 2pt </p>} 
+                    </td>
+                    <td align="center">
+                         @if (@stat.isAFumble == true ) { <p>Fumble</p> } else if (@stat.isAinterception == true ) { <p>Int</p> }
+                    </td>
+                    <td align="center">
+                         @if (@stat.isASack == true ) { <p>Sack</p> }
+                    </td>
+                    <td align="center">
+                         @if (@stat.isAFumbleRecovery == true ) { <p>Fum Rec</p> } else if (@stat.isAinterception == true ) { <p>Int</p> }
+                    </td>
+                    <td align="center">
+                        @if (@stat.PAT == true) { <p>PAT</p> } else if (@stat.isAFG39 == true) { <p>FG 17-39</p> } else if (@stat.isAFG49 == true) { <p>FG 40-49</p> } else if (@stat.isAFG59 == true) { <p>FG 50-59</p> } else if (@stat.isAFG60 == true) { <p>FG 60+</p> }
+                    </td>
+                    <td align="center">
+                        @if (@stat.points0 == true) { <p>Points Allowed - 0</p> } else if (@stat.points7 == true) { <p>Pts Allowed 1-7</p> } else if (@stat.points20 == true) { <p>Pts Allowed 8-20</p> } else if (@stat.points27 == true) { <p>Pts Allowed 21-27</p> } else if (@stat.points34 == true) { <p>Pts Allowed 28-34</p> } else if (@stat.points35 == true) { <p>Pts Allowed 35+</p> }
+                    </td>
+                    <td align="center">
+                         @if (@stat.isAtdbetween35_49 == true ) { <p>TD 35-49</p> } else if (@stat.isAtdOver50 == true ) { <p>TD 50+</p> }
+                    </td>
+                    
+                    <td>@Html.ActionLink("Edit Stats", "editStat", new { statId = stat.Id }, new { @class = "btn btn-primary" })</td>
+                    <td>@Html.ActionLink("Delete Stats", "deleteStat", new { statId = stat.Id }, new { @class = "btn btn-danger" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script src="~/Scripts/stats.js"></script>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <div class="field"></div>
+    <h1>PP Fantasy Sports</h1>
+    <p class="field-Text" style="font:700">Come Join on the Fantasy Action! Create Your Postseason Player's Pool Today!!!</p>
+    <p>@Html.ActionLink("Get Started", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary btn-lg" })</p>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Create Leagues</h2>
+        <p class="text-blueSummer">
+            Continue the fantasy experience after the season is done by creating leagues for the post season. Leagues consist of 6 teams fighting it out for post season supremacy.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Manage Teams</h2>
+        <p class="text-blueSummer">Create your team and select from a pool of postseason players. Draft players and accumulate points with players and see which team is left standing. </p>
+    </div>
+    <div class="col-md-4">
+        <h2>View Team Scores</h2>
+        <p class="text-blueSummer">View real time scoring to bring a new level of intrigue to the postseason.</p>
+    </div>
+</div>

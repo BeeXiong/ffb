@@ -1,0 +1,49 @@
+﻿@model FantasyFootballPlayoffs.ViewModels.CreateGameViewModel
+@{
+    ViewBag.Title = "selectPlayoffTeams";
+}
+
+
+<div class="card w-100 border-blueSummer px-3" id="teamSelectError">
+    <div class="row">
+        <div class="card-header w-100"><h2>Select Playoff Teams</h2></div>
+        <div class="card-body">
+            <h3>Select Team</h3>
+            <div class="row">
+                @using (@Html.BeginForm("submitPlayoffTeams", "Stats", FormMethod.Post, htmlAttributes: new { @class = "w-100" }))
+            {
+                    <div class="col-12">
+                        <div class="col-lg-3 dropdown-inline p-2">
+                            @Html.LabelFor(m => m.playoffTeam.homeTeamId, htmlAttributes: new { @class = "text-blueSummer" })
+                            @Html.DropDownListFor(m => m.playoffTeam.homeTeamId, new SelectList(Model.teams, "Id", "homeTeamName"), "Select Home Team", new { @class = "form-control", id = "playoffTeam" })
+                            @Html.HiddenFor(m => m.Id)
+                        </div>
+                        <div class="col-lg-3 dropdown-inline p-2">
+                            @Html.LabelFor(m => m.playoffTeam.conferenceId, htmlAttributes: new { @class = "text-blueSummer" })
+                            @Html.DropDownListFor(m => m.playoffTeam.conferenceId, new SelectList(Model.conferences, "Id", "conferenceName"), "Select Conference", new { @class = "form-control", id = "conference" })
+                        </div>
+                    </div>
+                    <div class="col-12">
+                            <div class="col-lg-3 dropdown-inline p-2">
+                                @Html.LabelFor(m => m.playoffTeam.playoffSeed, htmlAttributes: new { @class = "text-blueSummer" })
+                                @Html.TextBoxFor(m => m.playoffTeam.playoffSeed, "Enter Playoff Seed", new { @class = "form-control", id = "playoffSeed" })
+                            </div>
+                            <div class="col-lg-3 dropdown-inline p-2">
+                                @Html.LabelFor(m => m.playoffTeam.year, htmlAttributes: new { @class = "text-blueSummer" })
+                                @Html.TextBoxFor(m => m.playoffTeam.year, "Select Home Team", new { @class = "form-control", id = "year" })
+                            </div>
+
+                        </div>
+                    <div class="col-lg-3 pt-5">
+                        <button class="btn-primary btn" type="submit">Submit</button>
+                    </div>
+                }
+
+
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>

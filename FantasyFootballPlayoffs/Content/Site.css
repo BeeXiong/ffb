@@ -1,0 +1,124 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    margin:30px;
+}
+/*text*/
+h1, h2, h3, h4, h5, h6{
+    color: #F0CA4D ;
+}
+td, th, tr{
+    color: #3256A8;
+}
+p.reversed-Text{
+    color: #ffffff;
+}
+p.field-Text{
+    font-size: 1.25rem;
+    font-weight:bolder;
+}
+.text-blueSummer{
+    color: #3256A8;
+}
+
+.table.stats td{
+    font-size:small;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+ .contentContainer {
+    width: 100%;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-right: auto;
+    margin-left: auto;
+ }
+
+/*Jumbotron Image*/
+body .jumbotron {
+    margin-bottom: 50px;
+    position: relative;
+    background: none;
+    width:100%;
+    overflow-x:hidden;
+  }
+.jumbotron .field {
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: url('../Images/football_field.JPG');
+    background-size:cover;
+    opacity:.6;
+    width:inherit;
+    z-index:-1;
+    height: 97%
+}
+
+/*dropdown displays*/
+.dropdown-inline{
+    display:inline-block;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*Card with site colors*/
+.bg-blueSummer{
+    background-color: #3256A8 !important;
+}
+.border-blueSummer {
+  border-color: #3256A8 !important;
+}
+.bg-brownSummer{
+    background-color: #733E20 !important;
+}
+.border-brownSummer {
+  border-color: #733E20 !important;
+}
+
+.padding{
+    padding: 15px;
+}
+.validatePadding{
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right:15px;
+}
+
+/*colors to use #FFFFFF # 2E2E2E #00FF00 #000000 #7FFF00*/
+
+/*colors to use #3256A8 # 004C00 #F0CA4D #733E20 #F53855 Alt-TCSSF-Summer */
+
+@media(max-width: 576px) {
+    .contentContainer {
+        margin-right: 0px;
+        margin-left: 0px;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        margin:0px;
+    }
+
+}

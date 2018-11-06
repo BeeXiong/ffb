@@ -1,0 +1,119 @@
+﻿@model  FantasyFootballPlayoffs.ViewModels.ScoreViewModel
+@{
+    ViewBag.Title = "ManageTeam";
+}
+
+
+<div class="card w-100 border-blueSummer px-3">
+    <div class="row">
+        <div class="card-header w-100"><h2>Scores</h2></div>
+    </div>
+</div>
+<div class="row py-3">
+    @foreach (var team in Model.leagueTeams)
+            {
+                var teamRoster = @Model.leagueRosters.Where(m => m.fantasy_League_Detail.fantasy_TeamId == team.fantasy_TeamId).OrderBy(m => m.fantasy_Player_SlotId);
+                decimal? totalPoints = 0;
+        <div class="col-lg-6 dropdown-inline py-2">
+            <h3>@team.fantasy_Team.teamName @team.fantasy_Team.nickName</h3>
+            <table id="myRosterTable" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                <thead>
+                    <tr>
+                        <td>Slot</td>
+                        <td>Player Name</td>
+                        @*<td>Team</td>
+                        <td>Pick Number</td>*@
+                        <td>Wild Card</td>
+                        <td>Divisonal</td>
+                        <td>Conference</td>
+                        <td>Super Bowl</td>
+                        <td>Total</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rosterSpot in teamRoster)
+                    {
+                        var playerStats = Model.points.Where(m => m.playerId == rosterSpot.playerId).OrderBy(m => m.playoffRoundId).ToList();
+                        decimal? totalPlayerPoints = 0;
+                        if (playerStats.Any(m => m.playoffRoundId == 1) == true)
+                        {
+                            totalPlayerPoints = totalPlayerPoints + @playerStats.Find(m => m.playoffRoundId == 1).playerPoints;
+                        }
+                        if (playerStats.Any(m => m.playoffRoundId == 2) == true)
+                        {
+                            totalPlayerPoints = totalPlayerPoints + @playerStats.Find(m => m.playoffRoundId == 2).playerPoints;
+                        }
+                        if (playerStats.Any(m => m.playoffRoundId == 3) == true)
+                        {
+                            totalPlayerPoints = totalPlayerPoints + @playerStats.Find(m => m.playoffRoundId == 3).playerPoints;
+                        }
+                        if (playerStats.Any(m => m.playoffRoundId == 4) == true)
+                        {
+                            totalPlayerPoints = totalPlayerPoints + @playerStats.Find(m => m.playoffRoundId == 4).playerPoints;
+                        }
+                        totalPoints = totalPoints + totalPlayerPoints;
+                        <tr>
+                            <td>@rosterSpot.fantasy_Player_Slot.playerSlot</td>
+                            <td>@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
+                            @*<td>@rosterSpot.player.team.location.teamLocation @rosterSpot.player.team.homeTeamName</td>
+                            <td>@rosterSpot.draftPickNumber</td>*@
+                            @if (playerStats.Any(m => m.playoffRoundId == 1) == true)
+                            {
+                                <td>@playerStats.Find(m => m.playoffRoundId == 1).playerPoints</td>
+
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            @if (playerStats.Any(m => m.playoffRoundId == 2) == true)
+                            {
+                                <td>@playerStats.Find(m => m.playoffRoundId == 2).playerPoints</td>
+
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            @if (playerStats.Any(m => m.playoffRoundId == 3) == true)
+                            {
+                                <td>@playerStats.Find(m => m.playoffRoundId == 3).playerPoints</td>
+
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            @if (playerStats.Any(m => m.playoffRoundId == 4) == true)
+                            {
+                                <td>@playerStats.Find(m => m.playoffRoundId == 4).playerPoints</td>
+
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td>@totalPlayerPoints</td>
+                        </tr>
+
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        @*<td></td>
+                        <td></td>*@
+                        <td></td>
+                        <td>Total:</td>
+                        <td>@totalPoints</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    }
+
+</div>
+
+
