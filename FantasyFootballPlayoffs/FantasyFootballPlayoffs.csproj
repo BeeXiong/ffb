@@ -60,6 +60,10 @@
       <HintPath>..\packages\AWSSDK.Core.3.3.29.3\lib\net45\AWSSDK.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AWSSDK.SimpleSystemsManagement, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.SimpleSystemsManagement.3.3.35.3\lib\net45\AWSSDK.SimpleSystemsManagement.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -301,6 +305,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ScoreController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
+    <Compile Include="DAL\parameterFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -806,6 +811,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -857,7 +863,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
@@ -1157,6 +1165,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\AWSSDK.SimpleSystemsManagement.3.3.35.3\analyzers\dotnet\cs\AWSSDK.SimpleSystemsManagement.CodeAnalysis.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

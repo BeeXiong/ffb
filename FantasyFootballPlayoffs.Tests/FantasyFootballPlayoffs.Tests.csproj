@@ -42,6 +42,10 @@
       <HintPath>..\packages\AWSSDK.Core.3.3.29.3\lib\net45\AWSSDK.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AWSSDK.SimpleSystemsManagement, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.SimpleSystemsManagement.3.3.35.3\lib\net45\AWSSDK.SimpleSystemsManagement.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -175,7 +179,6 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\currentYearUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -247,9 +250,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="UnitTest\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\AWSSDK.SimpleSystemsManagement.3.3.35.3\analyzers\dotnet\cs\AWSSDK.SimpleSystemsManagement.CodeAnalysis.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

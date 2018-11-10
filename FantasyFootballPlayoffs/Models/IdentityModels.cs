@@ -4,6 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using FantasyFootballPlayoffs.Models;
+using Amazon.SimpleSystemsManagement;
+using Amazon.SimpleSystemsManagement.Model;
+using System;
+using System.Configuration;
+using FantasyFootballPlayoffs.DAL;
 
 namespace FantasyFootballPlayoffs.Models
 {
@@ -42,15 +47,22 @@ namespace FantasyFootballPlayoffs.Models
         public virtual DbSet<conference> conferences { get; set; }
         public virtual DbSet<currentYear> currentYears { get; set; }
         public virtual DbSet<calendarYear> calendarYears { get; set; }
+        //development environment using local DB
         //public FantasyDbContext()
         //    : base("FantasyDatabase", throwIfV1Schema: false)
         //{
         //}
-        public FantasyDbContext()
-            : base("AwsDBVar", throwIfV1Schema: false)
-        {
-        }
+        //public static FantasyDbContext Create()
+        //{
+        //    return new FantasyDbContext();
+        //}
 
+        //development environment using remote DB
+        public FantasyDbContext()
+            : base(GetRDSConnectionString(), throwIfV1Schema: false)
+        {
+            
+        }
 
         public static FantasyDbContext Create()
         {
@@ -65,6 +77,70 @@ namespace FantasyFootballPlayoffs.Models
             modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");
             modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim").Property(p => p.Id).HasColumnName("UserClaimId");
             modelBuilder.Entity<IdentityRole>().ToTable("Roles").Property(p => p.Id).HasColumnName("RoleId");
+        }
+        private static string GetRDSConnectionString()
+        {
+            //add try catch to gett parameter from AWS paramater store and inject to the new DBContext
+            string connectionString = "";
+            string configEnvironment = ConfigurationManager.AppSettings["configEnvironment"];
+            string parameterName = ConfigurationManager.AppSettings["connectionString"];
+
+            if (configEnvironment == "dev")
+            {
+                connectionString = parameterFactory.getDevParameter(parameterName);
+            }
+            else if (configEnvironment == "prod")
+            {
+                connectionString = parameterFactory.getProdParameter(parameterName);
+            }
+
+            //code to access rds database in development database
+            //try
+            //{
+            //    string parameterName = "/prod/dbServer/MySQL/connection-1";
+
+            //    var chain = new Amazon.Runtime.CredentialManagement.CredentialProfileStoreChain();
+            //    Amazon.Runtime.CredentialManagement.CredentialProfile basicProfile;
+            //    Amazon.Runtime.AWSCredentials credentials;
+            //    if (chain.TryGetProfile("bee", out basicProfile))
+            //    {
+            //        Amazon.Runtime.CredentialManagement.AWSCredentialsFactory.TryGetAWSCredentials(basicProfile, basicProfile.CredentialProfileStore, out credentials);
+            //        // Use basicProfile
+            //        var ssmClient = new AmazonSimpleSystemsManagementClient(credentials, Amazon.RegionEndpoint.USEast2);
+            //        var response = ssmClient.GetParameter(new GetParameterRequest
+            //        {
+            //            Name = parameterName,
+            //            WithDecryption = true
+            //        });
+            //        connectionString = response.Parameter.Value;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    attempt to retreive connection string failed
+            //}
+
+            //code to access rds database in production database
+            //try
+            //{
+
+            //    var appConfig = ConfigurationManager.AppSettings;
+            //    string awsKey = appConfig["awsKey"];
+            //    string awsSec = appConfig["awsSecret"];
+
+            //        var ssmClient = new AmazonSimpleSystemsManagementClient(awsKey, awsSec, Amazon.RegionEndpoint.USEast2);
+            //        var response = ssmClient.GetParameter(new GetParameterRequest
+            //        {
+            //            Name = parameterName,
+            //            WithDecryption = true
+            //        });
+            //        connectionString = response.Parameter.Value;                
+            //}
+            //catch (Exception e)
+            //{
+            //    attempt to retreive connection string failed
+            //}
+            return connectionString;
         }
 
     }

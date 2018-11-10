@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Configuration;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using FantasyFootballPlayoffs.Models;
+using FantasyFootballPlayoffs.DAL;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Threading.Tasks;
 
 namespace FantasyFootballPlayoffs
 {
@@ -24,8 +19,19 @@ namespace FantasyFootballPlayoffs
         public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
+            string configEnvironment = ConfigurationManager.AppSettings["configEnvironment"];       
+            string apiKey = "";
 
-            var apiKey = ConfigurationManager.AppSettings["apiKey"];
+            if (configEnvironment == "dev")
+            {
+                string parameterName = ConfigurationManager.AppSettings["sendGridSecret"];
+                apiKey = parameterFactory.getDevParameter(parameterName);
+            }
+            else if (configEnvironment == "prod")
+            {
+                apiKey = ConfigurationManager.AppSettings["sendGridSecret"];
+            }
+
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("beexiong64@gmail.com", "PP Fantasy Sports");
             var subject = message.Subject;
