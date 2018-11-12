@@ -48,26 +48,26 @@ namespace FantasyFootballPlayoffs.Models
         public virtual DbSet<currentYear> currentYears { get; set; }
         public virtual DbSet<calendarYear> calendarYears { get; set; }
         //development environment using local DB
-        public FantasyDbContext()
-            : base("FantasyDatabase", throwIfV1Schema: false)
-        {
-        }
-        public static FantasyDbContext Create()
-        {
-            return new FantasyDbContext();
-        }
-
-        //development environment using remote DB
         //public FantasyDbContext()
-        //    : base(GetRDSConnectionString(), throwIfV1Schema: false)
+        //    : base("FantasyDatabase", throwIfV1Schema: false)
         //{
-
         //}
-
         //public static FantasyDbContext Create()
         //{
         //    return new FantasyDbContext();
         //}
+
+        //development environment using remote DB
+        public FantasyDbContext()
+            : base(GetRDSConnectionString(), throwIfV1Schema: false)
+        {
+
+        }
+
+        public static FantasyDbContext Create()
+        {
+            return new FantasyDbContext();
+        }
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -78,23 +78,23 @@ namespace FantasyFootballPlayoffs.Models
             modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim").Property(p => p.Id).HasColumnName("UserClaimId");
             modelBuilder.Entity<IdentityRole>().ToTable("Roles").Property(p => p.Id).HasColumnName("RoleId");
         }
-        //private static string GetRDSConnectionString()
-        //{
-        //    //add try catch to gett parameter from AWS paramater store and inject to the new DBContext
-        //    string connectionString = "";
-        //    string configEnvironment = ConfigurationManager.AppSettings["configEnvironment"];
-        //    string parameterName = ConfigurationManager.AppSettings["connectionString"];
+        private static string GetRDSConnectionString()
+        {
+            //add try catch to gett parameter from AWS paramater store and inject to the new DBContext
+            string connectionString = "";
+            string configEnvironment = ConfigurationManager.AppSettings["configEnvironment"];
+            string parameterName = ConfigurationManager.AppSettings["connectionString"];
 
-        //    if (configEnvironment == "dev")
-        //    {
-        //        connectionString = parameterFactory.getDevParameter(parameterName);
-        //    }
-        //    else if (configEnvironment == "prod")
-        //    {
-        //        connectionString = parameterFactory.getProdParameter(parameterName);
-        //    }
-        //    return connectionString;
-        //}
+            if (configEnvironment == "dev")
+            {
+                connectionString = parameterFactory.getDevParameter(parameterName);
+            }
+            else if (configEnvironment == "prod")
+            {
+                connectionString = parameterFactory.getProdParameter(parameterName);
+            }
+            return connectionString;
+        }
 
     }
 
