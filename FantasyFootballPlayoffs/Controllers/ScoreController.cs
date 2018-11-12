@@ -33,6 +33,9 @@ namespace FantasyFootballPlayoffs.Controllers
         // GET: Scores/Details/5
         public ActionResult view(int leagueId)
         {
+            var teamInLeague = _context.fantasy_League_Details.First(m => m.fantasy_LeagueId == leagueId);
+            var leagueYear = teamInLeague.currentYearId;
+
             string currentUserId = User.Identity.GetUserId();
             var leagueRosters = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == leagueId ).ToList();
             var leagueTeams = _context.fantasy_League_Details.Where(m => m.fantasy_LeagueId == leagueId).ToList();
@@ -46,7 +49,7 @@ namespace FantasyFootballPlayoffs.Controllers
 "                         SUM(CAST(stats.isAFG39 AS INT)) AS FG39, SUM(CAST(stats.isAFG49 AS INT)) AS FG49, SUM(CAST(stats.isAFG59 AS INT)) AS FG59, SUM(CAST(stats.isAFG60 AS INT)) AS FG60, SUM(CAST(stats.points0 AS INT)) AS points0, " + Environment.NewLine +
 "                         SUM(CAST(stats.points7 AS INT)) AS points7, SUM(CAST(stats.points20 AS INT)) AS points20, SUM(CAST(stats.points27 AS INT)) AS points27, SUM(CAST(stats.points34 AS INT)) AS points34, SUM(CAST(stats.points35 AS INT)) " + Environment.NewLine +
 "                         AS points35, stats.gameId, fantasy_Roster.fantasy_Player_SlotId, fantasy_League_Detail.fantasy_TeamId, fantasy_League_Detail.fantasy_LeagueId, fantasy_Roster.fantasy_League_DetailId, games.playoffRoundId, " + Environment.NewLine +
-"                         playerPositions.Id AS playerPositionId" + Environment.NewLine +
+"                         playerPositions.Id AS playerPositionId, games.calendarYearId" + Environment.NewLine +
 "FROM            stats INNER JOIN" + Environment.NewLine +
 "                         fantasy_Roster ON stats.playerId = fantasy_Roster.playerId INNER JOIN" + Environment.NewLine +
 "                         fantasy_League_Detail ON fantasy_Roster.fantasy_League_DetailId = fantasy_League_Detail.Id INNER JOIN" + Environment.NewLine +
@@ -54,7 +57,8 @@ namespace FantasyFootballPlayoffs.Controllers
 "                         players ON stats.playerId = players.Id INNER JOIN" + Environment.NewLine +
 "                         playerPositions ON players.playerPositionId = playerPositions.Id" + Environment.NewLine +
 "GROUP BY stats.playerId, stats.statisticalCategoryid, stats.statisticCategoryQuantity, stats.gameId, fantasy_Roster.fantasy_Player_SlotId, fantasy_League_Detail.fantasy_TeamId, fantasy_League_Detail.fantasy_LeagueId, " + Environment.NewLine +
-"                         fantasy_Roster.fantasy_League_DetailId, games.playoffRoundId, playerPositions.Id";
+"                         fantasy_Roster.fantasy_League_DetailId, games.playoffRoundId, playerPositions.Id, games.calendarYearId" + Environment.NewLine +
+"HAVING                   (games.calendarYearId = " + leagueYear + ")";
 
             var test = _context.Database.SqlQuery<roundStats>(sqlText).ToList();
             var playerPoints = new List<roundPoints>();

@@ -20,6 +20,8 @@ namespace FantasyFootballPlayoffs.Models
 
         public int playoffRoundId { get; set; }
 
+        public int calendarYearId { get; set; }
+
         [StringLength(50)]
         public string isactive { get; set; }
 
@@ -32,6 +34,9 @@ namespace FantasyFootballPlayoffs.Models
         public virtual awayTeam awayTeam { get; set; }
 
         public virtual playoffRound playoffRound { get; set; }
+
+        public virtual calendarYear calendarYear { get; set; }
+
         public string gameDate { get; set; }
     }
 }

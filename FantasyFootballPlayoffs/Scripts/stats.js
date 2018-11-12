@@ -1,37 +1,39 @@
 ﻿$(document).ready(function () {
     $("#submitNewGame").on('click', function () {
-        var isSelected = checkTeamDropDowns()
-        if(isSelected == true){
+        var isSelected = checkTeamDropDowns();
+        if (isSelected === true) {
             postNewGameToDB();
         }
-        else{
+        else {
             $("#teamSelectError").append("<div class='alert alert-danger' role='alert'>Please Make Sure Both Teams Are Selected</div>");
         }
-    })
+    });
     $('#submitStat').on('click', function () {
         saveStat();
         location.reload();
-    })
+    });
 });
 function checkTeamDropDowns(){
     var homeTeam = $("#HomeTeam").val();
     var awayTeam = $("#AwayTeam").val();
+    var year = $("#year").val();
 
-    if (homeTeam !== "" && awayTeam !== "") {
-        return true
+    if (homeTeam !== "" && awayTeam !== "" && year !== "") {
+        return true;
     }
     else{
-        return false
+        return false;
     }
 }
 function postNewGameToDB(){
-    teamData = { homeTeamId: -1, awayTeamId: -1, sportId: -1, isactive:"N", playoffRoundId: -1 };
+    teamData = { homeTeamId: -1, awayTeamId: -1, gameYearId: -1, sportId: -1, isactive: "N", playoffRoundId: -1 };
 
     teamData.homeTeamId = $("#HomeTeam").val(),
     teamData.awayTeamId = $("#AwayTeam").val(),
+    teamData.gameYearId = $("#year").val(),
     teamData.sportId = $("#sportDropdown").val(),
     teamData.playoffRoundId = $("#playoffRound").val(),
-    teamData.isactive = "Y"
+    teamData.isactive = "Y",
     teamData.id = $("#id").val(),
 
     $.ajax({
@@ -50,7 +52,7 @@ function postNewGameToDB(){
 }
 function deleteGame(buttonElement) {  
     data = { gameId: -1 };
-    data.gameId = buttonElement.dataset.gameid
+    data.gameId = buttonElement.dataset.gameid;
     $.ajax({
         type: "POST",
         url: "/stats/gameDelete",
@@ -102,7 +104,7 @@ function saveStat() {
         points34: false,
         points35: false,
         points: -1,
-        statisticCategoryQuantity: -1,
+        statisticCategoryQuantity: -1
 
     };
 
@@ -110,14 +112,14 @@ function saveStat() {
     gameStat.gameId = $("#gameId").val();
     gameStat.playerId = $("#gamePlayer").val();
 
-    if ($("#statCategory").val() == "") {
+    if ($("#statCategory").val() === "") {
         gameStat.statisticalCategoryid = null;
     }
     else {
         gameStat.statisticalCategoryid = $("#statCategory").val();
     }
 
-    if ($("#StatQuantity").val() == "") {
+    if ($("#StatQuantity").val() === "") {
         gameStat.statisticCategoryQuantity = null;
     }
     else {
@@ -126,13 +128,13 @@ function saveStat() {
 
     if ($("#PassAtt").is(':checked') === true) {
         gameStat.passAttempt = true;
-    };
+    }
 
     if ($("#PassCom").is(':checked') === true) {
         gameStat.passCompletion = true;
-    };
+    }
 
-    if ($("#PassYards").val() == "") {
+    if ($("#PassYards").val() === "") {
         gameStat.passYards = null;
     }
     else {
@@ -141,17 +143,17 @@ function saveStat() {
 
     if ($("#PassTD").is(':checked') === true) {
         gameStat.isAPassTouchdown = true;
-    };
+    }
 
     if ($("#PassInt").is(':checked') === true) {
         gameStat.isAinterception = true;
-    };
+    }
     
     if ($("#RushAtt").is(':checked') === true) {
         gameStat.rushAttempt = true;
-    };
+    }
 
-    if ($("#RushYards").val() == "") {
+    if ($("#RushYards").val() === "") {
         gameStat.rushYards = null;
     }
     else {
@@ -160,25 +162,25 @@ function saveStat() {
     
     if ($("#RushTD").is(':checked') === true) {
         gameStat.isARushTouchdown = true;
-    };
+    }
 
     if ($("#Fumble").is(':checked') === true) {
         gameStat.isAFumble = true;
-    };
+    }
 
     if ($("#Target").is(':checked') === true) {
         gameStat.target = true;
-    };
+    }
 
     if ($("#Catch").is(':checked') === true) {
         gameStat.reception = true;
-    };
+    }
 
     if ($("#RecTD").is(':checked') === true) {
         gameStat.isARecTouchdown = true;
-    };
+    }
 
-    if ($("#RecYards").val() == "") {
+    if ($("#RecYards").val() === "") {
         gameStat.recYards = null;
     }
     else {
@@ -187,73 +189,73 @@ function saveStat() {
 
     if ($("#Sack").is(':checked') === true) {
         gameStat.isASack = true;
-    };
+    }
     if ($("#Int").is(':checked') === true) {
         gameStat.isAinterception = true;
-    };
+    }
     if ($("#DefTD").is(':checked') === true) {
         gameStat.isADefensiveTD = true;
-    };
+    }
 
     if ($("#FumRec").is(':checked') === true) {
         gameStat.isAFumbleRecovery = true;
-    };
+    }
 
     if ($("#Safety").is(':checked') === true) {
         gameStat.isASafety = true;
-    };
+    }
 
     if ($("#TD35_49").is(':checked') === true) {
         gameStat.isAtdbetween35_49 = true;
-    };
+    }
 
     if ($("#TDOver50").is(':checked') === true) {
         gameStat.isAtdOver50 = true;
-    };
+    }
 
     if ($("#PAT").is(':checked') === true) {
         gameStat.PAT = true;
-    };
+    }
 
     if ($("#isAFG39").is(':checked') === true) {
         gameStat.isAFG39 = true;
-    };
+    }
 
     if ($("#isAFG49").is(':checked') === true) {
         gameStat.isAFG49 = true;
-    };
+    }
 
     if ($("#isAFG59").is(':checked') === true) {
         gameStat.isAFG59 = true;
-    };
+    }
 
     if ($("#isAFG60").is(':checked') === true) {
         gameStat.isAFG60 = true;
-    };
+    }
 
     if ($("#points0").is(':checked') === true) {
         gameStat.points0 = true;
-    };
+    }
 
     if ($("#points7").is(':checked') === true) {
         gameStat.points7 = true;
-    };
+    }
 
     if ($("#points20").is(':checked') === true) {
         gameStat.points20 = true;
-    };
+    }
 
     if ($("#points27").is(':checked') === true) {
         gameStat.points27 = true;
-    };
+    }
 
     if ($("#points34").is(':checked') === true) {
         gameStat.points34 = true;
-    };
+    }
 
     if ($("#points35").is(':checked') === true) {
         gameStat.points35 = true;
-    };
+    }
 
     $.ajax({
         type: "POST",

@@ -117,9 +117,11 @@ namespace FantasyFootballPlayoffs.Controllers
         [Authorize(Roles = "User, Admin")]
         public ActionResult saveTeams(CreateTeamsViewModel submit)
         {
+            var dateNowYear = DateTime.Now.Year;
+            var contextDateNowYear = _context.calendarYears.SingleOrDefault(m => m.year == dateNowYear);
+
             try
             {
-
                 var fantasy_league = _context.fantasy_Leagues.SingleOrDefault(m => m.Id == submit.fantasy_League_Detail.fantasy_LeagueId);
 
                 if (fantasy_league.entryCode == submit.fantasy_League_Detail.fantasy_League.entryCode && fantasy_league.amountOfTeams < 6)
@@ -140,6 +142,7 @@ namespace FantasyFootballPlayoffs.Controllers
                     newleague.fantasy_LeagueId = submit.fantasy_League_Detail.fantasy_LeagueId;
                     newleague.fantasy_TeamId = newTeamId;
                     newleague.userId = submit.fantasyPlayer.Id;
+                    newleague.currentYearId = contextDateNowYear.Id;
 
                     _context.fantasy_League_Details.Add(newleague);
                     _context.SaveChanges();

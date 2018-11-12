@@ -15,6 +15,7 @@ namespace FantasyFootballPlayoffs.ViewModels
         public ICollection<game> currentGames { get; set; }
         public ICollection<homeTeam> teams { get; set; } 
         public ICollection<conference> conferences { get; set; }
+        public ICollection<calendarYear> years { get; set; }
         public playoffTeam playoffTeam { get; set; }
 
         [Key]
@@ -28,6 +29,8 @@ namespace FantasyFootballPlayoffs.ViewModels
         public int awayTeamId { get; set; }
         public string isactive { get; set; }
         public int playoffRoundId { get; set; }
+        [DisplayAttribute(Name = "Year")]
+        public int gameYearId { get; set; }
 
     }
 }

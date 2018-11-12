@@ -21,6 +21,10 @@
                             @Html.DropDownListFor(m => m.awayTeamId, new SelectList(Model.AwayTeamNames, "Id", "fullTeamName"), "Select Away Team", new { @class = "form-control", id = "AwayTeam" })
                         </div>
 
+                        <div class="col-lg-3 dropdown-inline py-2">
+                            @Html.LabelFor(m => m.gameYearId, htmlAttributes: new { @class = "text-blueSummer" })
+                            @Html.DropDownListFor(m => m.gameYearId, new SelectList(Model.years, "Id", "year"), "Select Game Year", new { @class = "form-control", id = "year" })
+                        </div>
                     </div>
                     <div class="col-12">
                         <div class="col-lg-3 dropdown-inline py-2">

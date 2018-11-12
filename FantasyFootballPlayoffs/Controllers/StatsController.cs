@@ -48,13 +48,19 @@ namespace FantasyFootballPlayoffs.Controllers
 
             var listofAwayTeams = _context.Database.SqlQuery<teamInformation>(sqlText).ToList();
 
+            sqlText = "SELECT        Id, year" + Environment.NewLine +
+" FROM            calendarYears";
+
+            var listofYears = _context.Database.SqlQuery<calendarYear>(sqlText).ToList();
+
             var listofcurrentGames = _context.games.ToList();
 
             var viewModel = new CreateGameViewModel()
             {
                 HomeTeamNames = listofHomeTeams,
                 AwayTeamNames = listofAwayTeams,
-                currentGames = listofcurrentGames
+                currentGames = listofcurrentGames,
+                years = listofYears
             };
 
             return View(viewModel);
@@ -70,8 +76,8 @@ namespace FantasyFootballPlayoffs.Controllers
                 string date = DateTime.Now.ToString("MM/dd/yyyy");
 
                 sqlText = "INSERT        " + Environment.NewLine +
-"INTO              games(homeTeamId, awayTeamId, isactive, sportId, playoffRoundId, gameDate)" + Environment.NewLine +
-"VALUES        (" + model.homeTeamId + ", " + model.awayTeamId + ", '" + model.isactive + "' , " + model.sportId+ ", " + model.playoffRoundId + ", '" + date + "')";
+"INTO              games(homeTeamId, awayTeamId, isactive, sportId, playoffRoundId, gameDate, calendarYearId)" + Environment.NewLine +
+"VALUES        (" + model.homeTeamId + ", " + model.awayTeamId + ", '" + model.isactive + "' , " + model.sportId+ ", " + model.playoffRoundId + ", '" + date + "', " + model.gameYearId + ")";
 
                 _context.Database.ExecuteSqlCommand(sqlText);
 

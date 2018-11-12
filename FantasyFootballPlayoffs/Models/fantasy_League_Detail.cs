@@ -14,11 +14,13 @@ namespace FantasyFootballPlayoffs.Models
         public int fantasy_LeagueId { get; set; }
         public int fantasy_TeamId { get; set; }
         public string userId { get; set; }
+        public int currentYearId { get; set; }
 
         //public virtual fantasy_Owner fantasy_Owner { get; set; }
         public virtual fantasy_League fantasy_League { get; set; }
         public virtual fantasy_Team fantasy_Team { get; set; }
         public virtual User user { get; set; }
+        public virtual currentYear currentYear { get; set; }
 
 
     }

@@ -614,6 +614,14 @@
     <Compile Include="Migrations\201802162223103_add calendar years FK to players table.Designer.cs">
       <DependentUpon>201802162223103_add calendar years FK to players table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811120511412_foreign key added to games table.cs" />
+    <Compile Include="Migrations\201811120511412_foreign key added to games table.Designer.cs">
+      <DependentUpon>201811120511412_foreign key added to games table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120705344_add current year to fantasy league detail tab.cs" />
+    <Compile Include="Migrations\201811120705344_add current year to fantasy league detail tab.Designer.cs">
+      <DependentUpon>201811120705344_add current year to fantasy league detail tab.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\awayTeam.cs" />
     <Compile Include="Models\conference.cs" />
@@ -1158,6 +1166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802162223103_add calendar years FK to players table.resx">
       <DependentUpon>201802162223103_add calendar years FK to players table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120511412_foreign key added to games table.resx">
+      <DependentUpon>201811120511412_foreign key added to games table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120705344_add current year to fantasy league detail tab.resx">
+      <DependentUpon>201811120705344_add current year to fantasy league detail tab.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
