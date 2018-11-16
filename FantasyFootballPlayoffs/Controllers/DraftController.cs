@@ -27,37 +27,38 @@ namespace FantasyFootballPlayoffs.Controllers
         public ViewResult players(int detailsId)
         {
             var players = new List<player>();
-            string currentUserId = User.Identity.GetUserId();
-            var playoffTeams = _context.playoffTeams.ToList();
             var playoffPlayers = new List<player>();
-            var currentleagueAndTeam = _context.fantasy_League_Details.SingleOrDefault(m => m.Id == detailsId);
-            var draftedPlayers = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == currentleagueAndTeam.fantasy_LeagueId).ToList();
+            var currentFantasyDetail = _context.fantasy_League_Details.SingleOrDefault(m => m.Id == detailsId);
+            string currentUserId = User.Identity.GetUserId();
+            var playoffTeams = _context.playoffTeams.Where(m => m.calendarYearId == currentFantasyDetail.calendarYearId).ToList();//in the future i may need to orderbydescending
+            playoffPlayers = _context.players.Where(m => m.calendarYearId == currentFantasyDetail.calendarYearId).ToList();
+            var draftedPlayers = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == currentFantasyDetail.fantasy_LeagueId).ToList();
             var currentDraftedTeam = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.Id == detailsId).Where(m => m.fantasy_League_Detail.userId == currentUserId).OrderByDescending(m => m.fantasy_Player_SlotId).ToList();
             var lastPick = new fantasy_Roster();
 
             try
             {
-                lastPick = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == currentleagueAndTeam.fantasy_LeagueId).OrderByDescending(m => m.draftPickNumber).First();
+                lastPick = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == currentFantasyDetail.fantasy_LeagueId).OrderByDescending(m => m.draftPickNumber).First();
             }
             catch
             {
                 lastPick = null;
             }
 
-            foreach (playoffTeam team in playoffTeams)
-            {
-                players = _context.players.Where(m => m.teamid == team.homeTeamId).ToList();
-                foreach (player player in players)
-                {
-                    playoffPlayers.Add(player);
-                }
-            }
+            //foreach (playoffTeam team in playoffTeams)
+            //{
+            //    players = _context.players.Where(m => m.teamid == team.homeTeamId).ToList();
+            //    foreach (player player in players)
+            //    {
+            //        playoffPlayers.Add(player);
+            //    }
+            //}
 
-            var viewModel = new playerDraftViewModel
+            var viewModel = new PlayerDraftViewModel
             {
                 players = playoffPlayers,
                 playoffteams = playoffTeams,
-                fantasyDetail = currentleagueAndTeam,
+                fantasyDetail = currentFantasyDetail,
                 draftedPlayers = draftedPlayers,
                 currentTeam = currentDraftedTeam,
                 lastPick = lastPick
@@ -65,7 +66,7 @@ namespace FantasyFootballPlayoffs.Controllers
 
             return View(viewModel);
         }
-        public ActionResult draftPlayer(int Id, int detailId, int draftId)
+        public ActionResult draftPlayer(int Id, int detailId)
         {
             var currentleagueAndTeam = _context.fantasy_League_Details.SingleOrDefault(m => m.Id == detailId);
             var lastPick = new fantasy_Roster();
@@ -97,17 +98,17 @@ namespace FantasyFootballPlayoffs.Controllers
             var slotPosition = -1;
             if (rosterDetailExist.Count != 0)
             {
-                foreach (fantasy_Roster detail in rosterDetailExist)
+                foreach (fantasy_Roster detail in rosterDetailExist)//checks the detail and looks to see if you have players at that position
                 {
                     if (detail.player.playerPositionid == playerToDraft.playerPositionid)
                     {
-                        slotId++; // need to deal with limits
+                        slotId++; // need to deal with position limits //increase the value of the slotId if you already have a player at that position
                     }   
                 }
 
-                if (playerToDraft.playerPositionid == 1)//Qb
+                if (playerToDraft.playerPositionid == 1)//checks to see if player is QB
                 {
-                    if (slotId == 0)
+                    if (slotId == 0)//compares slotId and if it's equal it will assign the player a QB Slot. If theres too many, it won't do anything
                     {
                         slotPosition = 1;
                     }
@@ -180,7 +181,7 @@ namespace FantasyFootballPlayoffs.Controllers
                     }
                 }
             }
-            else
+            else //if there are no draft picks and it's the first one, the else will occur. Checks the position and will add only to the first slot
             {
                 if (playerToDraft.playerPositionid == 1)//Qb
                 {
@@ -188,10 +189,6 @@ namespace FantasyFootballPlayoffs.Controllers
                     {
                         slotPosition = 1;
                     }
-                    //else if (slotId == 1)
-                    //{
-                    //    slotPosition = 2;
-                    //}
                 }
                 if (playerToDraft.playerPositionid == 2)//rb
                 {
@@ -199,10 +196,6 @@ namespace FantasyFootballPlayoffs.Controllers
                     {
                         slotPosition = 3;
                     }
-                    //else if (slotId == 1)
-                    //{
-                    //    slotPosition = 4;
-                    //}
                 }
                 if (playerToDraft.playerPositionid == 3)//wr
                 {
@@ -210,18 +203,6 @@ namespace FantasyFootballPlayoffs.Controllers
                     {
                         slotPosition = 5;
                     }
-                    //else if (slotId == 1)
-                    //{
-                    //    slotPosition = 6;
-                    //}
-                    //else if (slotId == 2)
-                    //{
-                    //    slotPosition = 7;
-                    //}
-                    //else if (slotId == 3)
-                    //{
-                    //    slotPosition = 8;
-                    //}
                 }
                 if (playerToDraft.playerPositionid == 4)//te
                 {
@@ -229,10 +210,6 @@ namespace FantasyFootballPlayoffs.Controllers
                     {
                         slotPosition = 9;
                     }
-                    //else if (slotId == 1)
-                    //{
-                    //    slotPosition = 10;
-                    //}
                 }
                 if (playerToDraft.playerPositionid == 5)//Def
                 {
@@ -240,10 +217,6 @@ namespace FantasyFootballPlayoffs.Controllers
                     {
                         slotPosition = 11;
                     }
-                    //else if (slotId == 1)
-                    //{
-                    //    slotPosition = 12;
-                    //}
                 }
                 if (playerToDraft.playerPositionid == 19)//K
                 {
@@ -251,10 +224,6 @@ namespace FantasyFootballPlayoffs.Controllers
                     {
                         slotPosition = 13;
                     }
-                    //else if (slotId == 1)
-                    //{
-                    //    slotPosition = 14;
-                    //}
                 }
             }
 
@@ -264,13 +233,12 @@ namespace FantasyFootballPlayoffs.Controllers
             draftedPlayer.sportId = 1;
             draftedPlayer.draftPickNumber = currentPick;
             draftedPlayer.fantasy_Player_SlotId = slotPosition;
-            draftedPlayer.Id = draftId;
 
-            _context.fantasy_Rosters.Add(draftedPlayer);
-            _context.SaveChanges();
-
-            //var lastDraftSubmit = _context.fantasy_Rosters.First();
-            //var playerPositionId = lastDraftSubmit.player.playerPositionid;
+            if(slotPosition != -1)//if slotPosition gets assigned a new player will be added
+            {
+                _context.fantasy_Rosters.Add(draftedPlayer);
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("players","Draft", new { detailsId = detailId });
         }

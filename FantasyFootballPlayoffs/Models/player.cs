@@ -33,9 +33,13 @@ namespace FantasyFootballPlayoffs.Models
 
         public int calendarYearId { get; set; }
 
+        public int playoffteamid { get; set; }
+
         public virtual calendarYear calendarYear { get; set; }
 
         public virtual playerPosition playerPosition { get; set; }
+
+        public virtual playoffTeam playoffTeam { get; set; }
 
         public virtual homeTeam team { get; set; }
     }

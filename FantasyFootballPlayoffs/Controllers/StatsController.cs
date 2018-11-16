@@ -109,8 +109,8 @@ namespace FantasyFootballPlayoffs.Controllers
 
             var sqlText = "SELECT        firstName + ' ' + lastName AS fullName, teamId, Id AS playerId" + Environment.NewLine +
 "FROM            players" + Environment.NewLine +
-"WHERE        (teamId = " + currentgame.homeTeamId + ") OR" + Environment.NewLine +
-"                         (teamId = " + currentgame.awayTeamId + ")";
+"WHERE        (teamId = " + currentgame.homeTeamId + ") AND (calendarYearId = " + currentgame.calendarYearId + ") OR" + Environment.NewLine +
+"                         (teamId = " + currentgame.awayTeamId + ") AND (calendarYearId = " + currentgame.calendarYearId + ")";
 
             var listOfPlayers = _context.Database.SqlQuery<playerinformation>(sqlText).ToList();
 
@@ -308,13 +308,20 @@ namespace FantasyFootballPlayoffs.Controllers
         }
         public ActionResult selectPlayoffTeams()
         {
+            var dateNowYear = DateTime.Now.Year;
+            var contextDateNowYear = _context.calendarYears.SingleOrDefault(m => m.year == dateNowYear);
+
             var selectTeams = _context.homeTeams.ToList();
             var conferences = _context.conferences.ToList();
+            var calendarYears = _context.calendarYears.ToList();
+            var currentYearPlayoffTeams = _context.playoffTeams.Where(m => m.calendarYearId == contextDateNowYear.Id).ToList();
 
             CreateGameViewModel viewModel = new CreateGameViewModel()
             {
                 teams = selectTeams,
-                conferences = conferences
+                conferences = conferences,
+                years = calendarYears,
+                playoffTeams = currentYearPlayoffTeams
             };
 
             return View(viewModel);
@@ -326,13 +333,94 @@ namespace FantasyFootballPlayoffs.Controllers
             var playoffTeamSelection = new playoffTeam();
             playoffTeamSelection.homeTeamId = viewModel.playoffTeam.homeTeamId;
             playoffTeamSelection.playoffSeed = viewModel.playoffTeam.playoffSeed;
-            playoffTeamSelection.year = viewModel.playoffTeam.year;
+            playoffTeamSelection.calendarYearId = viewModel.playoffTeam.calendarYearId;
             playoffTeamSelection.conferenceId = viewModel.playoffTeam.conferenceId;
 
             _context.playoffTeams.Add(playoffTeamSelection);
             _context.SaveChanges();
 
-            return RedirectToAction("createGames", "Stats");
+            return RedirectToAction("selectPlayoffTeams", "Stats");
+        }
+
+        public ActionResult DeletetPlayoffTeam(int playoffTeamId)
+        {
+            try
+            {
+                var teamToDelete = new playoffTeam();
+                teamToDelete = _context.playoffTeams.SingleOrDefault(m => m.Id == playoffTeamId);
+
+                if (teamToDelete == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    _context.playoffTeams.Remove(teamToDelete);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("selectPlayoffTeams", "Stats");
+            }
+            catch
+            {
+                return View();
+            }            
+        }
+
+        public ActionResult AddPlayers(int playoffTeamId)
+        {
+            var currentTeamSelection = _context.playoffTeams.SingleOrDefault(m => m.Id == playoffTeamId);
+            var playerPositions = _context.playerPositions.ToList();       
+            var playoffTeamPlayers = _context.players.Where(m => m.playoffteamid == playoffTeamId).ToList();
+
+            var viewmodel = new AddPlayerViewModel();
+            {
+                viewmodel.SelectedTeam = currentTeamSelection;
+                viewmodel.playerPositions = playerPositions;
+                viewmodel.playoffTeamPlayers = playoffTeamPlayers;
+            }
+            
+            return View(viewmodel);
+        }
+        public ActionResult SubmitPlayer(AddPlayerViewModel viewModel)
+        {
+            int currentTeamId = viewModel.SelectedTeam.homeTeamId;
+
+            var newPlayer = new player();
+            {
+                newPlayer.firstName = viewModel.newPlayer.firstName;
+                newPlayer.lastName = viewModel.newPlayer.lastName;
+                newPlayer.playerPositionid = viewModel.newPlayer.playerPositionid;
+                newPlayer.teamid = viewModel.SelectedTeam.homeTeamId;
+                newPlayer.calendarYearId = viewModel.SelectedTeam.calendarYearId;
+            }
+
+            _context.players.Add(newPlayer);
+            _context.SaveChanges();
+
+            return RedirectToAction("addPlayers", "Stats", new { teamId = currentTeamId });
+        }
+        public ActionResult DeletePlayer(int playerId, int playoffTeamId)
+        {
+            try
+            {
+                var playerToDelete = new player();
+                playerToDelete = _context.players.SingleOrDefault(m => m.Id == playerId);
+
+                if (playerToDelete == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    _context.players.Remove(playerToDelete);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("AddPlayers", "Stats", new { playoffTeamId = playoffTeamId });
+            }
+            catch
+            {
+                return View();
+            }  
         }
     }
 }

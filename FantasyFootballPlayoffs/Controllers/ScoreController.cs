@@ -34,7 +34,7 @@ namespace FantasyFootballPlayoffs.Controllers
         public ActionResult view(int leagueId)
         {
             var teamInLeague = _context.fantasy_League_Details.First(m => m.fantasy_LeagueId == leagueId);
-            var leagueYear = teamInLeague.currentYearId;
+            var leagueYear = teamInLeague.calendarYearId;
 
             string currentUserId = User.Identity.GetUserId();
             var leagueRosters = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == leagueId ).ToList();

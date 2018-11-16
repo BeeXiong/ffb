@@ -13,14 +13,14 @@ namespace FantasyFootballPlayoffs.Models
         public int homeTeamId { get; set; }
         [Display(Name = "Conference")]
         public int conferenceId { get; set; }
+        [Display(Name = "Year")]
+        public int calendarYearId { get; set; }
 
         [Display(Name = "Playoff Seed")]
         public int playoffSeed { get; set; }
 
-        [Display(Name = "Year")]
-        public int year { get; set; }
-
         public virtual homeTeam homeTeam { get; set; } 
         public virtual conference conference { get; set; }
+        public virtual calendarYear calendarYear { get; set; }
     }
 }

@@ -57,11 +57,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.Core.3.3.29.3\lib\net45\AWSSDK.Core.dll</HintPath>
+      <HintPath>..\packages\AWSSDK.Core.3.3.29.8\lib\net45\AWSSDK.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AWSSDK.SimpleSystemsManagement, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.SimpleSystemsManagement.3.3.35.3\lib\net45\AWSSDK.SimpleSystemsManagement.dll</HintPath>
+      <HintPath>..\packages\AWSSDK.SimpleSystemsManagement.3.3.35.8\lib\net45\AWSSDK.SimpleSystemsManagement.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -622,6 +622,18 @@
     <Compile Include="Migrations\201811120705344_add current year to fantasy league detail tab.Designer.cs">
       <DependentUpon>201811120705344_add current year to fantasy league detail tab.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811122010097_corrected fantatsy league detail to include calendar year vs current year.cs" />
+    <Compile Include="Migrations\201811122010097_corrected fantatsy league detail to include calendar year vs current year.Designer.cs">
+      <DependentUpon>201811122010097_corrected fantatsy league detail to include calendar year vs current year.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811130303150_playoffTeam Table corrected to included foreign key to CalendarYear Table.cs" />
+    <Compile Include="Migrations\201811130303150_playoffTeam Table corrected to included foreign key to CalendarYear Table.Designer.cs">
+      <DependentUpon>201811130303150_playoffTeam Table corrected to included foreign key to CalendarYear Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811152000532_add playoffteamId foreign key to players table.cs" />
+    <Compile Include="Migrations\201811152000532_add playoffteamId foreign key to players table.Designer.cs">
+      <DependentUpon>201811152000532_add playoffteamId foreign key to players table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\awayTeam.cs" />
     <Compile Include="Models\conference.cs" />
@@ -729,6 +741,7 @@
     <Compile Include="Models\stat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\location.cs" />
+    <Compile Include="ViewModels\AddPlayerViewModel.cs" />
     <Compile Include="ViewModels\CreateGameViewModel.cs" />
     <Compile Include="ViewModels\CreateLeagueViewModel.cs" />
     <Compile Include="ViewModels\CreateTeamsViewModel.cs" />
@@ -742,7 +755,7 @@
     <Compile Include="Models\zRawNFLRosters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\playerDraftViewModel.cs" />
+    <Compile Include="ViewModels\PlayerDraftViewModel.cs" />
     <Compile Include="ViewModels\ScoreViewModel.cs" />
     <Compile Include="ViewModels\StatEntryViewModel.cs" />
   </ItemGroup>
@@ -866,6 +879,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Stats\AddPlayers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1173,6 +1187,15 @@
     <EmbeddedResource Include="Migrations\201811120705344_add current year to fantasy league detail tab.resx">
       <DependentUpon>201811120705344_add current year to fantasy league detail tab.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811122010097_corrected fantatsy league detail to include calendar year vs current year.resx">
+      <DependentUpon>201811122010097_corrected fantatsy league detail to include calendar year vs current year.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811130303150_playoffTeam Table corrected to included foreign key to CalendarYear Table.resx">
+      <DependentUpon>201811130303150_playoffTeam Table corrected to included foreign key to CalendarYear Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811152000532_add playoffteamId foreign key to players table.resx">
+      <DependentUpon>201811152000532_add playoffteamId foreign key to players table.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -1181,7 +1204,7 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\AWSSDK.SimpleSystemsManagement.3.3.35.3\analyzers\dotnet\cs\AWSSDK.SimpleSystemsManagement.CodeAnalysis.dll" />
+    <Analyzer Include="..\packages\AWSSDK.SimpleSystemsManagement.3.3.35.8\analyzers\dotnet\cs\AWSSDK.SimpleSystemsManagement.CodeAnalysis.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

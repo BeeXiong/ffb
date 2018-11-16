@@ -9,13 +9,14 @@ namespace FantasyFootballPlayoffs.ViewModels
 {
     public class CreateGameViewModel
     {
-    
+
         public ICollection<teamInformation> HomeTeamNames { get; set; }
         public ICollection<teamInformation> AwayTeamNames { get; set; }
         public ICollection<game> currentGames { get; set; }
-        public ICollection<homeTeam> teams { get; set; } 
+        public ICollection<homeTeam> teams { get; set; }
         public ICollection<conference> conferences { get; set; }
         public ICollection<calendarYear> years { get; set; }
+        public ICollection<playoffTeam> playoffTeams {get;set;}
         public playoffTeam playoffTeam { get; set; }
 
         [Key]

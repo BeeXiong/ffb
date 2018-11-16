@@ -52,12 +52,8 @@ namespace FantasyFootballPlayoffs.Models
         //    : base("FantasyDatabase", throwIfV1Schema: false)
         //{
         //}
-        //public static FantasyDbContext Create()
-        //{
-        //    return new FantasyDbContext();
-        //}
 
-        //development environment using remote DB
+        //Remote DB environments for Production and Development
         public FantasyDbContext()
             : base(GetRDSConnectionString(), throwIfV1Schema: false)
         {

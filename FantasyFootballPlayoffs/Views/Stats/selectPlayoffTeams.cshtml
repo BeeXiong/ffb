@@ -29,8 +29,8 @@
                                 @Html.TextBoxFor(m => m.playoffTeam.playoffSeed, "Enter Playoff Seed", new { @class = "form-control", id = "playoffSeed" })
                             </div>
                             <div class="col-lg-3 dropdown-inline p-2">
-                                @Html.LabelFor(m => m.playoffTeam.year, htmlAttributes: new { @class = "text-blueSummer" })
-                                @Html.TextBoxFor(m => m.playoffTeam.year, "Select Home Team", new { @class = "form-control", id = "year" })
+                                @Html.LabelFor(m => m.playoffTeam.calendarYearId, htmlAttributes: new { @class = "text-blueSummer" })
+                                @Html.DropDownListFor(m => m.playoffTeam.calendarYearId, new SelectList(Model.years, "Id", "year"), "Select Year", new { @class = "form-control", id = "year" })
                             </div>
 
                         </div>
@@ -38,12 +38,36 @@
                         <button class="btn-primary btn" type="submit">Submit</button>
                     </div>
                 }
-
-
-
-            </div>
-
             </div>
         </div>
     </div>
 </div>
+    
+<div>
+    <table id="playoffTeamTable" class="table table-responsive-md table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th id="headerLeagueName">Playoff Team</th>
+                <th id="conference">Conference</th>
+                <th id="seedPosition">Seed</th>
+                <th id="playoffYear">Year</th>
+                <th>Add Players</th>
+                <th>Delete Team</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var team in Model.playoffTeams)
+            {
+                <tr>
+                    <td>@team.homeTeam.location.teamLocation @team.homeTeam.homeTeamName</td>
+                    <td>@team.conference.conferenceName</td>
+                    <td>@team.playoffSeed</td>
+                    <td>@team.calendarYear.year</td>
+                    <td>@Html.ActionLink("Add Players", "addPlayers", "Stats", new { playoffTeamId = team.Id }, new { @class = "btn btn-primary" })</td>
+                    <td>@Html.ActionLink("Delete Team", "DeletetPlayoffTeam", "Stats", new { playoffTeamId = team.Id }, new { @class = "btn btn-danger" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -1,4 +1,4 @@
-﻿@model FantasyFootballPlayoffs.ViewModels.playerDraftViewModel
+﻿@model FantasyFootballPlayoffs.ViewModels.PlayerDraftViewModel
 @{
     ViewBag.Title = "players";
 }
@@ -291,457 +291,503 @@
 </div>
 <div class="col-lg-12 py-4" id="afc12">
     <div class="row">
-        <div class="col-lg-6 dropdown-inline" id="afcSeed1">
-            <h3>@Model.playoffteams.First().homeTeam.location.teamLocation @Model.playoffteams.First().homeTeam.homeTeamName - AFC Seed #1</h3>
-            <table id="tableAFC1" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.First().homeTeamId)
+        <div class="col-lg-6 dropdown-inline" id="afcSeed1">           
+            @if (Model.playoffteams.Count > 0)
+            {
+                <h3>@Model.playoffteams.First().homeTeam.location.teamLocation @Model.playoffteams.First().homeTeam.homeTeamName - AFC Seed #1</h3>
+                <table id="tableAFC1" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.First().homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
         </div>
         <div class="col-lg-6 dropdown-inline" id="afcSeed2">
-            <h3>@Model.playoffteams.ElementAt(1).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(1).homeTeam.homeTeamName - AFC Seed #2</h3>
-            <table id="tableAFC2" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(1).homeTeamId)
+            @if (Model.playoffteams.Count > 1)
+            {
+                <h3>@Model.playoffteams.ElementAt(1).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(1).homeTeam.homeTeamName - AFC Seed #2</h3>
+                <table id="tableAFC2" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(1).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
 </div>
 <div class="col-lg-12" id="afc34">
     <div class="row">
         <div class="col-lg-6 dropdown-inline" id="afcSeed3">
-            <h3>@Model.playoffteams.ElementAt(2).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(2).homeTeam.homeTeamName - AFC Seed #3</h3>
-            <table id="tableAFC3" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(2).homeTeamId)
+            @if (Model.playoffteams.Count > 2)
+            {
+                <h3>@Model.playoffteams.ElementAt(2).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(2).homeTeam.homeTeamName - AFC Seed #3</h3>
+                <table id="tableAFC3" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(2).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
         </div>
         <div class="col-lg-6 dropdown-inline" id="afcSeed4">
-            <h3>@Model.playoffteams.ElementAt(3).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(3).homeTeam.homeTeamName - AFC Seed #4</h3>
-            <table id="tableAFC4" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(3).homeTeamId)
+            @if (Model.playoffteams.Count > 3)
+            {
+                <h3>@Model.playoffteams.ElementAt(3).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(3).homeTeam.homeTeamName - AFC Seed #4</h3>
+                <table id="tableAFC4" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(3).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+
         </div>
     </div>
 </div>
     <div class="col-lg-12" id="afc56">
         <div class="row">
             <div class="col-lg-6" id="afcSeed5">
-                <h3>@Model.playoffteams.ElementAt(4).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(4).homeTeam.homeTeamName - AFC Seed #5</h3>
-                <table id="tableAFC5" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                    <thead>
-                        <tr>
-                            <td>Player Name</td>
-                            <td>Team Name</td>
-                            <td>Position</td>
-                            <td>Draft Status</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var player in Model.players)
-                        {
-                            if (player.teamid == Model.playoffteams.ElementAt(4).homeTeamId)
+                @if (Model.playoffteams.Count > 4)
+                {
+                    <h3>@Model.playoffteams.ElementAt(4).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(4).homeTeam.homeTeamName - AFC Seed #5</h3>
+                    <table id="tableAFC5" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                        <thead>
+                            <tr>
+                                <td>Player Name</td>
+                                <td>Team Name</td>
+                                <td>Position</td>
+                                <td>Draft Status</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var player in Model.players)
                             {
-                                <tr>
-                                    <td>@player.firstName @player.lastName </td>
-                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                    <td>@player.playerPosition.position</td>
-                                    <td>
-                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                        {
-                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                        }
-                                        else
-                                        {
-                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                        }
-                                    </td>
-                                </tr>
+                                if (player.teamid == Model.playoffteams.ElementAt(4).homeTeamId)
+                                {
+                                    <tr>
+                                        <td>@player.firstName @player.lastName </td>
+                                        <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                        <td>@player.playerPosition.position</td>
+                                        <td>
+                                            @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                            {
+                                                @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                            }
+                                            else
+                                            {
+                                                <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
                             }
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                }
+
             </div>
             <div class="col-lg-6" id="afcSeed6">
-                <h3>@Model.playoffteams.ElementAt(5).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(5).homeTeam.homeTeamName - AFC Seed #6</h3>
-                <table id="tableAFC6" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                    <thead>
-                        <tr>
-                            <td>Player Name</td>
-                            <td>Team Name</td>
-                            <td>Position</td>
-                            <td>Draft Status</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var player in Model.players)
-                        {
-                            if (player.teamid == Model.playoffteams.ElementAt(5).homeTeamId)
+                @if (Model.playoffteams.Count > 5)
+                {
+                    <h3>@Model.playoffteams.ElementAt(5).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(5).homeTeam.homeTeamName - AFC Seed #6</h3>
+                    <table id="tableAFC6" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                        <thead>
+                            <tr>
+                                <td>Player Name</td>
+                                <td>Team Name</td>
+                                <td>Position</td>
+                                <td>Draft Status</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var player in Model.players)
                             {
-                                <tr>
-                                    <td>@player.firstName @player.lastName </td>
-                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                    <td>@player.playerPosition.position</td>
-                                    <td>
-                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                        {
-                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                        }
-                                        else
-                                        {
-                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                        }
-                                    </td>
-                                </tr>
+                                if (player.teamid == Model.playoffteams.ElementAt(5).homeTeamId)
+                                {
+                                    <tr>
+                                        <td>@player.firstName @player.lastName </td>
+                                        <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                        <td>@player.playerPosition.position</td>
+                                        <td>
+                                            @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                            {
+                                                @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                            }
+                                            else
+                                            {
+                                                <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
                             }
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                }
+
             </div>
         </div>
     </div>
 <div class="col-lg-12" id="nfc12">
     <div class="row">
         <div class="col-lg-6" id="nfcSeed1">
-            <h3>@Model.playoffteams.ElementAt(6).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(6).homeTeam.homeTeamName - NFC Seed #1</h3>
-            <table id="tableNFC1" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(6).homeTeamId)
+            @if (Model.playoffteams.Count > 6)
+            {
+                <h3>@Model.playoffteams.ElementAt(6).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(6).homeTeam.homeTeamName - NFC Seed #1</h3>
+                <table id="tableNFC1" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(6).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+
         </div>
         <div class="col-lg-6" id="nfcSeed2">
-            <h3>@Model.playoffteams.ElementAt(7).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(7).homeTeam.homeTeamName - NFC Seed #2</h3>
-            <table id="tableNFC2" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(7).homeTeamId)
+            @if (Model.playoffteams.Count > 7)
+            {
+                <h3>@Model.playoffteams.ElementAt(7).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(7).homeTeam.homeTeamName - NFC Seed #2</h3>
+                <table id="tableNFC2" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(7).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+            
+
         </div>
     </div>
 </div>
 <div class="col-lg-12" id="nfc34">
     <div class="row">
         <div class="col-lg-6" id="nfcSeed3">
-            <h3>@Model.playoffteams.ElementAt(8).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(8).homeTeam.homeTeamName - NFC Seed #3</h3>
-            <table id="tableNFC3" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(8).homeTeamId)
+            @if (Model.playoffteams.Count > 8)
+            {
+                <h3>@Model.playoffteams.ElementAt(8).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(8).homeTeam.homeTeamName - NFC Seed #3</h3>
+                <table id="tableNFC3" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(8).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+
         </div>
         <div class="col-lg-6" id="nfcSeed4">
-            <h3>@Model.playoffteams.ElementAt(9).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(9).homeTeam.homeTeamName - NFC Seed #4</h3>
-            <table id="tableNFC4" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(9).homeTeamId)
+            @if (Model.playoffteams.Count > 9)
+            {
+                <h3>@Model.playoffteams.ElementAt(9).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(9).homeTeam.homeTeamName - NFC Seed #4</h3>
+                <table id="tableNFC4" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(9).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+
         </div>
     </div>      
 </div>
 <div class="col-lg-12" id="nfc56">
     <div class="row">
         <div class="col-lg-6" id="nfcSeed5">
-            <h3>@Model.playoffteams.ElementAt(10).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(10).homeTeam.homeTeamName - NFC Seed #5</h3>
-            <table id="tableNFC5" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(10).homeTeamId)
+            @if (Model.playoffteams.Count > 10)
+            {
+                <h3>@Model.playoffteams.ElementAt(10).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(10).homeTeam.homeTeamName - NFC Seed #5</h3>
+                <table id="tableNFC5" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(10).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+
         </div>
         <div class="col-lg-6" id="nfcSeed6">
-            <h3>@Model.playoffteams.ElementAt(11).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(11).homeTeam.homeTeamName - NFC Seed #6</h3>
-            <table id="tableNFC6" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                <thead>
-                    <tr>
-                        <td>Player Name</td>
-                        <td>Team Name</td>
-                        <td>Position</td>
-                        <td>Draft Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.players)
-                    {
-                        if (player.teamid == Model.playoffteams.ElementAt(11).homeTeamId)
+            @if (Model.playoffteams.Count > 11)
+            {
+                <h3>@Model.playoffteams.ElementAt(11).homeTeam.location.teamLocation @Model.playoffteams.ElementAt(11).homeTeam.homeTeamName - NFC Seed #6</h3>
+                <table id="tableNFC6" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                    <thead>
+                        <tr>
+                            <td>Player Name</td>
+                            <td>Team Name</td>
+                            <td>Position</td>
+                            <td>Draft Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.players)
                         {
-                            <tr>
-                                <td>@player.firstName @player.lastName </td>
-                                <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
-                                <td>@player.playerPosition.position</td>
-                                <td>
-                                    @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
-                                    {
-                                        @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id, draftId = 0 }, new { @class = "btn btn-primary" })
-                                    }
-                                    else
-                                    {
-                                        <button class="btn-success btn" type="submit" disabled>Drafted</button>
-                                    }
-                                </td>
-                            </tr>
+                            if (player.teamid == Model.playoffteams.ElementAt(11).homeTeamId)
+                            {
+                                <tr>
+                                    <td>@player.firstName @player.lastName </td>
+                                    <td>@player.team.location.teamLocation @player.team.homeTeamName</td>
+                                    <td>@player.playerPosition.position</td>
+                                    <td>
+                                        @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
+                                        {
+                                            @Html.ActionLink(" Draft ", "draftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-success btn" type="submit" disabled>Drafted</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+
         </div>
     </div>    
 </div>

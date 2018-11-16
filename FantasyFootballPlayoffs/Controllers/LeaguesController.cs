@@ -142,7 +142,7 @@ namespace FantasyFootballPlayoffs.Controllers
                     newleague.fantasy_LeagueId = submit.fantasy_League_Detail.fantasy_LeagueId;
                     newleague.fantasy_TeamId = newTeamId;
                     newleague.userId = submit.fantasyPlayer.Id;
-                    newleague.currentYearId = contextDateNowYear.Id;
+                    newleague.calendarYearId = contextDateNowYear.Id;
 
                     _context.fantasy_League_Details.Add(newleague);
                     _context.SaveChanges();

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FantasyFootballPlayoffs.ViewModels
 {
-    public class playerDraftViewModel
+    public class PlayerDraftViewModel
     {
         public int id { get; set; }
 
