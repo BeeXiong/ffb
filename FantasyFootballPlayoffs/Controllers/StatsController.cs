@@ -99,34 +99,31 @@ namespace FantasyFootballPlayoffs.Controllers
             }
         }
 
-
-        public ViewResult AddStats(int gameId)
+        [HttpPost]
+        public ActionResult gameDelete(int gameId)
         {
-            //add viewmodel
-            var listOfStatCategories = _context.statisticalCategories.ToList();
-            var game_Id = gameId;
-            var currentgame = _context.games.SingleOrDefault(m => m.Id == gameId);
-
-            var sqlText = "SELECT        firstName + ' ' + lastName AS fullName, teamId, Id AS playerId" + Environment.NewLine +
-"FROM            players" + Environment.NewLine +
-"WHERE        (teamId = " + currentgame.homeTeamId + ") AND (calendarYearId = " + currentgame.calendarYearId + ") OR" + Environment.NewLine +
-"                         (teamId = " + currentgame.awayTeamId + ") AND (calendarYearId = " + currentgame.calendarYearId + ")";
-
-            var listOfPlayers = _context.Database.SqlQuery<playerinformation>(sqlText).ToList();
-
-            var listOfStats = _context.stats.Where(m => m.gameId == game_Id).ToList();
-
-            StatEntryViewModel viewModel = new StatEntryViewModel()
+            try
             {
-                gamePlayers = listOfPlayers,
-                statCategories = listOfStatCategories,
-                gameId = gameId,
-                game = currentgame,
-                gamestats = listOfStats
-            };
+                var deletedGame = new game();
+                deletedGame = _context.games.SingleOrDefault(m => m.Id == gameId);
 
-            return View("statEntry", viewModel);
+                if (deletedGame == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    _context.games.Remove(deletedGame);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
+
 
         // POST: Stats/Edit/id(of the game)
         [HttpPost]
@@ -134,7 +131,7 @@ namespace FantasyFootballPlayoffs.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                // id represents the statId and if it is -1 it is a new stat that will get saved.
                 if(id == -1)
                 {
                     var gameStat = new stat();
@@ -177,9 +174,12 @@ namespace FantasyFootballPlayoffs.Controllers
                     _context.stats.Add(gameStat);
                     _context.SaveChanges();
 
-                    return RedirectToAction("EditStats");
+                    //gets the game where the stat was saved to and passes it in the redirect
+                    var game_Id = stat.gameId;
+
+                    return RedirectToAction("AddStats", "Stats", new { gameId = game_Id });
                 }
-                else
+                else //if it is not -1 it will get the stat from the viewModel and query the stat. Changes will be made to that record and it will be updated.
                 {
                     var stat_Id = stat.Id;
 
@@ -222,6 +222,7 @@ namespace FantasyFootballPlayoffs.Controllers
 
                     _context.SaveChanges();
 
+                    //gets the game where the stat was saved to and passes it in the redirect
                     var game_Id = revisedStat.gameId;
 
                     return RedirectToAction("AddStats", "Stats", new { gameId = game_Id });
@@ -233,33 +234,37 @@ namespace FantasyFootballPlayoffs.Controllers
                 return View();
             }
         }
-        [HttpPost]
-        public ActionResult gameDelete(int gameId)
-        {
-            try
-            {
-                var deletedGame = new game();
-                deletedGame = _context.games.SingleOrDefault(m => m.Id == gameId);
 
-                if (deletedGame == null)
-                {
-                    return HttpNotFound();
-                }
-                else
-                {
-                    _context.games.Remove(deletedGame);
-                    _context.SaveChanges();
-                }
-                return RedirectToAction("Index");
-            }
-            catch
+        public ViewResult AddStats(int gameId)
+        {
+            //add viewmodel
+            var listOfStatCategories = _context.statisticalCategories.ToList();
+            var game_Id = gameId;
+            var currentgame = _context.games.SingleOrDefault(m => m.Id == gameId);
+
+            var sqlText = "SELECT        firstName + ' ' + lastName AS fullName, teamId, Id AS playerId" + Environment.NewLine +
+"FROM            players" + Environment.NewLine +
+"WHERE        (teamId = " + currentgame.homeTeamId + ") AND (calendarYearId = " + currentgame.calendarYearId + ") OR" + Environment.NewLine +
+"                         (teamId = " + currentgame.awayTeamId + ") AND (calendarYearId = " + currentgame.calendarYearId + ")";
+
+            var listOfPlayers = _context.Database.SqlQuery<playerinformation>(sqlText).ToList();
+
+            var listOfStats = _context.stats.Where(m => m.gameId == game_Id).ToList();
+
+            StatEntryViewModel viewModel = new StatEntryViewModel()
             {
-                return View();
-            }
+                gamePlayers = listOfPlayers,
+                statCategories = listOfStatCategories,
+                gameId = gameId,
+                game = currentgame,
+                gamestats = listOfStats
+            };
+
+            return View("statEntry", viewModel);
         }
 
         // GET: Stats/editStat/2
-        public ActionResult editStat(int statId)
+        public ActionResult editStat(int statId)//bug with reload of edited stat. Does not reload with edited stat when you submit.
         {
             var stat = _context.stats.SingleOrDefault(m => m.Id == statId);
 
@@ -287,7 +292,7 @@ namespace FantasyFootballPlayoffs.Controllers
             };
             return View("statEntry", newModel);
         }
-
+        
         // GET: Stats/editStat/2
         public ActionResult deleteStat(int statId)
         {
@@ -392,12 +397,13 @@ namespace FantasyFootballPlayoffs.Controllers
                 newPlayer.playerPositionid = viewModel.newPlayer.playerPositionid;
                 newPlayer.teamid = viewModel.SelectedTeam.homeTeamId;
                 newPlayer.calendarYearId = viewModel.SelectedTeam.calendarYearId;
+                newPlayer.playoffteamid = viewModel.SelectedTeam.Id;
             }
 
             _context.players.Add(newPlayer);
             _context.SaveChanges();
 
-            return RedirectToAction("addPlayers", "Stats", new { teamId = currentTeamId });
+            return RedirectToAction("addPlayers", "Stats", new { playoffTeamId = viewModel.SelectedTeam.Id });
         }
         public ActionResult DeletePlayer(int playerId, int playoffTeamId)
         {

@@ -28,6 +28,7 @@
                             </div>
                             <div class="m-3">
                                 @Html.LabelFor(m => m.SelectedTeam.homeTeamId, "Playoff Team", htmlAttributes: new { @class = "text-blueSummer justify-content-start" })
+                                @Html.HiddenFor(m => m.SelectedTeam.Id)
                                 @Html.HiddenFor(m => m.SelectedTeam.homeTeamId)
                                 @Html.HiddenFor(m => m.SelectedTeam.calendarYearId)  
                                 <p id="playoffTeamName">@Model.SelectedTeam.homeTeam.location.teamLocation @Model.SelectedTeam.homeTeam.homeTeamName</p>   

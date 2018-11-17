@@ -191,12 +191,13 @@
                 </div>
 
                 <div class="col-lg-12">
-                    <div class="p-3">
+                    <div class="p-3 form-inline">
                         <button class="btn-primary btn" type="submit" id="submitStat">Submit Stat</button>
-                        @if (Model.gameStat != null)
+                        @Html.ActionLink("Edits Complete", "AddStats", new { gameid = @Model.gameId }, new { @class = "btn btn-primary mx-5" })
+                        @*@if (Model.gameStat != null)
                         {
                             <td>@Html.ActionLink("Create New Stat", "AddStats", new { gameId = Model.gameStat.gameId }, new { @class = "btn btn-primary" })</td>
-                        }
+                        }*@
                     </div>
                 </div>
                 </div>
