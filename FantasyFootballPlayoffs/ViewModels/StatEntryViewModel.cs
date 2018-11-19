@@ -13,6 +13,7 @@ namespace FantasyFootballPlayoffs.ViewModels
         public IEnumerable<statisticalCategory> statCategories;
         public ICollection<playerinformation> gamePlayers;
         public ICollection<stat> gamestats;
+        public ICollection<boxScoreStat> boxScoreStats;
         public game game { get; set; }
         public stat gameStat { get; set; }
 

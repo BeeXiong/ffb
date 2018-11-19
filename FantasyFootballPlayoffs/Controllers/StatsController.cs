@@ -241,6 +241,7 @@ namespace FantasyFootballPlayoffs.Controllers
             var listOfStatCategories = _context.statisticalCategories.ToList();
             var game_Id = gameId;
             var currentgame = _context.games.SingleOrDefault(m => m.Id == gameId);
+            var listOfStats = _context.stats.Where(m => m.gameId == game_Id).ToList();
 
             var sqlText = "SELECT        firstName + ' ' + lastName AS fullName, teamId, Id AS playerId" + Environment.NewLine +
 "FROM            players" + Environment.NewLine +
@@ -249,7 +250,23 @@ namespace FantasyFootballPlayoffs.Controllers
 
             var listOfPlayers = _context.Database.SqlQuery<playerinformation>(sqlText).ToList();
 
-            var listOfStats = _context.stats.Where(m => m.gameId == game_Id).ToList();
+            sqlText = "SELECT        stats.playerId, players.firstName, players.lastName, SUM(CAST(stats.passCompletion AS INT)) AS Comp, SUM(CAST(stats.passAttempt AS INT)) AS Att, COALESCE(SUM(stats.passYards), 0) AS PassingYards," + Environment.NewLine +
+                         "SUM(CAST(stats.isAPassTouchdown AS INT)) AS PassTD, SUM(CAST(stats.rushAttempt AS INT)) AS Rush, COALESCE(SUM(stats.rushYards), 0) AS RushYards, SUM(CAST(stats.isARushTouchdown AS INT)) AS RushTD," + Environment.NewLine +
+                         "SUM(CAST(stats.target AS INT)) AS Target, SUM(CAST(stats.reception AS INT)) AS Rec, COALESCE(SUM(stats.recYards), 0) AS RecYards, SUM(CAST(stats.isARecTouchdown AS INT)) AS RecTD," + Environment.NewLine +
+                         "SUM(CAST(stats.isAtdbetween35_49 AS INT)) AS td3549, SUM(CAST(stats.isAtdOver50 AS INT)) AS td50, SUM(CAST(stats.isA2Point AS INT)) AS twoPt, SUM(CAST(stats.isAFumble AS INT)) AS Fum," + Environment.NewLine +
+                         "SUM(CAST(stats.isAinterception AS INT)) AS Int, SUM(CAST(stats.isASack AS INT)) AS Sack, SUM(CAST(stats.isADefensiveTD AS INT)) AS DefTD, SUM(CAST(stats.isAFumbleRecovery AS INT)) AS FumRec," + Environment.NewLine +
+                         "SUM(CAST(stats.isASafety AS INT)) AS Safety, SUM(CAST(stats.PAT AS INT)) AS PAT, SUM(CAST(stats.isAFG39 AS INT)) AS FG39, SUM(CAST(stats.isAFG49 AS INT)) AS FG49, SUM(CAST(stats.isAFG59 AS INT)) AS FG59," + Environment.NewLine +
+                         "SUM(CAST(stats.isAFG60 AS INT)) AS FG60, SUM(CAST(stats.points0 AS INT)) AS points0, SUM(CAST(stats.points7 AS INT)) AS points7, SUM(CAST(stats.points20 AS INT)) AS points20, SUM(CAST(stats.points27 AS INT))" + Environment.NewLine +
+                         "AS points27, SUM(CAST(stats.points34 AS INT)) AS points34, SUM(CAST(stats.points35 AS INT)) AS points35, stats.gameId, games.playoffRoundId, playerPositions.Id AS playerPositionId, players.teamId" + Environment.NewLine +
+"FROM            stats INNER JOIN" + Environment.NewLine +
+                         "games ON stats.gameId = games.Id INNER JOIN" + Environment.NewLine +
+                         "players ON stats.playerId = players.Id INNER JOIN" + Environment.NewLine +
+                         "playerPositions ON players.playerPositionId = playerPositions.Id" + Environment.NewLine +
+"WHERE(stats.gameId = " + game_Id + ")" + Environment.NewLine +
+"GROUP BY stats.playerId, playerPositions.Id, stats.statisticalCategoryid, stats.statisticCategoryQuantity, stats.gameId, games.playoffRoundId, players.firstName, players.lastName, players.teamId" + Environment.NewLine +
+"ORDER BY stats.playerId";
+
+            var listOfBoxScoreStats = _context.Database.SqlQuery<boxScoreStat>(sqlText).ToList();
 
             StatEntryViewModel viewModel = new StatEntryViewModel()
             {
@@ -257,7 +274,8 @@ namespace FantasyFootballPlayoffs.Controllers
                 statCategories = listOfStatCategories,
                 gameId = gameId,
                 game = currentgame,
-                gamestats = listOfStats
+                gamestats = listOfStats,
+                boxScoreStats = listOfBoxScoreStats
             };
 
             return View("statEntry", viewModel);
@@ -271,6 +289,7 @@ namespace FantasyFootballPlayoffs.Controllers
             var listOfStatCategories = _context.statisticalCategories.ToList();
             var game_Id = stat.gameId;
             var currentgame = _context.games.SingleOrDefault(m => m.Id == stat.gameId);
+            var listOfStats = _context.stats.Where(m => m.gameId == game_Id).ToList();
 
             var sqlText = "SELECT        firstName + ' ' + lastName AS fullName, teamId, Id AS playerId" + Environment.NewLine +
 "FROM            players" + Environment.NewLine +
@@ -279,7 +298,24 @@ namespace FantasyFootballPlayoffs.Controllers
 
             var listOfPlayers = _context.Database.SqlQuery<playerinformation>(sqlText).ToList();
 
-            var listOfStats = _context.stats.Where(m => m.gameId == game_Id).ToList();
+             sqlText = "SELECT        stats.playerId, players.firstName, players.lastName, SUM(CAST(stats.passCompletion AS INT)) AS Comp, SUM(CAST(stats.passAttempt AS INT)) AS Att, COALESCE(SUM(stats.passYards), 0) AS PassingYards," + Environment.NewLine +
+             "SUM(CAST(stats.isAPassTouchdown AS INT)) AS PassTD, SUM(CAST(stats.rushAttempt AS INT)) AS Rush, COALESCE(SUM(stats.rushYards), 0) AS RushYards, SUM(CAST(stats.isARushTouchdown AS INT)) AS RushTD," + Environment.NewLine +
+             "SUM(CAST(stats.target AS INT)) AS Target, SUM(CAST(stats.reception AS INT)) AS Rec, COALESCE(SUM(stats.recYards), 0) AS RecYards, SUM(CAST(stats.isARecTouchdown AS INT)) AS RecTD," + Environment.NewLine +
+             "SUM(CAST(stats.isAtdbetween35_49 AS INT)) AS td3549, SUM(CAST(stats.isAtdOver50 AS INT)) AS td50, SUM(CAST(stats.isA2Point AS INT)) AS twoPt, SUM(CAST(stats.isAFumble AS INT)) AS Fum," + Environment.NewLine +
+             "SUM(CAST(stats.isAinterception AS INT)) AS Int, SUM(CAST(stats.isASack AS INT)) AS Sack, SUM(CAST(stats.isADefensiveTD AS INT)) AS DefTD, SUM(CAST(stats.isAFumbleRecovery AS INT)) AS FumRec," + Environment.NewLine +
+             "SUM(CAST(stats.isASafety AS INT)) AS Safety, SUM(CAST(stats.PAT AS INT)) AS PAT, SUM(CAST(stats.isAFG39 AS INT)) AS FG39, SUM(CAST(stats.isAFG49 AS INT)) AS FG49, SUM(CAST(stats.isAFG59 AS INT)) AS FG59," + Environment.NewLine +
+             "SUM(CAST(stats.isAFG60 AS INT)) AS FG60, SUM(CAST(stats.points0 AS INT)) AS points0, SUM(CAST(stats.points7 AS INT)) AS points7, SUM(CAST(stats.points20 AS INT)) AS points20, SUM(CAST(stats.points27 AS INT))" + Environment.NewLine +
+             "AS points27, SUM(CAST(stats.points34 AS INT)) AS points34, SUM(CAST(stats.points35 AS INT)) AS points35, stats.gameId, games.playoffRoundId, playerPositions.Id AS playerPositionId, players.teamId" + Environment.NewLine +
+"FROM            stats INNER JOIN" + Environment.NewLine +
+             "games ON stats.gameId = games.Id INNER JOIN" + Environment.NewLine +
+             "players ON stats.playerId = players.Id INNER JOIN" + Environment.NewLine +
+             "playerPositions ON players.playerPositionId = playerPositions.Id" + Environment.NewLine +
+"WHERE(stats.gameId = " + game_Id + ")" + Environment.NewLine +
+"GROUP BY stats.playerId, playerPositions.Id, stats.statisticalCategoryid, stats.statisticCategoryQuantity, stats.gameId, games.playoffRoundId, players.firstName, players.lastName, players.teamId" + Environment.NewLine +
+"ORDER BY stats.playerId";
+
+            var listOfBoxScoreStats = _context.Database.SqlQuery<boxScoreStat>(sqlText).ToList();
+
 
             var newModel = new StatEntryViewModel
             {
@@ -288,8 +324,10 @@ namespace FantasyFootballPlayoffs.Controllers
                 statCategories = listOfStatCategories,
                 gameId = game_Id,
                 game = currentgame,
-                gamestats = listOfStats
+                gamestats = listOfStats,
+                boxScoreStats = listOfBoxScoreStats
             };
+
             return View("statEntry", newModel);
         }
         

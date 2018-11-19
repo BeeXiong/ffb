@@ -5,7 +5,7 @@
 }
 
 
-<div class="card w-100 border-blueSummer px-3" id="Validation">
+<div class="card w-100 border-blueSummer roundedCorners px-3" id="Validation">
     <div class="row">
         <div class="card-header w-100"><h2>Create A Stat</h2></div>
         <div class="card-body">
@@ -193,16 +193,337 @@
                 <div class="col-lg-12">
                     <div class="p-3 form-inline">
                         <button class="btn-primary btn" type="submit" id="submitStat">Submit Stat</button>
-                        @Html.ActionLink("Edits Complete", "AddStats", new { gameid = @Model.gameId }, new { @class = "btn btn-primary mx-5" })
+                        @Html.ActionLink("Edits Complete", "AddStats", new { gameid = @Model.gameId }, new { @class = "btn btn-primary mx-2" })
                         @*@if (Model.gameStat != null)
-                        {
-                            <td>@Html.ActionLink("Create New Stat", "AddStats", new { gameId = Model.gameStat.gameId }, new { @class = "btn btn-primary" })</td>
-                        }*@
+                            {
+                                <td>@Html.ActionLink("Create New Stat", "AddStats", new { gameId = Model.gameStat.gameId }, new { @class = "btn btn-primary" })</td>
+                            }*@
                     </div>
-                </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+@*box score tables*@
+<div class="pt-3 my-2">
+    <h3>Box Score</h3>
+    <div class="col-12">
+        <div class="row roundedCorners" id="passing">
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamPassing">
+                <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Passing</h5>
+                <table id="homeTeamPassingTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">Comp</th>
+                            <th align="center">Att</th>
+                            <th align="center">Yards</th>
+                            <th align="center">TD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.Att > 0 && playerStatRecord.teamId == Model.game.homeTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.Comp</td>
+                                    <td align="center">@playerStatRecord.Att</td>
+                                    <td align="center">@playerStatRecord.PassingYards</td>
+                                    <td align="center">@playerStatRecord.PassTD</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamPassing">
+                <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Passing</h5>
+                <table id="awayTeamPassingTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">Comp</th>
+                            <th align="center">Att</th>
+                            <th align="center">Yards</th>
+                            <th align="center">TD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.Att > 0 && playerStatRecord.teamId == Model.game.awayTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.Comp</td>
+                                    <td align="center">@playerStatRecord.Att</td>
+                                    <td align="center">@playerStatRecord.PassingYards</td>
+                                    <td align="center">@playerStatRecord.PassTD</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row" id="rushing">
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamRush">
+                <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Rushing</h5>
+                <table id="homeTeamRushTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">Rush</th>
+                            <th align="center">Yards</th>
+                            <th align="center">TD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.Rush > 0 && playerStatRecord.teamId == Model.game.homeTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.Rush</td>
+                                    <td align="center">@playerStatRecord.RushYards</td>
+                                    <td align="center">@playerStatRecord.RushTD</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamRush">
+                <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Rushing</h5>
+                <table id="awayTeamRushTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">Rush</th>
+                            <th align="center">Yards</th>
+                            <th align="center">TD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.Rush > 0 && playerStatRecord.teamId == Model.game.awayTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.Rush</td>
+                                    <td align="center">@playerStatRecord.RushYards</td>
+                                    <td align="center">@playerStatRecord.RushTD</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row" id="receiving">
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamRec">
+                <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Receiving</h5>
+                <table id="homeTeamRecTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">Rec</th>
+                            <th align="center">Yards</th>
+                            <th align="center">TD</th>
+                            <th align="center">Tar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.Target > 0 && playerStatRecord.teamId == Model.game.homeTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.Rec</td>
+                                    <td align="center">@playerStatRecord.RecYards</td>
+                                    <td align="center">@playerStatRecord.RecTD</td>
+                                    <td align="center">@playerStatRecord.Target</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamRec">
+                <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Receiving</h5>
+                <table id="awayTeamRecTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">Rec</th>
+                            <th align="center">Yards</th>
+                            <th align="center">TD</th>
+                            <th align="center">Tar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.Target > 0 && playerStatRecord.teamId == Model.game.awayTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.Rec</td>
+                                    <td align="center">@playerStatRecord.RecYards</td>
+                                    <td align="center">@playerStatRecord.RecTD</td>
+                                    <td align="center">@playerStatRecord.Target</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row" id="Defense">
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamDef">
+                <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Defense</h5>
+                <table id="homeTeamDefTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">Td</th>
+                            <th align="center">Fum Rec</th>
+                            <th align="center">INT</th>
+                            <th align="center">Sack</th>
+                            <th align="center">Safety</th>
+                            <th align="center">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.playerPositionId == 5 && playerStatRecord.teamId == Model.game.homeTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.DefTD</td>
+                                    <td align="center">@playerStatRecord.FumRec</td>
+                                    <td align="center">@playerStatRecord.Int</td>
+                                    <td align="center">@playerStatRecord.Sack</td>
+                                    <td align="center">@playerStatRecord.Safety</td>
+                                    @*Need to figure out how to put points allowed in*@
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamDef">
+                <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Defense</h5>
+                <table id="awayTeamDefTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">Td</th>
+                            <th align="center">Fum Rec</th>
+                            <th align="center">INT</th>
+                            <th align="center">Sack</th>
+                            <th align="center">Safety</th>
+                            <th align="center">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.playerPositionId == 19 && playerStatRecord.teamId == Model.game.awayTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.PAT</td>
+                                    <td align="center">@playerStatRecord.FG39</td>
+                                    <td align="center">@playerStatRecord.FG49</td>
+                                    <td align="center">@playerStatRecord.FG59</td>
+                                    <td align="center">@playerStatRecord.FG60</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row" id="Kicking">
+            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamKicking">
+                <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Kicking</h5>
+                <table id="homeTeamKTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th align="center">Player Name</th>
+                            <th align="center">PAT</th>
+                            <th align="center">FG17-39</th>
+                            <th align="center">FG40-49</th>
+                            <th align="center">FG50-59</th>
+                            <th align="center">FG60+</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var playerStatRecord in Model.boxScoreStats)
+                        {
+                            if (playerStatRecord.playerPositionId == 19 && playerStatRecord.teamId == Model.game.homeTeamId)
+                            {
+                                <tr>
+                                    <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                    <td align="center">@playerStatRecord.PAT</td>
+                                    <td align="center">@playerStatRecord.FG39</td>
+                                    <td align="center">@playerStatRecord.FG49</td>
+                                    <td align="center">@playerStatRecord.FG59</td>
+                                    <td align="center">@playerStatRecord.FG60</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>   
+        <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamKicking">
+            <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Kicking</h5>
+            <table id="awayTeamDefTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th align="center">Player Name</th>
+                        <th align="center">PAT</th>
+                        <th align="center">FG17-39</th>
+                        <th align="center">FG40-49</th>
+                        <th align="center">FG50-59</th>
+                        <th align="center">FG60+</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var playerStatRecord in Model.boxScoreStats)
+                    {
+                        if (playerStatRecord.playerPositionId == 19 && playerStatRecord.teamId == Model.game.awayTeamId)
+                        {
+                            <tr>
+                                <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
+                                <td align="center">@playerStatRecord.PAT</td>
+                                <td align="center">@playerStatRecord.FG39</td>
+                                <td align="center">@playerStatRecord.FG49</td>
+                                <td align="center">@playerStatRecord.FG59</td>
+                                <td align="center">@playerStatRecord.FG60</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="pt-3">
@@ -220,8 +541,8 @@
                 <th align="center" id="FG">FG</th>
                 <th align="center" id="pointsAllowed">Pts Allowed</th>
                 <th align="center" id="Bonus">Bonus</th>
-                <th align="center" >Edit Stat</th>
-                <th align="center" >Delete Stat</th>
+                <th align="center">Edit Stat</th>
+                <th align="center">Delete Stat</th>
             </tr>
         </thead>
         <tbody>
@@ -230,36 +551,90 @@
                 <tr>
                     <td align="center">@stat.player.firstName @stat.player.lastName</td>
                     <td align="center">
-                        @if (@stat.passYards != null) { <p>@stat.passYards</p>} else if (@stat.rushYards != null) {<p> @stat.rushYards </p> } else if (@stat.recYards != null) {<p> @stat.recYards </p>} else { <p></p> }
+                        @if (@stat.passYards != null)
+                        { <p>@stat.passYards</p>}
+                        else if (@stat.rushYards != null)
+                        {<p> @stat.rushYards </p> }
+                        else if (@stat.recYards != null)
+                        {<p> @stat.recYards </p>}
+                        else
+                        { <p></p> }
                     </td>
                     <td align="center">
-                        @if (@stat.rushAttempt == true ) { <p>Rush</p> } else if (@stat.passAttempt == true ) { <p>Pass Att</p> } else if ( @stat.target == true ) { <p>Target</p> }
+                        @if (@stat.rushAttempt == true)
+                        { <p>Rush</p> }
+                        else if (@stat.passAttempt == true)
+                        { <p>Pass Att</p> }
+                        else if (@stat.target == true)
+                        { <p>Target</p> }
                     </td>
                     <td align="center">
-                        @if (@stat.passCompletion == true ) { <p>Comp</p> } else if (@stat.reception == true ) { <p>Rec</p> }
+                        @if (@stat.passCompletion == true)
+                        { <p>Comp</p> }
+                        else if (@stat.reception == true)
+                        { <p>Rec</p> }
                     </td>
                     <td align="center">
-                        @if (@stat.isAPassTouchdown == true) { <p>Pass TD</p>} else if (@stat.isARushTouchdown == true) {<p>Rush TD</p> } else if (@stat.isARecTouchdown == true) {<p> Rec TD </p>} else if (@stat.isADefensiveTD == true) {<p> Def TD </p>} else if (@stat.isA2Point == true) {<p> 2pt </p>} 
+                        @if (@stat.isAPassTouchdown == true)
+                        { <p>Pass TD</p>}
+                        else if (@stat.isARushTouchdown == true)
+                        {<p>Rush TD</p> }
+                        else if (@stat.isARecTouchdown == true)
+                        {<p> Rec TD </p>}
+                        else if (@stat.isADefensiveTD == true)
+                        {<p> Def TD </p>}
+                        else if (@stat.isA2Point == true)
+                        {<p> 2pt </p>}
                     </td>
                     <td align="center">
-                         @if (@stat.isAFumble == true ) { <p>Fumble</p> } else if (@stat.isAinterception == true ) { <p>Int</p> }
+                        @if (@stat.isAFumble == true)
+                        { <p>Fumble</p> }
+                        else if (@stat.isAinterception == true)
+                        { <p>Int</p> }
                     </td>
                     <td align="center">
-                         @if (@stat.isASack == true ) { <p>Sack</p> }
+                        @if (@stat.isASack == true)
+                        { <p>Sack</p> }
                     </td>
                     <td align="center">
-                         @if (@stat.isAFumbleRecovery == true ) { <p>Fum Rec</p> } else if (@stat.isAinterception == true ) { <p>Int</p> }
+                        @if (@stat.isAFumbleRecovery == true)
+                        { <p>Fum Rec</p> }
+                        else if (@stat.isAinterception == true)
+                        { <p>Int</p> }
                     </td>
                     <td align="center">
-                        @if (@stat.PAT == true) { <p>PAT</p> } else if (@stat.isAFG39 == true) { <p>FG 17-39</p> } else if (@stat.isAFG49 == true) { <p>FG 40-49</p> } else if (@stat.isAFG59 == true) { <p>FG 50-59</p> } else if (@stat.isAFG60 == true) { <p>FG 60+</p> }
+                        @if (@stat.PAT == true)
+                        { <p>PAT</p> }
+                        else if (@stat.isAFG39 == true)
+                        { <p>FG 17-39</p> }
+                        else if (@stat.isAFG49 == true)
+                        { <p>FG 40-49</p> }
+                        else if (@stat.isAFG59 == true)
+                        { <p>FG 50-59</p> }
+                        else if (@stat.isAFG60 == true)
+                        { <p>FG 60+</p> }
                     </td>
                     <td align="center">
-                        @if (@stat.points0 == true) { <p>Points Allowed - 0</p> } else if (@stat.points7 == true) { <p>Pts Allowed 1-7</p> } else if (@stat.points20 == true) { <p>Pts Allowed 8-20</p> } else if (@stat.points27 == true) { <p>Pts Allowed 21-27</p> } else if (@stat.points34 == true) { <p>Pts Allowed 28-34</p> } else if (@stat.points35 == true) { <p>Pts Allowed 35+</p> }
+                        @if (@stat.points0 == true)
+                        { <p>Points Allowed - 0</p> }
+                        else if (@stat.points7 == true)
+                        { <p>Pts Allowed 1-7</p> }
+                        else if (@stat.points20 == true)
+                        { <p>Pts Allowed 8-20</p> }
+                        else if (@stat.points27 == true)
+                        { <p>Pts Allowed 21-27</p> }
+                        else if (@stat.points34 == true)
+                        { <p>Pts Allowed 28-34</p> }
+                        else if (@stat.points35 == true)
+                        { <p>Pts Allowed 35+</p> }
                     </td>
                     <td align="center">
-                         @if (@stat.isAtdbetween35_49 == true ) { <p>TD 35-49</p> } else if (@stat.isAtdOver50 == true ) { <p>TD 50+</p> }
+                        @if (@stat.isAtdbetween35_49 == true)
+                        { <p>TD 35-49</p> }
+                        else if (@stat.isAtdOver50 == true)
+                        { <p>TD 50+</p> }
                     </td>
-                    
+
                     <td>@Html.ActionLink("Edit Stats", "editStat", new { statId = stat.Id }, new { @class = "btn btn-primary" })</td>
                     <td>@Html.ActionLink("Delete Stats", "deleteStat", new { statId = stat.Id }, new { @class = "btn btn-danger" })</td>
                 </tr>

@@ -636,6 +636,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\awayTeam.cs" />
+    <Compile Include="Models\boxScoreStat.cs" />
     <Compile Include="Models\conference.cs" />
     <Compile Include="Models\currentYear.cs" />
     <Compile Include="Models\playoffTeam.cs" />
