@@ -37,18 +37,30 @@ namespace FantasyFootballPlayoffs.Controllers
         {
             string currentUserId = User.Identity.GetUserId();
             var currentUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
+            var listOfCalendarYear = _context.calendarYears.ToList();
 
             var userLeagues = _context.fantasy_Leagues.Where(m => m.userId == currentUserId).ToList();
 
             var viewModel = new CreateLeagueViewModel
             {
                 commish = currentUser,
-                commishLeagues = userLeagues
+                commishLeagues = userLeagues,
+                calendarYears = listOfCalendarYear
             };
 
             return View(viewModel);
         }
+        public ViewResult manageLeague(int id)
+        {
+            var currentLeagueDetails = _context.fantasy_League_Details.Where(m => m.fantasy_LeagueId == id).ToList();
 
+            var leagueDetails = new CreateLeagueViewModel
+            {
+                leagueDetails = currentLeagueDetails
+            };
+
+            return View(leagueDetails);
+        }
         // POST: League/createLeagues
         [HttpPost]
         [Authorize(Roles = "User, Admin")]
@@ -58,7 +70,7 @@ namespace FantasyFootballPlayoffs.Controllers
             {
                 var newleague = new fantasy_League();
                 newleague.leagueName = submit.fantasy_League.leagueName;
-                newleague.leaguePassword = submit.fantasy_League.leaguePassword;
+                newleague.calendarYearId = submit.calendarYear.Id;
                 newleague.entryCode = submit.fantasy_League.entryCode;
                 newleague.userId = submit.commish.Id;
 
@@ -108,7 +120,7 @@ namespace FantasyFootballPlayoffs.Controllers
             {
                 fantasyPlayer = currentUser,
                 fantasy_Leagues = allLeagues,
-                userTeams = currentUserTeams
+                userTeams = currentUserTeams,
             };
 
             return View(viewModel);
@@ -117,8 +129,8 @@ namespace FantasyFootballPlayoffs.Controllers
         [Authorize(Roles = "User, Admin")]
         public ActionResult saveTeams(CreateTeamsViewModel submit)
         {
-            var dateNowYear = DateTime.Now.Year;
-            var contextDateNowYear = _context.calendarYears.SingleOrDefault(m => m.year == dateNowYear);
+            var recordOfFantasyLeague = _context.fantasy_Leagues.First(m => m.Id == submit.fantasy_League_Detail.fantasy_LeagueId);
+            var contextDateNowYear = recordOfFantasyLeague.calendarYearId;
 
             try
             {
@@ -142,7 +154,7 @@ namespace FantasyFootballPlayoffs.Controllers
                     newleague.fantasy_LeagueId = submit.fantasy_League_Detail.fantasy_LeagueId;
                     newleague.fantasy_TeamId = newTeamId;
                     newleague.userId = submit.fantasyPlayer.Id;
-                    newleague.calendarYearId = contextDateNowYear.Id;
+                    newleague.calendarYearId = recordOfFantasyLeague.calendarYearId;
 
                     _context.fantasy_League_Details.Add(newleague);
                     _context.SaveChanges();
@@ -168,17 +180,7 @@ namespace FantasyFootballPlayoffs.Controllers
             CreateTeamsViewModel submit = (CreateTeamsViewModel)TempData["submit"];
             return View(submit);
         }
-        public ViewResult manageLeague(int id)
-        {
-            var currentLeagueDetails = _context.fantasy_League_Details.Where(m => m.fantasy_LeagueId == id).ToList();
-            
-            var leagueDetails = new CreateLeagueViewModel
-            {
-                leagueDetails = currentLeagueDetails
-            };
 
-            return View(leagueDetails);
-        }
         public ActionResult deleteTeam(int id)
         {
             var selectedTeam = _context.fantasy_Teams.SingleOrDefault(m => m.Id == id);

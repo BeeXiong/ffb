@@ -242,5 +242,19 @@ namespace FantasyFootballPlayoffs.Controllers
 
             return RedirectToAction("players","Draft", new { detailsId = detailId });
         }
+
+        public ViewResult overview(int leagueId)
+        {
+            var drafted_players = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == leagueId).OrderBy(m => m.draftPickNumber).ToList();
+            var leagueDetailTeams = _context.fantasy_League_Details.Where(m => m.fantasy_LeagueId == leagueId).ToList();
+
+            PlayerDraftViewModel viewModel = new PlayerDraftViewModel
+            {
+                draftedPlayers = drafted_players,
+                fantasyDetailsTeams = leagueDetailTeams,
+            };
+            return View("overview", viewModel);
+
+        }
     }
 }

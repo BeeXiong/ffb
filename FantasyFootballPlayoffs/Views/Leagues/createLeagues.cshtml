@@ -18,10 +18,10 @@
                         @Html.HiddenFor(m => m.commish.Id)
                     </div>
                     <div class="col-lg-3 dropdown-inline p-2">
-                        @Html.LabelFor(m => m.fantasy_League.leaguePassword, htmlAttributes: new { @class = "text-blueSummer" })
-                        @Html.TextBoxFor(m => m.fantasy_League.leaguePassword, new { @class = "form-control", id = "password" })
+                        @Html.LabelFor(m => m.calendarYear, "Select Regular Season Year", htmlAttributes: new { @class = "text-blueSummer" })
+                        @Html.DropDownListFor(m => m.calendarYear.Id, new SelectList(Model.calendarYears, "Id", "year" ) ,new { @class = "form-control", id = "password" })
                     </div>
-                    <div class="col-lg-3 dropdown-inline p-2">
+                    <div class="col-lg-2 dropdown-inline p-2">
                         @Html.LabelFor(m => m.fantasy_League.entryCode, htmlAttributes: new { @class = "text-blueSummer" })
                         @Html.TextBoxFor(m => m.fantasy_League.entryCode, new { @class = "form-control", id = "entryCode" })
                     </div>

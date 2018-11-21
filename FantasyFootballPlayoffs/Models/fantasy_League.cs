@@ -18,11 +18,6 @@ namespace FantasyFootballPlayoffs.Models
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "League Password")]
-        public string leaguePassword { get; set; }
-
-        [Required]
-        [StringLength(50)]
         [Display(Name = "Entry Code")]
         public string entryCode { get; set; }
         public int amountOfTeams { get; set; }
@@ -30,5 +25,9 @@ namespace FantasyFootballPlayoffs.Models
         public string userId { get; set; }
 
         public virtual User user { get; set; }
+
+        public int calendarYearId { get; set; }
+
+        public virtual calendarYear calendarYear { get; set; }
     }
 }

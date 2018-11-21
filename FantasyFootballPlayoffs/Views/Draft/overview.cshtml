@@ -1,0 +1,38 @@
+﻿@model FantasyFootballPlayoffs.ViewModels.PlayerDraftViewModel
+@{
+    ViewBag.Title = "overview";
+}
+
+
+<div class="card w-100 border-blueSummer">
+    <div class="card-header w-100"><h2>Draft Overview - @Model.fantasyDetailsTeams.First().fantasy_League.leagueName</h2></div>
+    <div class="row">
+        <div class="card-body">
+            <h3 class="mx-4">Picks By Draft Order</h3>
+            <div class="row mx-4">
+                @foreach (var draftedPlayer in Model.draftedPlayers)
+                {
+                    <p class="draftBoard-boxes">Pick #@draftedPlayer.draftPickNumber @draftedPlayer.player.playerPosition.position - @draftedPlayer.player.firstName @draftedPlayer.player.lastName <br />@draftedPlayer.player.playoffTeam.homeTeam.location.teamLocation @draftedPlayer.player.playoffTeam.homeTeam.homeTeamName <br /> @draftedPlayer.fantasy_League_Detail.fantasy_Team.teamName @draftedPlayer.fantasy_League_Detail.fantasy_Team.nickName</p>              
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="m-2">
+    <h3>Picks By Team</h3>
+    @foreach (var team in Model.fantasyDetailsTeams)
+    {
+        int fantasyTeamOneId = team.fantasy_TeamId;
+        var playersOnFantasyTeam = Model.draftedPlayers.Where(m => m.fantasy_League_Detail.fantasy_TeamId == fantasyTeamOneId).OrderBy(m => m.fantasy_Player_SlotId).ToList();
+        <div class="dropdown-inline">
+            <h4>@team.fantasy_Team.teamName @team.fantasy_Team.nickName</h4>
+
+            @foreach (var draftedPlayer in playersOnFantasyTeam)
+            {
+                <p class="draftBoard-teams">@draftedPlayer.fantasy_Player_Slot.playerSlot - @draftedPlayer.player.firstName @draftedPlayer.player.lastName</p>
+            }
+        </div>
+
+    }
+</div>

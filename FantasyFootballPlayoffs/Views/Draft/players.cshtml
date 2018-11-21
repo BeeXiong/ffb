@@ -45,6 +45,9 @@
                             }
                         </tbody>
                     </table>
+                    <div class="mx-2 my-4">
+                        @Html.ActionLink("Selection Overview","overview","Draft", new { leagueId = Model.fantasyDetail.fantasy_LeagueId }, new { @class = "btn btn-primary", target = "_blank"})
+                    </div>
                 </div>
                 <div class="col-lg-6 dropdown-inline">
                     <h3>My Team</h3>

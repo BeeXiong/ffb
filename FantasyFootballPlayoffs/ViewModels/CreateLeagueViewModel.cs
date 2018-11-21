@@ -11,15 +11,10 @@ namespace FantasyFootballPlayoffs.ViewModels
     {
         public ICollection<fantasy_League> commishLeagues { get; set; }
         public ICollection<fantasy_League_Detail> leagueDetails { get; set; }
+        public ICollection<calendarYear> calendarYears { get; set; }
         public int Id { get; set; }
         public fantasy_League fantasy_League { get; set; }
         public User commish { get; set; }
-
-        //public string leagueName { get; set; }
-
-        //public string leaguePassword { get; set; }
-
-        //public string userId { get; set; }
-
+        public calendarYear calendarYear { get; set; }
     }
 }
