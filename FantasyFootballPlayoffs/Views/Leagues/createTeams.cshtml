@@ -61,7 +61,7 @@
                     <td>@fantasyDetail.fantasy_Team.teamName @fantasyDetail.fantasy_Team.nickName</td>
                     <td>@fantasyDetail.fantasy_League.user.UserName</td>
                     <td>@Html.ActionLink("View Scores", "view", "score", new { leagueId = fantasyDetail.fantasy_LeagueId }, new { @class = "btn btn-primary" })</td>
-                    <td>@Html.ActionLink("View Draft", "players", "draft", new { detailsId = fantasyDetail.Id }, new { @class = "btn btn-primary" })</td>
+                    <td>@Html.ActionLink("View Draft", "Players", "Draft", new { detailsId = fantasyDetail.Id }, new { @class = "btn btn-primary" })</td>
                 </tr>
             }
         </tbody>

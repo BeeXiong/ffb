@@ -24,7 +24,7 @@ namespace FantasyFootballPlayoffs.Controllers
             _context.Dispose();
         }
 
-        public ViewResult players(int detailsId)
+        public ViewResult Players(int detailsId)
         {
             var players = new List<player>();
             var playoffPlayers = new List<player>();
@@ -66,7 +66,7 @@ namespace FantasyFootballPlayoffs.Controllers
 
             return View(viewModel);
         }
-        public ActionResult draftPlayer(int Id, int detailId)
+        public ActionResult DraftPlayer(int Id, int detailId)
         {
             var currentleagueAndTeam = _context.fantasy_League_Details.SingleOrDefault(m => m.Id == detailId);
             var lastPick = new fantasy_Roster();
@@ -243,7 +243,7 @@ namespace FantasyFootballPlayoffs.Controllers
             return RedirectToAction("players","Draft", new { detailsId = detailId });
         }
 
-        public ViewResult overview(int leagueId)
+        public ViewResult Overview(int leagueId)
         {
             var drafted_players = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == leagueId).OrderBy(m => m.draftPickNumber).ToList();
             var leagueDetailTeams = _context.fantasy_League_Details.Where(m => m.fantasy_LeagueId == leagueId).ToList();

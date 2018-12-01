@@ -15,6 +15,8 @@ namespace FantasyFootballPlayoffs
         {
             ConfigureAuth(app);
             createRolesandUsers();
+            // Enables the application to use SignalR for live draft feature
+            app.MapSignalR();
         }
         private void createRolesandUsers()
         {
