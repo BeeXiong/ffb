@@ -45,15 +45,6 @@ namespace FantasyFootballPlayoffs.Controllers
                 lastPick = null;
             }
 
-            //foreach (playoffTeam team in playoffTeams)
-            //{
-            //    players = _context.players.Where(m => m.teamid == team.homeTeamId).ToList();
-            //    foreach (player player in players)
-            //    {
-            //        playoffPlayers.Add(player);
-            //    }
-            //}
-
             var viewModel = new PlayerDraftViewModel
             {
                 players = playoffPlayers,
@@ -66,7 +57,7 @@ namespace FantasyFootballPlayoffs.Controllers
 
             return View(viewModel);
         }
-        public ActionResult DraftPlayer(int Id, int detailId)
+        public void DraftPlayer(int Id, int detailId, string currentUserId)
         {
             var currentleagueAndTeam = _context.fantasy_League_Details.SingleOrDefault(m => m.Id == detailId);
             var lastPick = new fantasy_Roster();
@@ -90,7 +81,7 @@ namespace FantasyFootballPlayoffs.Controllers
                 currentPick = lastPick.draftPickNumber + 1;
             }
 
-            string currentUserId = User.Identity.GetUserId();
+            //string currentUserId = User.Identity.GetUserId();
             var rosterDetailExist = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.userId == currentUserId && m.fantasy_League_Detail.Id == detailId).ToList();
             var playerToDraft = _context.players.SingleOrDefault(m => m.Id == Id);
 
@@ -102,7 +93,7 @@ namespace FantasyFootballPlayoffs.Controllers
                 {
                     if (detail.player.playerPositionid == playerToDraft.playerPositionid)
                     {
-                        slotId++; // need to deal with position limits //increase the value of the slotId if you already have a player at that position
+                        slotId++; //increase the value of the slotId if you already have a player at that position
                     }   
                 }
 
@@ -240,7 +231,7 @@ namespace FantasyFootballPlayoffs.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("players","Draft", new { detailsId = detailId });
+            //return RedirectToAction("players","Draft", new { detailsId = detailId });
         }
 
         public ViewResult Overview(int leagueId)

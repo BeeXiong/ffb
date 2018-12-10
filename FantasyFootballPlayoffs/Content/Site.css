@@ -125,6 +125,14 @@ textarea {
     font-size:small;
 }
 
+.draftBtn{
+    margin:auto;
+}
+.draftBtnDisable {
+    opacity:.6;
+    cursor:none;
+    pointer-events: none;
+    }
 /*colors to use #FFFFFF # 2E2E2E #00FF00 #000000 #7FFF00*/
 
 /*colors to use #3256A8 # 004C00 #F0CA4D #733E20 #F53855 Alt-TCSSF-Summer */

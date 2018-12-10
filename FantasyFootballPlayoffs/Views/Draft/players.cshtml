@@ -21,6 +21,24 @@
                 $('#discussion').append('<li><strong>' + htmlEncode(name)
                     + '</strong>: ' + htmlEncode(message) + '</li>');
             };
+
+            //Create a function that the hub can call back to deactivate the button of the player who was just selected.
+            chat.client.deactivateSelectedPlayerBtn = function (elementId) {
+                $('#' + elementId).html('Drafted');
+                $('#' + elementId).removeClass('btn-primary').addClass('btn-success').addClass('draftBtnDisable');
+                $('#' + elementId).attr("disabled")
+                //use elementId + jquery to change class to btn-success and deactive button
+            }
+
+            //Create a function that the hub can call back to change the last pick information
+            chat.client.updateLastPick = function (playerName, teamName, playerPosition, pickNumber, userName){
+                $('#lastPickName').html(playerName);
+                $('#lastPickPosition').html(playerPosition);
+                $('#lastPickTeam').html(teamName);
+                $('#lastPickUserName').html(userName);
+                $('#lastPickNumber').html(pickNumber);
+            }
+
             // Set initial focus to message input box.
             $('#message').focus();
             // Start the connection.
@@ -30,6 +48,48 @@
                     chat.server.send($('#displayname').val(), $('#message').val());
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
+                });
+                $('.draftBtn').click(function () {
+
+                    //update selection button with new pick
+
+                    //get button element id
+                    var btnid = $(this).prop("id");
+                    //get hidden player id
+                    var playerId = $(this).next().val();
+                    //move to the next element and get hidden details Id
+                    var detailsHidden = $(this).next();
+                    var detailsId = detailsHidden.next().val();
+
+                    chat.server.receiveSelection(playerId, detailsId, btnid);
+
+                    //update last pick information
+
+                    //DOM traversing to get parent element (table data) and getting previous siblings 
+                    var tdElements = $(this).parent();
+                    tdElements = tdElements.prev();
+                    //gets the value of that table data
+                    var lastPickPosition = tdElements.html();
+                    tdElements = tdElements.prev();
+                    var lastPickTeam = tdElements.html();;
+                    tdElements = tdElements.prev();
+                    var lastPickName = tdElements.html();
+                    var lastPickNumber = parseInt($('#lastPickNumber').html())+1;
+
+                    chat.server.getLastPickInfo(lastPickName, lastPickTeam, lastPickPosition, lastPickNumber);
+                   
+                    //update current user team table
+                    //may have to bind data to a json object of Fantasy Roster to pass to the getUserTeamInfo function
+                    var userTeam = [];
+                    $('#teamTableInfo tr').each(function () {
+                        var row = [];
+                        $(this).find("td").each(function () {
+                            value = $(this).html();
+                            row.push(value);
+                        });
+                        userTeam.push(row)
+                    });
+                    chat.server.getUserTeamInfo(userTeam);
                 });
             });
         });
@@ -73,11 +133,11 @@
                             else
                             {
                                 <tr>
-                                    <td>@Model.lastPick.player.firstName @Model.lastPick.player.lastName</td>
-                                    <td>@Model.lastPick.player.playerPosition.position</td>
-                                    <td>@Model.lastPick.player.team.location.teamLocation @Model.lastPick.player.team.homeTeamName</td>
-                                    <td>@Model.lastPick.fantasy_League_Detail.user.UserName</td>
-                                    <td>@Model.lastPick.draftPickNumber</td>
+                                    <td id="lastPickName">@Model.lastPick.player.firstName @Model.lastPick.player.lastName</td>
+                                    <td id="lastPickPosition">@Model.lastPick.player.playerPosition.position</td>
+                                    <td id="lastPickTeam">@Model.lastPick.player.team.location.teamLocation @Model.lastPick.player.team.homeTeamName</td>
+                                    <td id="lastPickUserName">@Model.lastPick.fantasy_League_Detail.user.UserName</td>
+                                    <td id="lastPickNumber">@Model.lastPick.draftPickNumber</td>
                                 </tr>
                             }
                         </tbody>
@@ -102,6 +162,7 @@
                         </div>                 
                     </div>
                 </div>
+                @*table for user's team*@
                 <div class="col-lg-6 dropdown-inline">
                     <h3>My Team</h3>
                     <table id="myTeamTable" class="table table-responsive-md table-condensed table-hover table-striped stats">
@@ -113,8 +174,7 @@
                                 <td>Pick Number</td>
                             </tr>
                         </thead>
-                        <tbody>
-
+                        <tbody id="teamTableInfo">
                             <tr>
                                 @if (Model.currentTeam.Any(m => m.fantasy_Player_SlotId == 1) != false)
                                 {
@@ -341,7 +401,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -372,7 +431,10 @@
                                     <td>
                                         @if (Model.draftedPlayers.SingleOrDefault(m => m.playerId == player.Id) == null)
                                         {
-                                            @Html.ActionLink(" Draft ", "DraftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })
+                                            @*@Html.ActionLink(" Draft ", "DraftPlayer", "Draft", new { Id = player.Id, detailId = Model.fantasyDetail.Id }, new { @class = "btn btn-primary" })*@
+                                            <btn class="btn btn-primary draftBtn" id="@player.lastName@player.Id">Draft Player</btn>
+                                            @Html.HiddenFor(m => player.Id);
+                                            @Html.HiddenFor(m => m.fantasyDetail.Id);
                                         }
                                         else
                                         {
