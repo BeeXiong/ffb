@@ -6,16 +6,23 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using FantasyFootballPlayoffs.Controllers;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FantasyFootballPlayoffs.Hubs
 {
     [HubName("draftHub")]
     public class DraftHub : Hub
     {
-        public void Send(string name, string message)
+        public async Task AddUserToChatRoom(string roomName)
+        {
+            await Groups.Add(Context.ConnectionId, roomName);
+            Clients.Group(roomName).addNewMessageToPage("Draft HQ:   " + Context.User.Identity.Name + " has joined the Draft.");
+        }
+
+        public void Send(string name, string message, string roomName)
         {
             // Call the addNewMessageToPage method to update clients.
-            Clients.All.addNewMessageToPage(name, message);
+            Clients.Group(roomName).addNewMessageToPage(name, message);  
         }
 
         public void ReceiveSelection(int playerId, int detailsId, string btnId, string lastPickName, string lastPickTeam, string lastPickPosition, int lastPickNumber, List<string[]> currentTeam)
