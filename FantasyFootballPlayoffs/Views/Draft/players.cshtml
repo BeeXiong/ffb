@@ -15,6 +15,7 @@
         $(function () {
             // Reference the auto-generated proxy for the hub.
             var chat = $.connection.draftHub;
+
             // Create a function that the hub can call back to display messages.
             chat.client.addNewMessageToPage = function (name, message) {
                 // Add the message to the page.
@@ -24,10 +25,10 @@
 
             //Create a function that the hub can call back to deactivate the button of the player who was just selected.
             chat.client.deactivateSelectedPlayerBtn = function (elementId) {
+                //use elementId + jquery to change class to btn-success and deactive button
                 $('#' + elementId).html('Drafted');
                 $('#' + elementId).removeClass('btn-primary').addClass('btn-success').addClass('draftBtnDisable');
                 $('#' + elementId).attr("disabled")
-                //use elementId + jquery to change class to btn-success and deactive button
             }
 
             //Create a function that the hub can call back to change the last pick information
@@ -37,6 +38,20 @@
                 $('#lastPickTeam').html(teamName);
                 $('#lastPickUserName').html(userName);
                 $('#lastPickNumber').html(pickNumber);
+            }
+
+            //Create a function that the hub can call back to update the user's team table
+            chat.client.updateTeamTable = function (userTeam) {
+                //remove old team table and create new table body
+                $('#teamTableInfo').remove();
+                $('#myTeamTable').append('<tbody id=teamTableInfo></tbody');
+
+                //loop through and create rows with array
+                for (var i = 0; i < userTeam.length; i++)
+                {
+                    var currentRow = userTeam[i];
+                    $('#teamTableInfo').append('<tr><td>' + currentRow[0] + '</td><td>' + currentRow[1] + '</td><td>' + currentRow[2] + '</td><td>' + currentRow[3] + '</td></tr>');
+                }
             }
 
             // Set initial focus to message input box.
@@ -51,7 +66,7 @@
                 });
                 $('.draftBtn').click(function () {
 
-                    //update selection button with new pick
+                    //update selection button with new pick, update last pick information, update current user team table  
 
                     //get button element id
                     var btnid = $(this).prop("id");
@@ -60,10 +75,6 @@
                     //move to the next element and get hidden details Id
                     var detailsHidden = $(this).next();
                     var detailsId = detailsHidden.next().val();
-
-                    chat.server.receiveSelection(playerId, detailsId, btnid);
-
-                    //update last pick information
 
                     //DOM traversing to get parent element (table data) and getting previous siblings 
                     var tdElements = $(this).parent();
@@ -74,12 +85,9 @@
                     var lastPickTeam = tdElements.html();;
                     tdElements = tdElements.prev();
                     var lastPickName = tdElements.html();
-                    var lastPickNumber = parseInt($('#lastPickNumber').html())+1;
+                    var lastPickNumber = parseInt($('#lastPickNumber').html()) + 1;
 
-                    chat.server.getLastPickInfo(lastPickName, lastPickTeam, lastPickPosition, lastPickNumber);
-                   
-                    //update current user team table
-                    //may have to bind data to a json object of Fantasy Roster to pass to the getUserTeamInfo function
+                    //create list of arrays from the team table to pass to function
                     var userTeam = [];
                     $('#teamTableInfo tr').each(function () {
                         var row = [];
@@ -89,7 +97,8 @@
                         });
                         userTeam.push(row)
                     });
-                    chat.server.getUserTeamInfo(userTeam);
+
+                    chat.server.receiveSelection(playerId, detailsId, btnid, lastPickName, lastPickTeam, lastPickPosition, lastPickNumber, userTeam);
                 });
             });
         });
@@ -109,39 +118,42 @@
             <div class="row">
                 <div class="col-lg-6 dropdown-inline">
                     <h3>Last Player Taken</h3>
-                    <table id="lastPaperTaken" class="table table-responsive-md table-condensed table-hover table-striped stats">
-                        <thead>
-                            <tr>
-                                <td>Player Name</td>
-                                <td>Position</td>
-                                <td>Team</td>
-                                <td>Drafted By</td>
-                                <td>Pick Number</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.lastPick == null)
-                            {
+                    <div>
+                        <table id="lastPaperTaken" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                            <thead>
                                 <tr>
-                                    <td>No Player Has Been Selected</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>Player Name</td>
+                                    <td>Position</td>
+                                    <td>Team</td>
+                                    <td>Drafted By</td>
+                                    <td>Pick Number</td>
                                 </tr>
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td id="lastPickName">@Model.lastPick.player.firstName @Model.lastPick.player.lastName</td>
-                                    <td id="lastPickPosition">@Model.lastPick.player.playerPosition.position</td>
-                                    <td id="lastPickTeam">@Model.lastPick.player.team.location.teamLocation @Model.lastPick.player.team.homeTeamName</td>
-                                    <td id="lastPickUserName">@Model.lastPick.fantasy_League_Detail.user.UserName</td>
-                                    <td id="lastPickNumber">@Model.lastPick.draftPickNumber</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if (Model.lastPick == null)
+                                {
+                                    <tr>
+                                        <td>No Player Has Been Selected</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td id="lastPickName">@Model.lastPick.player.firstName @Model.lastPick.player.lastName</td>
+                                        <td id="lastPickPosition">@Model.lastPick.player.playerPosition.position</td>
+                                        <td id="lastPickTeam">@Model.lastPick.player.team.location.teamLocation @Model.lastPick.player.team.homeTeamName</td>
+                                        <td id="lastPickUserName">@Model.lastPick.fantasy_League_Detail.user.UserName</td>
+                                        <td id="lastPickNumber">@Model.lastPick.draftPickNumber</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
 
                     @*overview button*@
                     <div class="mx-2 my-4">
@@ -189,6 +201,8 @@
                                 {
                                     <td>QB1</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -205,6 +219,8 @@
                                 {
                                     <td>QB2</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -221,6 +237,8 @@
                                 {
                                     <td>RB1</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -237,6 +255,8 @@
                                 {
                                     <td>RB2</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -269,6 +289,8 @@
                                 {
                                     <td>WR2</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -285,6 +307,8 @@
                                 {
                                     <td>WR3</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -301,6 +325,8 @@
                                 {
                                     <td>WR4</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -317,6 +343,8 @@
                                 {
                                     <td>TE1</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -333,6 +361,8 @@
                                 {
                                     <td>TE2</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -349,6 +379,8 @@
                                 {
                                     <td>D1</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             <tr>
                                 @if (Model.currentTeam.Any(m => m.fantasy_Player_SlotId == 12) != false)
@@ -364,6 +396,8 @@
                                 {
                                     <td>D2</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             <tr>
                                 @if (Model.currentTeam.Any(m => m.fantasy_Player_SlotId == 13) != false)
@@ -379,6 +413,8 @@
                                 {
                                     <td>K1</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                             <tr>
@@ -395,6 +431,8 @@
                                 {
                                     <td>K2</td>
                                     <td>No Player Selected</td>
+                                    <td></td>
+                                    <td></td>
                                 }
                             </tr>
                         </tbody>
