@@ -81,7 +81,6 @@ namespace FantasyFootballPlayoffs.Controllers
                 currentPick = lastPick.draftPickNumber + 1;
             }
 
-            //string currentUserId = User.Identity.GetUserId();
             var rosterDetailExist = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.userId == currentUserId && m.fantasy_League_Detail.Id == detailId).ToList();
             var playerToDraft = _context.players.SingleOrDefault(m => m.Id == Id);
 
@@ -230,9 +229,7 @@ namespace FantasyFootballPlayoffs.Controllers
                 _context.fantasy_Rosters.Add(draftedPlayer);
                 _context.SaveChanges();
             }
-
             //return RedirectToAction("players","Draft", new { detailsId = detailId });
-
 
             //return slotPosition; if slot position == something other than -1 I know the function completed and i can update a hidden field 
             //If it equals -1 I can send a message saying the pick was not completed.

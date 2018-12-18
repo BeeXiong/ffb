@@ -4,7 +4,6 @@ using FantasyFootballPlayoffs.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 
-
 [assembly: OwinStartupAttribute(typeof(FantasyFootballPlayoffs.Startup))]
 namespace FantasyFootballPlayoffs
 {
@@ -15,6 +14,7 @@ namespace FantasyFootballPlayoffs
         {
             ConfigureAuth(app);
             createRolesandUsers();
+
             // Enables the application to use SignalR for live draft feature
             app.MapSignalR();
         }

@@ -25,41 +25,50 @@ namespace FantasyFootballPlayoffs.Hubs
             Clients.Group(roomName).addNewMessageToPage(name, message);  
         }
 
-        public void ReceiveSelection(int playerId, int detailsId, string btnId, string lastPickName, string lastPickTeam, string lastPickPosition, int lastPickNumber, List<string[]> currentTeam)
+        public void ReceiveSelection(int playerId, int detailsId, string btnId, string lastPickName, string lastPickTeam, string lastPickPosition, int lastPickNumber, List<string[]> currentTeam, string roomName)
         {
+
             DraftController controller = new DraftController();
 
             string currentUserId = GetUserId();
+            string currentUserName = GetUserName();
+            string name = "Draft HQ";
             //controller calls draft function which returns player position or -1. 
             //That return value used to determine if the page gets updated.
             int slotPosition = controller.DraftPlayer(playerId, detailsId, currentUserId);
 
             if(slotPosition == -1)
             {
-                string name;
+                // Call the method to update chat with message stating pick was not completed
                 string message;
-
-                name = "Draft HQ";
-                message = "Incorrect Select Made. No Player Was Selected";
-                Clients.All.addNewMessageToPage(name, message);
+                message = string.Format("Incorrect Select Made {0}. No Player Was Selected", currentUserName);
+                Clients.Group(roomName).addNewMessageToPage(name, message);
             }
             else
             {
-                GetLastPickInfo(lastPickName, lastPickTeam, lastPickPosition, lastPickNumber);
-                GetUserTeamInfo(currentTeam, slotPosition, lastPickName, lastPickTeam, lastPickNumber);
+                // Call the method to update last pick information
+                GetLastPickInfo(lastPickName, lastPickTeam, lastPickPosition, lastPickNumber, roomName);
+                // Call the method to update User's Team
+                GetUserTeamInfo(currentTeam, slotPosition, lastPickName, lastPickTeam, lastPickNumber, currentUserName, detailsId);
 
                 // Call the method to deactive player who was selected
-                Clients.All.deactivateSelectedPlayerBtn(btnId);
+                Clients.Group(roomName).deactivateSelectedPlayerBtn(btnId);
+
+                // Call the method to update chat with player selection
+                string message;
+                message = string.Format("{0} has selected {1}", currentUserName, lastPickName);
+
+                Clients.Group(roomName).addNewMessageToPage(name, message);
             }
         }
 
-        private void GetLastPickInfo(string lastPickName, string lastPickTeam, string lastPickPosition, int lastPickNumber)
+        private void GetLastPickInfo(string lastPickName, string lastPickTeam, string lastPickPosition, int lastPickNumber, string roomName)
         {
             string userName = GetUserName();
-            Clients.All.updateLastPick(lastPickName, lastPickTeam, lastPickPosition, lastPickNumber, userName);
+            Clients.Group(roomName).updateLastPick(lastPickName, lastPickTeam, lastPickPosition, lastPickNumber, userName);
         }
 
-        private void GetUserTeamInfo(List<string[]> currentTeam, int slotPosition, string lastPickName, string lastPickTeam, int lastPickNumber)
+        private void GetUserTeamInfo(List<string[]> currentTeam, int slotPosition, string lastPickName, string lastPickTeam, int lastPickNumber, string userId, int detailsId)
         {
             //array position 0 = slot position 1 QB1
             //array position 1 = slot position 2 qb2
@@ -143,7 +152,7 @@ namespace FantasyFootballPlayoffs.Hubs
             int playerLocationInArray = slotPosition - 1;
             currentTeam[playerLocationInArray] = draftPickInfo;
 
-            Clients.All.updateTeamTable(currentTeam);
+            Clients.User(userId).updateTeamTable(currentTeam, detailsId);
         }
         private string GetUserId()
         {
