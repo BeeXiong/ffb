@@ -2,10 +2,21 @@
     padding-top: 50px;
     padding-bottom: 30px;
     margin:30px;
+    background-color: #F2F2F2;
 }
+
+ section {
+     display:inline-block;
+     margin:20px;
+     padding:20px;
+ }
+
 /*text*/
-h1, h2, h3, h4, h5, h6{
+h1, h3, h4, h5, h6{
     color: #F0CA4D ;
+}
+h2{
+    color:#FFFFFF;
 }
 td, th, tr{
     color: #3256A8;
@@ -84,14 +95,12 @@ textarea {
 .bg-blueSummer{
     background-color: #3256A8 !important;
 }
-.border-blueSummer {
-  border-color: #3256A8 !important;
-}
+
 .bg-brownSummer{
     background-color: #733E20 !important;
 }
-.bg-smoke{
-    background-color: #F5F5F5;
+.bg-white{
+    background-color: #FFFFFF;
 }
 .border-brownSummer {
   border-color: #733E20 !important;
@@ -122,6 +131,7 @@ textarea {
     margin:5px;
     padding:5px;
     width: 175px;
+    height:400px;
     font-size:small;
 }
 
@@ -133,6 +143,33 @@ textarea {
     cursor:none;
     pointer-events: none;
     }
+
+.my-boxes{
+    margin:5px;
+    background-color:#FFFFFF;
+    padding:10px;
+    width: 400px;
+    border-radius:10px;
+    font-size:small;
+}
+.my-home-boxes{
+    margin:12px;
+    background-color:#FFFFFF;
+    padding:10px;
+    width: 450px;
+    border-radius:10px;
+}
+
+.card-header-green {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #004C00;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-top-left-radius:15px;
+  border-top-right-radius:15px;
+}
+
+
 /*colors to use #FFFFFF # 2E2E2E #00FF00 #000000 #7FFF00*/
 
 /*colors to use #3256A8 # 004C00 #F0CA4D #733E20 #F53855 Alt-TCSSF-Summer */
@@ -150,5 +187,7 @@ textarea {
         padding-bottom: 40px;
         margin:0px;
     }
-
+    .table.stats td{
+    font-size:xx-small;
+}
 }

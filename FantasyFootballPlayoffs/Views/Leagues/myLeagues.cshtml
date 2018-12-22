@@ -1,0 +1,69 @@
+﻿@model FantasyFootballPlayoffs.ViewModels.CreateLeagueViewModel
+@{
+    ViewBag.Title = "myLeagues";
+}
+
+<div class="row">
+    <section>
+        <h3>List of Leagues</h3>
+        <div id="listOfLeagues">
+        @if (Model.leagueDetails != null)
+            {
+                var userId = Model.commish.Id;
+                foreach (var leagueDetail in Model.leagueDetails)
+                {
+                    if (leagueDetail.userId == userId)
+                    {
+                            <div class="my-3 my-boxes">
+                                <p>@leagueDetail.fantasy_League.leagueName</p>
+                                <p>@leagueDetail.fantasy_Team.teamName @leagueDetail.fantasy_Team.nickName</p>
+                            </div>
+                        }
+                    }
+                }
+        </div>
+    </section>
+
+
+
+    <section>
+           
+
+        <h3>Teams In League</h3>
+        @if (Model.commishLeagues != null)
+        {
+            foreach (var league in Model.leagueDetails)
+            {
+                <div class="my-boxes">
+                    <p>@league.fantasy_League.leagueName </p>
+                    @foreach (var team in Model.otherTeamDetails)
+                    {
+                    if (team.fantasy_LeagueId == league.fantasy_League.Id)
+                    {
+                    <p>@team.fantasy_Team.teamName @team.fantasy_Team.nickName</p>
+                    }
+
+                    }
+                </div>
+
+            }
+        }
+
+
+    </section>
+
+    <section>
+        <h5>See Previous Years</h5>
+        @using (@Html.BeginForm("myLeagues", "Leagues", FormMethod.Post, htmlAttributes: new { @class = "w-100" }))
+            {
+            @Html.DropDownListFor(m => m.calendarYear.Id, new SelectList(Model.calendarYears, "Id", "year"), "--Select Year--", new { @class = "form-control", @id = "yearToSubmit" })
+            <div class="col-lg-3 pt-5">
+                <button class="btn-primary btn" type="submit">Submit</button>
+            </div>
+        }
+    </section>
+
+
+
+
+</div>    

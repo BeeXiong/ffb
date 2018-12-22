@@ -899,6 +899,8 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Stats\AddPlayers.cshtml" />
     <Content Include="Views\Draft\Overview.cshtml" />
+    <Content Include="Views\Leagues\myLeagues.cshtml" />
+    <Content Include="Views\Leagues\myteams.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

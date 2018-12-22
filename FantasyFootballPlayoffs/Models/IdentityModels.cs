@@ -48,17 +48,17 @@ namespace FantasyFootballPlayoffs.Models
         public virtual DbSet<currentYear> currentYears { get; set; }
         public virtual DbSet<calendarYear> calendarYears { get; set; }
         //development environment using local DB
-        //public FantasyDbContext()
-        //    : base("FantasyDatabase", throwIfV1Schema: false)
-        //{
-        //}
+        public FantasyDbContext()
+            : base("FantasyDatabase", throwIfV1Schema: false)
+        {
+        }
 
         //Remote DB environments for Production and Development
-        public FantasyDbContext()
-            : base(GetRDSConnectionString(), throwIfV1Schema: false)
-        {
+        //public FantasyDbContext()
+        //    : base(GetRDSConnectionString(), throwIfV1Schema: false)
+        //{
 
-        }
+        //}
 
         public static FantasyDbContext Create()
         {

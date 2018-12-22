@@ -5,9 +5,9 @@
 }
 
 
-<div class="card w-100 border-blueSummer roundedCorners px-3" id="Validation">
+<div class="card w-100 roundedCorners px-3" id="Validation">
     <div class="row">
-        <div class="card-header w-100"><h2>Create A Stat</h2></div>
+        <div class="card-header-green w-100"><h2>Create A Stat</h2></div>
         <div class="card-body">
             <h3>Enter Stat</h3>
             <div class="row">
@@ -210,7 +210,7 @@
     <h3>Box Score</h3>
     <div class="col-12">
         <div class="row roundedCorners" id="passing">
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamPassing">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="homeTeamPassing">
                 <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Passing</h5>
                 <table id="homeTeamPassingTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -239,7 +239,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamPassing">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="awayTeamPassing">
                 <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Passing</h5>
                 <table id="awayTeamPassingTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -272,7 +272,7 @@
     </div>
     <div class="col-12">
         <div class="row" id="rushing">
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamRush">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="homeTeamRush">
                 <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Rushing</h5>
                 <table id="homeTeamRushTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -299,7 +299,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamRush">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="awayTeamRush">
                 <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Rushing</h5>
                 <table id="awayTeamRushTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -330,7 +330,7 @@
     </div>
     <div class="col-12">
         <div class="row" id="receiving">
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamRec">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="homeTeamRec">
                 <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Receiving</h5>
                 <table id="homeTeamRecTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -359,7 +359,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamRec">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="awayTeamRec">
                 <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Receiving</h5>
                 <table id="awayTeamRecTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -392,7 +392,7 @@
     </div>
     <div class="col-12">
         <div class="row" id="Defense">
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamDef">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="homeTeamDef">
                 <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Defense</h5>
                 <table id="homeTeamDefTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -425,7 +425,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamDef">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="awayTeamDef">
                 <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Defense</h5>
                 <table id="awayTeamDefTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -461,7 +461,7 @@
     </div>
     <div class="col-12">
         <div class="row" id="Kicking">
-            <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="homeTeamKicking">
+            <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="homeTeamKicking">
                 <h5 class="my-2">@Model.game.homeTeam.location.teamLocation @Model.game.homeTeam.homeTeamName Kicking</h5>
                 <table id="homeTeamKTable" class="table table-responsive-md table-condensed table-hover table-striped">
                     <thead>
@@ -492,7 +492,7 @@
                     </tbody>
                 </table>
             </div>   
-        <div class="col-lg-5 my-2 mx-4 bg-smoke roundedCorners" id="awayTeamKicking">
+        <div class="col-lg-5 my-2 mx-4 bg-white roundedCorners" id="awayTeamKicking">
             <h5 class="my-2">@Model.game.awayTeam.location.teamLocation @Model.game.awayTeam.awayTeamName Kicking</h5>
             <table id="awayTeamDefTable" class="table table-responsive-md table-condensed table-hover table-striped">
                 <thead>

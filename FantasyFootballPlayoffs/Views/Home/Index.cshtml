@@ -10,21 +10,21 @@
 </div>
 
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Create Leagues</h2>
+<div class="row mx-auto">
+    <div class="dropdown-inline my-home-boxes p-3">
+        <h3>Create Leagues</h3>
         <p class="text-blueSummer">
             Continue the fantasy experience after the season is done by creating leagues for the post season. Leagues consist of 6 teams fighting it out for post season supremacy.
         </p>
         <p>@Html.ActionLink("Manage Leagues", "createLeagues", "Leagues", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg" })</p>
     </div>
-    <div class="col-md-4">
-        <h2>Manage Teams</h2>
+    <div class="dropdown-inline my-home-boxes p-3">
+        <h3>Manage Teams</h3>
         <p class="text-blueSummer">Create your team and select from the pool of postseason players. Draft players and accumulate points with players and see which team is left standing. </p>
         <p>@Html.ActionLink("View Teams", "createTeams", "Leagues", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg" })</p>
     </div>
-    <div class="col-md-4">
-        <h2>View Team Scores</h2>
+    <div class="dropdown-inline my-home-boxes p-3">
+        <h3>View Team Scores</h3>
         <p class="text-blueSummer">View real time scoring to bring a new level of intrigue to the postseason.</p>
     </div>
 </div>

@@ -11,6 +11,7 @@ namespace FantasyFootballPlayoffs.ViewModels
     {
         public ICollection<fantasy_League> commishLeagues { get; set; }
         public ICollection<fantasy_League_Detail> leagueDetails { get; set; }
+        public ICollection<fantasy_League_Detail> otherTeamDetails { get; set; }
         public ICollection<calendarYear> calendarYears { get; set; }
         public int Id { get; set; }
         public fantasy_League fantasy_League { get; set; }
