@@ -19,20 +19,230 @@
     </div>
 </div>
 
-<div class="m-2">
+
     <h3>Picks By Team</h3>
     @foreach (var team in Model.fantasyDetailsTeams)
     {
         int fantasyTeamOneId = team.fantasy_TeamId;
         var playersOnFantasyTeam = Model.draftedPlayers.Where(m => m.fantasy_League_Detail.fantasy_TeamId == fantasyTeamOneId).OrderBy(m => m.fantasy_Player_SlotId).ToList();
-        <div class="dropdown-inline">
-            <h4>@team.fantasy_Team.teamName @team.fantasy_Team.nickName</h4>
+        <div class="pick-tables mx-auto dropdown-inline">
+            <h4 class="text-md-center">@team.fantasy_Team.teamName @team.fantasy_Team.nickName</h4>
+            <table id="myTeamTable" class="table table-responsive-md table-condensed n table-hover table-striped">
+                <thead>
+                    <tr>
+                        <td>Slot</td>
+                        <td>Player Name</td>
+                    </tr>
+                </thead>
+                <tbody id="teamTableInfo">
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 1) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 1);
 
-            @foreach (var draftedPlayer in playersOnFantasyTeam)
-            {
-                <p class="draftBoard-teams">@draftedPlayer.fantasy_Player_Slot.playerSlot - @draftedPlayer.player.firstName @draftedPlayer.player.lastName</p>
-            }
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>QB1</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 2) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 2);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>QB2</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 3) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 3);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>RB1</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 4) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 4);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>RB2</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 5) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 5);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>WR1</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 6) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 6);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>WR2</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 7) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 7);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>WR3</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 8) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 8);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>WR4</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 9) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 9);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>TE1</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 10) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 10);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>TE2</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 11) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 11);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>D1</td>
+                            <td>              </td>
+                        }
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 12) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 12);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>D2</td>
+                            <td>              </td>
+                        }
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 13) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 13);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>K1</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (playersOnFantasyTeam.Any(m => m.fantasy_Player_SlotId == 14) != false)
+                {
+                    var player = playersOnFantasyTeam.Where(m => m.fantasy_Player_SlotId == 14);
+
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                        }
+                        else
+                        {
+                            <td>K2</td>
+                            <td>              </td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
+
+
+
+
+
+
     }
-</div>
+
+
+
+
+
+

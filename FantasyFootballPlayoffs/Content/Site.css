@@ -8,7 +8,11 @@
  section {
      display:inline-block;
      margin:20px;
-     padding:20px;
+     padding:5px;
+ }
+
+ .league-Section{
+     width:870px;
  }
 
 /*text*/
@@ -18,13 +22,22 @@ h1, h3, h4, h5, h6{
 h2{
     color:#FFFFFF;
 }
+.header-size-3{
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color:#F0CA4D
+
+}
+
+
 td, th, tr{
     color: #3256A8;
 }
 p.reversed-Text{
     color: #ffffff;
 }
-p.field-Text{
+.field-Text{
     font-size: 1.25rem;
     font-weight:bolder;
 }
@@ -34,6 +47,11 @@ p.field-Text{
 
 .table.stats td{
     font-size:small;
+}
+
+.pick-tables{
+    margin:5px;
+    padding:5px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -99,11 +117,18 @@ textarea {
 .bg-brownSummer{
     background-color: #733E20 !important;
 }
+
 .bg-white{
     background-color: #FFFFFF;
 }
 .border-brownSummer {
-  border-color: #733E20 !important;
+    border-color: #733E20 !important;
+}
+
+.border-bottom-leagues {
+    border-bottom-style: solid;
+    border-color: #b0c0e8;
+    border-width:thin;
 }
 
 .padding{
@@ -131,7 +156,6 @@ textarea {
     margin:5px;
     padding:5px;
     width: 175px;
-    height:400px;
     font-size:small;
 }
 
@@ -148,7 +172,7 @@ textarea {
     margin:5px;
     background-color:#FFFFFF;
     padding:10px;
-    width: 400px;
+    width: 405px;
     border-radius:10px;
     font-size:small;
 }
@@ -187,7 +211,22 @@ textarea {
         padding-bottom: 40px;
         margin:0px;
     }
-    .table.stats td{
+
+    .table.stats td {
     font-size:xx-small;
+    }
+
+    .league-Section {
+     width:300px;
+    }
+
+    .my-boxes{
+    margin:5px;
+    background-color:#FFFFFF;
+    padding:10px;
+    width: 305px;
+    border-radius:10px;
+    font-size:small;
 }
+
 }

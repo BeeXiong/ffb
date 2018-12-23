@@ -129,7 +129,8 @@ namespace FantasyFootballPlayoffs.Controllers
                 leagueDetails = leagueDetails,
                 commishLeagues = userLeagues,
                 otherTeamDetails = otherTeams,
-                calendarYears = years
+                calendarYears = years,
+                calendarYear = contextDateNowYear
             };
 
             return View(viewModel);
@@ -156,7 +157,8 @@ namespace FantasyFootballPlayoffs.Controllers
                 leagueDetails = leagueDetails,
                 commishLeagues = userLeagues,
                 otherTeamDetails = otherTeams,
-                calendarYears = years
+                calendarYears = years,
+                calendarYear = contextDateNowYear
             };
 
             return View(viewModel);
@@ -258,16 +260,73 @@ namespace FantasyFootballPlayoffs.Controllers
 
             return RedirectToAction("manageLeague", "Leagues", new { id = leagueid });
         }
+
+        [Authorize(Roles = "User, Admin")]
         public ViewResult myTeams()
         {
-            CreateTeamsViewModel viewModel = new CreateTeamsViewModel()
-            {
+            //get current years fantasy details (league and teams)
+            var dateNowYear = DateTime.Now.Year;
+            var years = _context.calendarYears.Where(m => m.year <= dateNowYear).ToList();
+            var contextDateNowYear = _context.calendarYears.SingleOrDefault(m => m.year == dateNowYear);
 
+            //get leagues and teams for user
+            string currentUserId = User.Identity.GetUserId();
+            var currentUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
+            var userLeagues = _context.fantasy_Leagues.Where(m => m.userId == currentUserId).Where(m => m.calendarYearId == contextDateNowYear.Id).ToList();
+            var leagueDetails = _context.fantasy_League_Details.Where(m => m.userId == currentUserId).Where(m => m.calendarYearId == contextDateNowYear.Id).ToList();
+
+            CreateLeagueViewModel viewModel = new CreateLeagueViewModel
+            {
+                commish = currentUser,
+                leagueDetails = leagueDetails,
+                commishLeagues = userLeagues,
+                calendarYears = years,
+                calendarYear = contextDateNowYear
             };
 
-            return View(viewModel); 
+            return View(viewModel);
         }
 
+
+        [HttpPost]
+        [Authorize(Roles = "User, Admin")]
+        public ViewResult myTeams(CreateLeagueViewModel model)
+        {
+            //get current years fantasy details (league and teams)
+            var dateNowYear = DateTime.Now.Year;
+            var years = _context.calendarYears.Where(m => m.year <= dateNowYear).ToList();
+            var contextDateNowYear = _context.calendarYears.SingleOrDefault(m => m.Id == model.calendarYear.Id);
+
+            //get leagues and teams for user
+            string currentUserId = User.Identity.GetUserId();
+            var currentUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
+            var userLeagues = _context.fantasy_Leagues.Where(m => m.userId == currentUserId).Where(m => m.calendarYearId == model.calendarYear.Id).ToList();
+            var leagueDetails = _context.fantasy_League_Details.Where(m => m.userId == currentUserId).Where(m => m.calendarYearId == model.calendarYear.Id).ToList();
+
+            CreateLeagueViewModel viewModel = new CreateLeagueViewModel
+            {
+                commish = currentUser,
+                leagueDetails = leagueDetails,
+                commishLeagues = userLeagues,
+                calendarYears = years,
+                calendarYear = contextDateNowYear
+            };
+
+            return View(viewModel);
+        }
+        public ViewResult team(int detailsId)
+        {
+            var teamDetail = _context.fantasy_League_Details.SingleOrDefault(m => m.Id == detailsId);
+            var fantasyRoster = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.Id == detailsId).ToList();
+
+            TeamViewModel viewModel = new TeamViewModel()
+            {
+                teamRoster = fantasyRoster,
+                teamDetail = teamDetail
+            };
+
+            return View(viewModel);
+        }
 
 
     }

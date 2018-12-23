@@ -23,7 +23,7 @@ namespace FantasyFootballPlayoffs.Controllers
         {
             _context.Dispose();
         }
-
+        [Authorize(Roles = "User, Admin")]
         public ViewResult Players(int detailsId)
         {
             var players = new List<player>();

@@ -1,7 +1,46 @@
-﻿
+﻿@model FantasyFootballPlayoffs.ViewModels.CreateLeagueViewModel
 @{
-    ViewBag.Title = "myteams";
+    ViewBag.Title = "myLeagues";
 }
 
-<h2>myteams</h2>
+<div class="row mx-auto">
+    <section class="league-Section">
+        <h1>@Model.calendarYear.year Teams</h1>
+        <div id="listOfLeagues">
+            @if (Model.leagueDetails != null)
+            {
+                var userId = Model.commish.Id;
+                foreach (var leagueDetail in Model.leagueDetails)
+                {
+                    if (leagueDetail.userId == userId)
+                    {
+                        <div class="mx-3 my-boxes my-3">                  
+                            <div class="border-bottom-leagues mb-3 mx-3">
+                                @Html.ActionLink(@leagueDetail.fantasy_League.leagueName, "view", "Score", new { leagueId = leagueDetail.fantasy_LeagueId }, new { @class = "header-size-3 dropdown-inline" })
+                            </div>
+                           
+                            <div class="mx-3">
+                                @Html.ActionLink(@leagueDetail.fantasy_Team.teamName + ' ' + @leagueDetail.fantasy_Team.nickName, "team", "Leagues", new { detailsId = leagueDetail.Id }, new { @class = "text-blueSummer field-Text mx-4" })
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </section>
 
+    <section class="pt-5">
+        <h5>See Previous Years</h5>
+        @using (@Html.BeginForm("myTeams", "Leagues", FormMethod.Post, htmlAttributes: new { @class = "w-100" }))
+            {
+            @Html.DropDownListFor(m => m.calendarYear.Id, new SelectList(Model.calendarYears, "Id", "year"), "--Select Year--", new { @class = "form-control", @id = "yearToSubmit" })
+            <div class="col-lg-3 pt-3">
+                <button class="btn-primary btn" type="submit">Submit</button>
+            </div>
+        }
+    </section>
+
+
+
+
+</div>    

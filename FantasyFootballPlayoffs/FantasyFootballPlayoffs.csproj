@@ -773,6 +773,7 @@
     <Compile Include="ViewModels\PlayerDraftViewModel.cs" />
     <Compile Include="ViewModels\ScoreViewModel.cs" />
     <Compile Include="ViewModels\StatEntryViewModel.cs" />
+    <Compile Include="ViewModels\TeamViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -900,7 +901,8 @@
     <Content Include="Views\Stats\AddPlayers.cshtml" />
     <Content Include="Views\Draft\Overview.cshtml" />
     <Content Include="Views\Leagues\myLeagues.cshtml" />
-    <Content Include="Views\Leagues\myteams.cshtml" />
+    <Content Include="Views\Leagues\myTeams.cshtml" />
+    <Content Include="Views\Leagues\team.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
