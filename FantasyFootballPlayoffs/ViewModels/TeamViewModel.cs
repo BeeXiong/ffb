@@ -11,5 +11,7 @@ namespace FantasyFootballPlayoffs.ViewModels
         public ICollection<fantasy_Roster> teamRoster { get; set; }
 
         public fantasy_League_Detail teamDetail { get; set; }
+
+        public ICollection<roundPoints> points { get; set; }
     }
 }

@@ -3,282 +3,384 @@
     ViewBag.Title = "team";
 }
 
-<section>
-
-
 <h1>@Model.teamDetail.fantasy_Team.teamName @Model.teamDetail.fantasy_Team.nickName</h1>
 <h4>Team Owner: @Model.teamDetail.user.UserName</h4>
+<div class="row mx-auto">
+    <section class="league-Section">
+        <div class="col-lg dropdown-inline my-boxes">
+            <table id="myTeamTable" class="table table-responsive-md table-condensed table-hover table-striped">
+                <thead>
+                    <tr>
+                        <td>Slot</td>
+                        <td>Player Name</td>
+                        <td>Team</td>
+                        <td>Pick</td>
+                    </tr>
+                </thead>
+                <tbody id="teamTableInfo">
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 1) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 1);
 
-@*@foreach(var player in Model.teamRoster)
-{
-    <div>
-        @player.fantasy_Player_Slot @player.player.firstName @player.player.lastName 
-    </div>
-}*@
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>QB1</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 2) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 2);
 
-@*table for user's team*@
-<div class="col-lg dropdown-inline">
-    <table id="myTeamTable" class="table table-responsive-md table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <td>Slot</td>
-                <td>Player Name</td>
-                <td>Team</td>
-                <td>Pick</td>
-            </tr>
-        </thead>
-        <tbody id="teamTableInfo">
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 1) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 1);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>QB2</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 3) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 3);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>QB1</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 2) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 2);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>RB1</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 4) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 4);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>QB2</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 3) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 3);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>RB2</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 5) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 5);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>RB1</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 4) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 4);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>WR1</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 6) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 6);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>RB2</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 5) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 5);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>WR2</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 7) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 7);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>WR1</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 6) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 6);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>WR3</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 8) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 8);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>WR2</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 7) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 7);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>WR4</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 9) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 9);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>WR3</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 8) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 8);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>TE1</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 10) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 10);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>WR4</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 9) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 9);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>TE2</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 11) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 11);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>TE1</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 10) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 10);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>D1</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 12) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 12);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>TE2</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 11) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 11);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>D2</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 13) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 13);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>D1</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 12) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 12);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>K1</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 14) != false)
+                        {
+                            var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 14);
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>D2</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 13) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 13);
+                            <td>@player.First().fantasy_Player_Slot.playerSlot</td>
+                            <td>@player.First().player.firstName @player.First().player.lastName</td>
+                                        <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
+                                        <td>@player.First().draftPickNumber</td>
+                        }
+                        else
+                        {
+                            <td>K2</td>
+                            <td>No Player Selected</td>
+                                        <td></td>
+                                        <td></td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>K1</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-            <tr>
-                @if (Model.teamRoster.Any(m => m.fantasy_Player_SlotId == 14) != false)
-                {
-                    var player = Model.teamRoster.Where(m => m.fantasy_Player_SlotId == 14);
+    <section class="score-Section">
+        <div class="row bg-white roundedCorners">
+            @if (Model.teamDetail != null)
+            {
+                var teamRoster = @Model.teamRoster.OrderBy(m => m.fantasy_Player_SlotId);
+                decimal? totalPoints = 0;
+                <div class="col-lg py-2">
+                    <h5>Team Score</h5>
+                    <table id="myRosterTable" class="table table-responsive-md table-condensed table-hover table-striped stats">
+                        <thead>
+                            <tr>
+                                <td>Slot</td>
+                                <td>Player Name</td>
+                                <td>Wild Card</td>
+                                <td>Divisonal</td>
+                                <td>Conference</td>
+                                <td>Super Bowl</td>
+                                <td>Total</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rosterSpot in teamRoster)
+                            {
+                                var playerStats = Model.points.Where(m => m.playerId == rosterSpot.playerId).OrderBy(m => m.playoffRoundId).ToList();
+                                decimal? totalPlayerPoints = 0;
+                                if (playerStats.Any(m => m.playoffRoundId == 1) == true)
+                                {
+                                    totalPlayerPoints = totalPlayerPoints + @playerStats.Find(m => m.playoffRoundId == 1).playerPoints;
+                                }
+                                if (playerStats.Any(m => m.playoffRoundId == 2) == true)
+                                {
+                                    totalPlayerPoints = totalPlayerPoints + @playerStats.Find(m => m.playoffRoundId == 2).playerPoints;
+                                }
+                                if (playerStats.Any(m => m.playoffRoundId == 3) == true)
+                                {
+                                    totalPlayerPoints = totalPlayerPoints + @playerStats.Find(m => m.playoffRoundId == 3).playerPoints;
+                                }
+                                if (playerStats.Any(m => m.playoffRoundId == 4) == true)
+                                {
+                                    totalPlayerPoints = totalPlayerPoints + @playerStats.Find(m => m.playoffRoundId == 4).playerPoints;
+                                }
+                                totalPoints = totalPoints + totalPlayerPoints;
+                                <tr>
+                                    <td>@rosterSpot.fantasy_Player_Slot.playerSlot</td>
+                                    <td>@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
+                                    @if (playerStats.Any(m => m.playoffRoundId == 1) == true)
+                                    {
+                                        <td>@playerStats.Find(m => m.playoffRoundId == 1).playerPoints</td>
 
-                    <td>@player.First().fantasy_Player_Slot.playerSlot</td>
-                                    <td>@player.First().player.firstName @player.First().player.lastName</td>
-                                    <td>@player.First().player.team.location.teamLocation @player.First().player.team.homeTeamName</td>
-                                    <td>@player.First().draftPickNumber</td>
-                }
-                else
-                {
-                    <td>K2</td>
-                                    <td>No Player Selected</td>
-                                    <td></td>
-                                    <td></td>
-                }
-            </tr>
-        </tbody>
-    </table>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    @if (playerStats.Any(m => m.playoffRoundId == 2) == true)
+                                    {
+                                        <td>@playerStats.Find(m => m.playoffRoundId == 2).playerPoints</td>
+
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    @if (playerStats.Any(m => m.playoffRoundId == 3) == true)
+                                    {
+                                        <td>@playerStats.Find(m => m.playoffRoundId == 3).playerPoints</td>
+
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    @if (playerStats.Any(m => m.playoffRoundId == 4) == true)
+                                    {
+                                        <td>@playerStats.Find(m => m.playoffRoundId == 4).playerPoints</td>
+
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    <td>@totalPlayerPoints</td>
+                                </tr>
+
+                            }
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Total:</td>
+                                <td>@totalPoints</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+        </div>
+    </section>
+    <section>
+        <div>
+            <h3>See Draft Results</h3>
+            @Html.ActionLink("Draft Results", "Overview", "Draft", new { leagueId = Model.teamDetail.fantasy_LeagueId }, new { @class = "btn btn-primary mx-2", target = "_blank" })
+        </div>
+
+
+    </section>
+
 </div>
-</section>

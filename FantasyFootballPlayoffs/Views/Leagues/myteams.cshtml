@@ -4,9 +4,9 @@
 }
 
 <div class="row mx-auto">
-    <section class="league-Section">
+    <section class="team-Section">
         <h1>@Model.calendarYear.year Teams</h1>
-        <div id="listOfLeagues">
+        <div id="listOfteams">
             @if (Model.leagueDetails != null)
             {
                 var userId = Model.commish.Id;
@@ -14,13 +14,17 @@
                 {
                     if (leagueDetail.userId == userId)
                     {
-                        <div class="mx-3 my-boxes my-3">                  
-                            <div class="border-bottom-leagues mb-3 mx-3">
+                        <div class="mx-3 my-boxes my-3 dropdown-inline">                  
+                            <div class="border-bottom-leagues mb-3 mx-3" data-toggle="tooltip" data-placement="top" title="View Scores">
                                 @Html.ActionLink(@leagueDetail.fantasy_League.leagueName, "view", "Score", new { leagueId = leagueDetail.fantasy_LeagueId }, new { @class = "header-size-3 dropdown-inline" })
                             </div>
-                           
                             <div class="mx-3">
-                                @Html.ActionLink(@leagueDetail.fantasy_Team.teamName + ' ' + @leagueDetail.fantasy_Team.nickName, "team", "Leagues", new { detailsId = leagueDetail.Id }, new { @class = "text-blueSummer field-Text mx-4" })
+                                <div class="dropdown-inline data-toggle="tooltip" data-placement="top" title="View Team">
+                                    @Html.ActionLink(@leagueDetail.fantasy_Team.teamName + ' ' + @leagueDetail.fantasy_Team.nickName, "team", "Leagues", new { detailsId = leagueDetail.Id }, new { @class = "text-blueSummer field-Text mx-4" })
+                                </div>
+                                <div class="dropdown-inline float-right">
+                                    @Html.ActionLink("Enter Draft", "Players", "Draft", new { detailsId = leagueDetail.Id }, new { @class = "btn btn-primary btn-sm" })
+                                </div>      
                             </div>
                         </div>
                     }

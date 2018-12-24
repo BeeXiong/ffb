@@ -12,8 +12,35 @@
  }
 
  .league-Section{
-     width:870px;
+     width:400px;
  }
+ .team-Section{
+     width:900px;
+ }
+ .score-Section{
+    width:500px;
+  }
+
+.my-boxes{
+    margin:5px;
+    background-color:#FFFFFF;
+    padding:10px;
+    width: 405px;
+    border-radius:10px;
+    font-size:small;
+}
+.my-home-boxes{
+    margin:12px;
+    background-color:#FFFFFF;
+    padding:10px;
+    width: 450px;
+    border-radius:10px;
+}
+
+.pick-tables{
+    margin:5px;
+    padding:5px;
+}
 
 /*text*/
 h1, h3, h4, h5, h6{
@@ -49,10 +76,7 @@ p.reversed-Text{
     font-size:small;
 }
 
-.pick-tables{
-    margin:5px;
-    padding:5px;
-}
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -168,22 +192,6 @@ textarea {
     pointer-events: none;
     }
 
-.my-boxes{
-    margin:5px;
-    background-color:#FFFFFF;
-    padding:10px;
-    width: 405px;
-    border-radius:10px;
-    font-size:small;
-}
-.my-home-boxes{
-    margin:12px;
-    background-color:#FFFFFF;
-    padding:10px;
-    width: 450px;
-    border-radius:10px;
-}
-
 .card-header-green {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
@@ -192,7 +200,6 @@ textarea {
   border-top-left-radius:15px;
   border-top-right-radius:15px;
 }
-
 
 /*colors to use #FFFFFF # 2E2E2E #00FF00 #000000 #7FFF00*/
 
@@ -217,16 +224,26 @@ textarea {
     }
 
     .league-Section {
-     width:300px;
+     width:350px;
     }
-
+    .score-Section {
+     width:380px;
+    }
     .my-boxes{
     margin:5px;
     background-color:#FFFFFF;
     padding:10px;
-    width: 305px;
+    width: 330px;
     border-radius:10px;
     font-size:small;
-}
+    }
+    
+    .pick-tables{
+        margin-left:55px;
+        margin-right:55px;
+        padding-left:55px;
+        width:400px;
+    }
+
 
 }
