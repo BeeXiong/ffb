@@ -28,7 +28,7 @@
 
             //Create a function that the hub can call back to update the user's team table
             chat.client.updateTeamTable = function (userTeam, detailsId) {
-                if (detailsId === $('#FantasyLeagueDetail').val()) {
+                if (detailsId === parseInt($('#FantasyLeagueDetail').val())) {
                     //remove old team table and create new table body
                     $('#teamTableInfo').remove();
                     $('#myTeamTable').append('<tbody id=teamTableInfo></tbody');
@@ -39,7 +39,11 @@
                         $('#teamTableInfo').append('<tr><td>' + currentRow[0] + '</td><td>' + currentRow[1] + '</td><td>' + currentRow[2] + '</td><td>' + currentRow[3] + '</td></tr>');
                     }
                 }
-
+            };
+            //Create a function that the hub can call back to update the draft order
+            chat.client.updateDraftOrder = function () {
+                //when pick is made removes first element of draftboard
+                $('#draftBoard').children().first().remove();
             };
 
             // Set initial focus to message input box.

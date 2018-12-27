@@ -183,6 +183,18 @@ textarea {
     font-size:small;
 }
 
+.draftBoard-Order{
+    padding-left:50px;
+    width:1350px;
+    height:100px;
+    overflow-x:auto;
+    overflow-y:hidden;
+}
+.draftBoard-selection{
+    width:100px;
+    height:100px;
+}
+
 .draftBtn{
     margin:auto;
 }
@@ -190,7 +202,7 @@ textarea {
     opacity:.6;
     cursor:none;
     pointer-events: none;
-    }
+}
 
 .card-header-green {
   padding: 0.75rem 1.25rem;

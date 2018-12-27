@@ -85,6 +85,22 @@
 
 <div class="card w-100">
     <div class="card-header-green w-100"><h2>Live Draft - </h2> <h2 id="leagueName">@Model.fantasyDetail.fantasy_League.leagueName</h2></div>
+    
+    @*draft order*@
+    <div class="row draftBoard-Order mx-5" id="draftBoard">
+        @foreach(var pickSelection in Model.leagueDraftOrder)
+        {
+            <div class="dropdown-inline draftBoard-selection mx-1">
+                <p>@pickSelection.pickPosition</p>
+            </div>
+        }
+
+    </div>
+
+
+
+
+
     <div>
         @Html.HiddenFor(m => m.fantasyDetail.Id, new { @Id = "FantasyLeagueDetail" })
         <div class="card-body">
