@@ -3,10 +3,88 @@
     ViewBag.Title = "Players";
 }
 
+<div class="modal" id="rules" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">League Rules</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="my-2">
+                    <p class="field-Text">Passing Stats:</p>
+                    <div class="mx-3">
+                        <div>4 points for passing TDs</div>
+                        <div>1 point for every 25 PaYds (+ fractional pts)</div>
+                        <div>Plus addt'l 2 points for 300+ yards passing</div>
+                        <div>Plus 1 pt for td pass 35-49 yards</div>
+                        <div>Plus 2 pts for td pass 50 yards+</div>
+                        <div>2 points for passing two-point conversions</div>
+                        <div>Minus 2 points for passing interceptions</div>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <p class="field-Text">Rushing Stats:</p>
+                    <div class="mx-3">
+                        <div>6 points for rushing TDs</div>
+                        <div>1 point for every 10 rushing yards (+ fractional pts)</div>
+                        <div>Plus 2 pts for 100 yards rushing</div>
+                        <div>Plus 3 pts for 200 yards+ rushing </div>
+                        <div>Plus 1 pt for rush td of 35-49 yards</div>
+                        <div>Plus 2 pts for rush td of 50 yards+</div>
+                        <div>2 points for rushing two-point conversions</div>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <p class="field-Text">Receiving Stats:</p>
+                    <div class="mx-3">
+                        <div>6 points for receiving TDs</div>
+                        <div>1 point for every 10 receiving yards (+ fractional pts)</div>
+                        <div>Plus 2 pts for 100 yards receiving</div>
+                        <div>Plus 3 pts for 200 yards+ receiving</div>
+                        <div>Plus 1 pt for rec td of 35-49 yards</div>
+                        <div>Plus 2 pts for rec td of 50 yards+</div>
+                        <div>Plus .5 pts for each catch</div>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <p class="field-Text">Defensive Stats:</p>
+                    <div class="mx-3">
+                        <div>6 points for defensive & special teams TDs</div>
+                        <div>2 points for defensive & special teams fumbles recovered</div>
+                        <div>2 points for each interception</div>
+                        <div>1 point for each sack</div>
+                        <div>2 points for each safety</div>
+                        <div>10 points for 0 points against</div>
+                        <div>7 points for 1-7 points against</div>
+                        <div>3 points for 8-20 points against</div>
+                        <div>1 point for 21-27 points against</div>
+                        <div>0 points for 28-34 points against</div>
+                        <div>Minus 5 points for 35+ points against</div>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <p class="field-Text">Kicking Stats:</p>
+                    <div class="mx-3">
+                        <div>3 points for Field Goals</div>
+                        <div>1 point for Extra Points</div>
+                        <div>Plus 1 points for a FG of 40 to 49 Yds</div>
+                        <div>Plus 2 points for a FG of 50 to 59 Yds</div>
+                        <div>Plus 5 points for a FG of 60+ Yds</div>
+                    </div>
+                </div>  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-<div class="card w-100 border-blueSummer">
-    <div class="card-header w-100"><h2>Live Draft - </h2> <h2 id="leagueName">@Model.fantasyDetail.fantasy_League.leagueName</h2></div>
+<div class="card w-100">
+    <div class="card-header-green w-100"><h2>Live Draft - </h2> <h2 id="leagueName">@Model.fantasyDetail.fantasy_League.leagueName</h2></div>
     <div>
         @Html.HiddenFor(m => m.fantasyDetail.Id, new { @Id = "FantasyLeagueDetail" })
         <div class="card-body">
@@ -50,7 +128,8 @@
 
                     @*overview button*@
                     <div class="mx-2 my-4">
-                        @Html.ActionLink("Selection Overview","Overview","Draft", new { leagueId = Model.fantasyDetail.fantasy_LeagueId }, new { @class = "btn btn-primary", target = "_blank"})
+                        @Html.ActionLink("Selection Overview","Overview","Draft", new { leagueId = Model.fantasyDetail.fantasy_LeagueId }, new { @class = "btn btn-primary mx-2", target = "_blank"})
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#rules">See Scoring Rules</button>
                     </div>
 
                     @*chat container*@

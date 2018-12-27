@@ -4,12 +4,10 @@
 }
 
 
-<div class="card w-100 border-blueSummer roundedCorners px-3">
-    <div class="row">
-        <div class="card-header w-100"><h2>Scores</h2></div>
-    </div>
+<div class="row card-header-green">
+        <h2>Scores</h2>
 </div>
-<div class="row py-3">
+<div class="row py-3 bg-white">
     @foreach (var team in Model.leagueTeams)
             {
                 var teamRoster = @Model.leagueRosters.Where(m => m.fantasy_League_Detail.fantasy_TeamId == team.fantasy_TeamId).OrderBy(m => m.fantasy_Player_SlotId);
@@ -21,8 +19,6 @@
                     <tr>
                         <td>Slot</td>
                         <td>Player Name</td>
-                        @*<td>Team</td>
-                        <td>Pick Number</td>*@
                         <td>Wild Card</td>
                         <td>Divisonal</td>
                         <td>Conference</td>
@@ -55,8 +51,6 @@
                         <tr>
                             <td>@rosterSpot.fantasy_Player_Slot.playerSlot</td>
                             <td>@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
-                            @*<td>@rosterSpot.player.team.location.teamLocation @rosterSpot.player.team.homeTeamName</td>
-                            <td>@rosterSpot.draftPickNumber</td>*@
                             @if (playerStats.Any(m => m.playoffRoundId == 1) == true)
                             {
                                 <td>@playerStats.Find(m => m.playoffRoundId == 1).playerPoints</td>
@@ -102,8 +96,6 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        @*<td></td>
-                        <td></td>*@
                         <td></td>
                         <td>Total:</td>
                         <td>@totalPoints</td>
