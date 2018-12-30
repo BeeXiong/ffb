@@ -47,6 +47,7 @@ namespace FantasyFootballPlayoffs.Models
         public virtual DbSet<conference> conferences { get; set; }
         public virtual DbSet<currentYear> currentYears { get; set; }
         public virtual DbSet<calendarYear> calendarYears { get; set; }
+        public virtual DbSet<draftPosition> draftPositions { get; set; }
         //development environment using local DB
         public FantasyDbContext()
             : base("FantasyDatabase", throwIfV1Schema: false)

@@ -24,7 +24,7 @@ namespace FantasyFootballPlayoffs.ViewModels
 
         public ICollection<fantasy_League_Detail> fantasyDetailsTeams { get; set; }
 
-        public ICollection<draftOrder> leagueDraftOrder { get; set; }
+        public ICollection<draftPosition> leagueDraftOrder { get; set; }
 
         public fantasy_League_Detail fantasyDetail { get; set; }
         

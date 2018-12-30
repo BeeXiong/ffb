@@ -648,12 +648,16 @@
     <Compile Include="Migrations\201811210428596_calendarYear FK added to league table.Designer.cs">
       <DependentUpon>201811210428596_calendarYear FK added to league table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812270725454_draft Positions table added.cs" />
+    <Compile Include="Migrations\201812270725454_draft Positions table added.Designer.cs">
+      <DependentUpon>201812270725454_draft Positions table added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\awayTeam.cs" />
     <Compile Include="Models\boxScoreStat.cs" />
     <Compile Include="Models\conference.cs" />
     <Compile Include="Models\currentYear.cs" />
-    <Compile Include="Models\draftOrder.cs" />
+    <Compile Include="Models\draftPosition.cs" />
     <Compile Include="Models\playoffTeam.cs" />
     <Compile Include="Models\fantasy_League_Detail.cs" />
     <Compile Include="Models\fantasy_Player_Slot.cs" />
@@ -1222,6 +1226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811210428596_calendarYear FK added to league table.resx">
       <DependentUpon>201811210428596_calendarYear FK added to league table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812270725454_draft Positions table added.resx">
+      <DependentUpon>201812270725454_draft Positions table added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

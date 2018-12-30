@@ -61,7 +61,7 @@ namespace FantasyFootballPlayoffs.Hubs
                 Clients.Group(roomName).addNewMessageToPage(name, message);
 
                 // Call the method to update draft board by removing person who made last pick
-                Clients.Group(roomName).updateDraftBoard();
+                Clients.Group(roomName).updateDraftOrder();
             }
         }
 
@@ -184,7 +184,22 @@ namespace FantasyFootballPlayoffs.Hubs
             string name = Context.User.Identity.Name;
             return name;
         }
+        
+        public void DetermineDraftOrder(int leagueTeamsCount, int leagueId, string roomName)
+        {
+            if(leagueTeamsCount == 6)
+            {
+                DraftController controller = new DraftController();
 
+                controller.CreateDraftOrder(leagueId);
+
+                Clients.Group(roomName).reloadForDraftOrder();
+            }
+            else
+            {
+                Clients.Group(roomName).addNewMessageToPage("Draft HQ:   League is currently not full. Draft can't be started until league is full.");
+            }
+        }
 
     }
 }
