@@ -59,7 +59,7 @@
             $.connection.hub.disconnected(function () {
                 setTimeout(function () {
                     console.log('Connection disconnected');
-                    startHub(chat)
+                    $.connection.hub.start();
                 }, 5000); // Restart connection after 5 seconds.
             });
 
