@@ -5,7 +5,7 @@
             // Create a function that the hub can call back to display messages.
             chat.client.addNewMessageToPage = function (name, message) {
                 // Add the message to the page.
-                $('#discussion').append('<li><strong>' + htmlEncode(name)
+                $('#discussion').prepend('<li><strong>' + htmlEncode(name)
                     + '</strong> ' + htmlEncode(message) + '</li>');
             };
 
@@ -110,6 +110,7 @@
                         //do nothing because incorrect user tried to make selection
                     }
                 });
+
                 $('#draftOrderBtn').click(function () {
                     var leagueId = parseInt($('#FantasyLeagueId').val());
                     var leagueCount = parseInt($('#FantasyLeagueCount').val());
