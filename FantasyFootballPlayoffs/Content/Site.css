@@ -57,7 +57,6 @@ h2{
 
 }
 
-
 td, th, tr{
     color: #3256A8;
 }
@@ -76,8 +75,12 @@ p.reversed-Text{
     font-size:small;
 }
 
-
-
+.draftBoard-TeamName{
+    font-size:small;
+}
+.draftBoard-userName{
+    font-size:xx-small;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 20px;
@@ -134,8 +137,9 @@ textarea {
 }
 
 /*Card with site colors*/
-.bg-blueSummer{
-    background-color: #3256A8 !important;
+.bg-draftBoard{
+    background-color: #F2F2F2 !important;
+    border-radius:15px;
 }
 
 .bg-brownSummer{
@@ -152,6 +156,10 @@ textarea {
 .border-bottom-leagues {
     border-bottom-style: solid;
     border-color: #b0c0e8;
+    border-width:thin;
+}
+.border-draftBoard {
+    border-left-style: solid;
     border-width:thin;
 }
 
@@ -183,6 +191,18 @@ textarea {
     font-size:small;
 }
 
+.draftBoard-Order{
+    margin-left:30px;
+    width:92%;
+    height:100px;
+    overflow-x:auto;
+    overflow-y:hidden;
+}
+.draftBoard-selection{
+    width:100px;
+    height:100px;
+}
+
 .draftBtn{
     margin:auto;
 }
@@ -190,7 +210,7 @@ textarea {
     opacity:.6;
     cursor:none;
     pointer-events: none;
-    }
+}
 
 .card-header-green {
   padding: 0.75rem 1.25rem;
@@ -245,5 +265,11 @@ textarea {
         width:400px;
     }
 
-
+    .draftBoard-Order{
+    margin-left:10px;
+    width:85%;
+    height:100px;
+    overflow-x:auto;
+    overflow-y:hidden;
+}
 }

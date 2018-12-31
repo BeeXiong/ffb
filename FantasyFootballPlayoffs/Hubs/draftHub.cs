@@ -27,7 +27,6 @@ namespace FantasyFootballPlayoffs.Hubs
 
         public void ReceiveSelection(int playerId, int detailsId, string btnId, string lastPickName, string lastPickTeam, string lastPickPosition, int lastPickNumber, List<string[]> currentTeam, string roomName)
         {
-
             DraftController controller = new DraftController();
 
             string currentUserId = GetUserId();
@@ -57,8 +56,12 @@ namespace FantasyFootballPlayoffs.Hubs
                 // Call the method to update chat with player selection
                 string message;
                 message = string.Format("{0} has selected {1}", currentUserName, lastPickName);
-
+                
+                // Call the method to update chat with message
                 Clients.Group(roomName).addNewMessageToPage(name, message);
+
+                // Call the method to update draft board by removing person who made last pick
+                Clients.Group(roomName).updateDraftOrder();
             }
         }
 
@@ -181,7 +184,22 @@ namespace FantasyFootballPlayoffs.Hubs
             string name = Context.User.Identity.Name;
             return name;
         }
+        
+        public void DetermineDraftOrder(int leagueTeamsCount, int leagueId, string roomName)
+        {
+            if(leagueTeamsCount == 6)
+            {
+                DraftController controller = new DraftController();
 
+                controller.CreateDraftOrder(leagueId);
+
+                Clients.Group(roomName).reloadForDraftOrder();
+            }
+            else
+            {
+                Clients.Group(roomName).addNewMessageToPage("Draft HQ:   League is currently not full. Draft can't be started until league is full.");
+            }
+        }
 
     }
 }

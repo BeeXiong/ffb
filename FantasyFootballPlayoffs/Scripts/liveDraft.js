@@ -28,7 +28,7 @@
 
             //Create a function that the hub can call back to update the user's team table
             chat.client.updateTeamTable = function (userTeam, detailsId) {
-                if (detailsId === $('#FantasyLeagueDetail').val()) {
+                if (detailsId === parseInt($('#FantasyLeagueDetail').val())) {
                     //remove old team table and create new table body
                     $('#teamTableInfo').remove();
                     $('#myTeamTable').append('<tbody id=teamTableInfo></tbody');
@@ -39,7 +39,15 @@
                         $('#teamTableInfo').append('<tr><td>' + currentRow[0] + '</td><td>' + currentRow[1] + '</td><td>' + currentRow[2] + '</td><td>' + currentRow[3] + '</td></tr>');
                     }
                 }
+            };
+            //Create a function that the hub can call back to update the draft order
+            chat.client.updateDraftOrder = function () {
+                //when pick is made removes first element of draftboard
+                $('#draftBoard').children().first().remove();
+            };
 
+            chat.client.reloadForDraftOrder = function () {
+                location.reload();
             };
 
             // Set initial focus to message input box.
@@ -59,40 +67,55 @@
 
                 //draft player using interface
                 $('.draftBtn').click(function () {
+                    //Validate that it's user's turn to make selection
+                    var clientUserName = $('#displayname').val();
+                    var userToPickNext = $('#draftBoard').children().first().children().last().text(); // last Grand Child Element to find user name
+                    if (clientUserName === userToPickNext) {
 
-                    //update selection button with new pick, update last pick information, update current user team table
+                        //update selection button with new pick, update last pick information, update current user team table
 
-                    //get button element id
-                    var btnid = $(this).prop("id");
-                    //get hidden player id
-                    var playerId = $(this).next().val();
-                    //move to the next element and get hidden details Id
-                    var detailsHidden = $(this).next();
-                    var detailsId = detailsHidden.next().val();
+                        //get button element id
+                        var btnid = $(this).prop("id");
+                        //get hidden player id
+                        var playerId = $(this).next().val();
+                        //move to the next element and get hidden details Id
+                        var detailsHidden = $(this).next();
+                        var detailsId = detailsHidden.next().val();
 
-                    //DOM traversing to get parent element (table data) and getting previous siblings
-                    var tdElements = $(this).parent();
-                    tdElements = tdElements.prev();
-                    //gets the value of that table data
-                    var lastPickPosition = tdElements.html();
-                    tdElements = tdElements.prev();
-                    var lastPickTeam = tdElements.html();
-                    tdElements = tdElements.prev();
-                    var lastPickName = tdElements.html();
-                    var lastPickNumber = parseInt($('#lastPickNumber').html()) + 1;
+                        //DOM traversing to get parent element (table data) and getting previous siblings
+                        var tdElements = $(this).parent();
+                        tdElements = tdElements.prev();
+                        //gets the value of that table data
+                        var lastPickPosition = tdElements.html();
+                        tdElements = tdElements.prev();
+                        var lastPickTeam = tdElements.html();
+                        tdElements = tdElements.prev();
+                        var lastPickName = tdElements.html();
+                        var lastPickNumber = parseInt($('#lastPickNumber').html()) + 1;
 
-                    //create list of arrays from the team table to pass to function
-                    var userTeam = [];
-                    $('#teamTableInfo tr').each(function () {
-                        var row = [];
-                        $(this).find("td").each(function () {
-                            value = $(this).html();
-                            row.push(value);
+                        //create list of arrays from the team table to pass to function
+                        var userTeam = [];
+                        $('#teamTableInfo tr').each(function () {
+                            var row = [];
+                            $(this).find("td").each(function () {
+                                value = $(this).html();
+                                row.push(value);
+                            });
+                            userTeam.push(row);
                         });
-                        userTeam.push(row);
-                    });
 
-                    chat.server.receiveSelection(playerId, detailsId, btnid, lastPickName, lastPickTeam, lastPickPosition, lastPickNumber, userTeam, leagueName);
+                        chat.server.receiveSelection(playerId, detailsId, btnid, lastPickName, lastPickTeam, lastPickPosition, lastPickNumber, userTeam, leagueName);
+                    }
+                    else {
+                        //do nothing because incorrect user tried to make selection
+                    }
+                });
+                $('#draftOrderBtn').click(function () {
+                    var leagueId = parseInt($('#FantasyLeagueId').val());
+                    var leagueCount = parseInt($('#FantasyLeagueCount').val());
+                    var roomName = $('#leagueName').html();
+
+                    chat.server.determineDraftOrder(leagueCount, leagueId, roomName)
                 });
             });
         });

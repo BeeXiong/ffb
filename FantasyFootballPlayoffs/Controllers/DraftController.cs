@@ -30,10 +30,12 @@ namespace FantasyFootballPlayoffs.Controllers
             var playoffPlayers = new List<player>();
             var currentFantasyDetail = _context.fantasy_League_Details.SingleOrDefault(m => m.Id == detailsId);
             string currentUserId = User.Identity.GetUserId();
-            var playoffTeams = _context.playoffTeams.Where(m => m.calendarYearId == currentFantasyDetail.calendarYearId).ToList();//in the future i may need to orderbydescending
+            var playoffTeams = _context.playoffTeams.Where(m => m.calendarYearId == currentFantasyDetail.calendarYearId).ToList();
             playoffPlayers = _context.players.Where(m => m.calendarYearId == currentFantasyDetail.calendarYearId).ToList();
             var draftedPlayers = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == currentFantasyDetail.fantasy_LeagueId).ToList();
             var currentDraftedTeam = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.Id == detailsId).Where(m => m.fantasy_League_Detail.userId == currentUserId).OrderByDescending(m => m.fantasy_Player_SlotId).ToList();
+            var leagueDetailTeams = _context.fantasy_League_Details.Where(m => m.fantasy_LeagueId == currentFantasyDetail.fantasy_LeagueId).ToList();
+
             var lastPick = new fantasy_Roster();
 
             try
@@ -44,6 +46,29 @@ namespace FantasyFootballPlayoffs.Controllers
             {
                 lastPick = null;
             }
+            //draft order
+            List<draftPosition> leagueDraftOrder = _context.draftPositions.Where(m => m.detail.fantasy_LeagueId == currentFantasyDetail.fantasy_LeagueId).ToList();
+            List<draftPosition> completeOrder = new List<draftPosition>();
+
+            if (leagueDraftOrder.Count == 6)
+            {
+                List<draftPosition> ascendingOrder = leagueDraftOrder.OrderBy(m => m.draftPositionNumber).ToList();
+                List<draftPosition> desendingOrder = leagueDraftOrder.OrderByDescending(m => m.draftPositionNumber).ToList();
+
+                do
+                {
+                    completeOrder = addPickDetailAscending(ascendingOrder, completeOrder);
+                    completeOrder = addPickDetailDescending(desendingOrder, completeOrder);
+                }
+                while (completeOrder.Count <= 83);
+                if (lastPick != null)
+                {
+                    for (int i = 1; i <= lastPick.draftPickNumber; i++)
+                    {
+                        completeOrder.RemoveAt(0);
+                    }
+                }
+            }
 
             var viewModel = new PlayerDraftViewModel
             {
@@ -52,11 +77,32 @@ namespace FantasyFootballPlayoffs.Controllers
                 fantasyDetail = currentFantasyDetail,
                 draftedPlayers = draftedPlayers,
                 currentTeam = currentDraftedTeam,
-                lastPick = lastPick
+                lastPick = lastPick,
+                leagueDraftOrder = completeOrder,
+                fantasyDetailsTeams = leagueDetailTeams,
             };
 
             return View(viewModel);
         }
+
+        //draft order
+        public List<draftPosition> addPickDetailAscending(List<draftPosition> ascendingOrder, List<draftPosition> completeOrder)
+        {
+            for (int i = 0; i < ascendingOrder.Count; i++)
+            {
+                completeOrder.Add(ascendingOrder[i]);
+            }
+            return completeOrder;
+        }
+        public List<draftPosition> addPickDetailDescending(List<draftPosition> descendingOrder, List<draftPosition> completeOrder)
+        {
+            for (int i = 0; i < descendingOrder.Count; i++)
+            {
+                completeOrder.Add(descendingOrder[i]);
+            }
+            return completeOrder;
+        }
+
         public int DraftPlayer(int Id, int detailId, string currentUserId)
         {
             var currentleagueAndTeam = _context.fantasy_League_Details.SingleOrDefault(m => m.Id == detailId);
@@ -247,6 +293,49 @@ namespace FantasyFootballPlayoffs.Controllers
                 fantasyDetailsTeams = leagueDetailTeams,
             };
             return View("overview", viewModel);
+
+        }
+        //determine draft order
+        public void CreateDraftOrder(int leagueId)
+        {
+            var teamDetails = _context.fantasy_League_Details.Where(m => m.fantasy_LeagueId == leagueId).ToList();
+            int counter = 1;
+
+            List<draftPosition> randomizedOrder = RandomizeDraftOrder(teamDetails);
+            
+            foreach(var draftspot in randomizedOrder)
+            {
+                var draftSpotToAdd = new draftPosition();
+                draftSpotToAdd.detailId = draftspot.detailId;
+                draftSpotToAdd.draftPositionNumber = counter;
+                counter = counter + 1;
+
+                _context.draftPositions.Add(draftSpotToAdd);
+                _context.SaveChanges();
+            }
+        }
+
+        public List<draftPosition> RandomizeDraftOrder(List<fantasy_League_Detail> teamsInLeauge)
+        {
+            List<draftPosition> reOrderedList = new List<draftPosition>();
+            Random rndNumber = new Random();
+            
+
+            foreach(var team in teamsInLeauge)
+            {
+                draftPosition position = new draftPosition();
+                int randomGeneratedNumber = 0;
+
+                randomGeneratedNumber = rndNumber.Next(1, 100);
+                position.detailId = team.Id;
+                position.draftPositionNumber = randomGeneratedNumber;
+                reOrderedList.Add(position);
+            }
+
+            reOrderedList = reOrderedList.OrderByDescending(m => m.draftPositionNumber).ToList();
+
+            return reOrderedList;
+
 
         }
     }

@@ -84,9 +84,46 @@
 </div>
 
 <div class="card w-100">
-    <div class="card-header-green w-100"><h2>Live Draft - </h2> <h2 id="leagueName">@Model.fantasyDetail.fantasy_League.leagueName</h2></div>
+    <div class="card-header-green w-100"><h2>Live Draft - </h2><h2 id="leagueName">@Model.fantasyDetail.fantasy_League.leagueName</h2></div>
+    
+    @*draft order*@
+    
+        @if (Model.leagueDraftOrder.Count > 0)
+        {
+            int counter = 1;
+            int lastPickNumber = 0;
+            if (Model.lastPick != null)
+            {
+                lastPickNumber = Model.lastPick.draftPickNumber;
+            }
+            <div class="row draftBoard-Order bg-draftBoard" id="draftBoard">@*DOM Traversing used from this point to find first child element and then last grandchild element to verify if it's user turn to make pick*@
+
+                @foreach (var pickSelection in Model.leagueDraftOrder)
+                {
+                    var pickNumber = (@counter + @lastPickNumber);
+                    <div class="dropdown-inline draftBoard-selection border-draftBoard mx-1">
+                        <div class="text-center draftBoard-TeamName">@pickSelection.detail.fantasy_Team.teamName @pickSelection.detail.fantasy_Team.nickName</div>
+                        <h5 class="text-center">Pick</h5>
+                        <h5 class="text-center">@pickNumber</h5>
+                        <div class="text-center draftBoard-userName">@pickSelection.detail.user.UserName</div>@*Inner HTML used to determine if it is user's pick - refer to DOM Traversing Note above*@
+                    </div>
+
+                    counter = counter+1;
+                }
+            </div>
+        }
+        else
+        {
+            <div class="mx-auto my-2">
+                <button class="btn btn-lg btn-primary" id="draftOrderBtn">Create Draft Order</button>
+            </div>
+        }
+
+    @*last player taken table*@
     <div>
         @Html.HiddenFor(m => m.fantasyDetail.Id, new { @Id = "FantasyLeagueDetail" })
+        @Html.HiddenFor(m => m.fantasyDetail.fantasy_LeagueId, new { @Id = "FantasyLeagueId" })
+        @Html.HiddenFor(m => m.fantasyDetailsTeams.Count, new { @Id = "FantasyLeagueCount" })
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6 dropdown-inline">
@@ -128,8 +165,14 @@
 
                     @*overview button*@
                     <div class="mx-2 my-4">
-                        @Html.ActionLink("Selection Overview","Overview","Draft", new { leagueId = Model.fantasyDetail.fantasy_LeagueId }, new { @class = "btn btn-primary mx-2", target = "_blank"})
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#rules">See Scoring Rules</button>
+                        <div class="dropdown-inline">
+                            @Html.ActionLink("Selection Overview", "Overview", "Draft", new { leagueId = Model.fantasyDetail.fantasy_LeagueId }, new { @class = "btn btn-primary m-2", target = "_blank" })
+                        </div>
+                        <div class="dropdown-inline">
+                            <button class="btn btn-primary m-2" data-toggle="modal" data-target="#rules">See Scoring Rules</button>
+                        </div>
+                        
+                        
                     </div>
 
                     @*chat container*@
