@@ -318,8 +318,7 @@ namespace FantasyFootballPlayoffs.Controllers
         public List<draftPosition> RandomizeDraftOrder(List<fantasy_League_Detail> teamsInLeauge)
         {
             List<draftPosition> reOrderedList = new List<draftPosition>();
-            Random rndNumber = new Random();
-            
+            Random rndNumber = new Random();  
 
             foreach(var team in teamsInLeauge)
             {

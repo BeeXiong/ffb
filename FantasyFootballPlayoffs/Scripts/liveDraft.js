@@ -115,7 +115,7 @@
                     var leagueCount = parseInt($('#FantasyLeagueCount').val());
                     var roomName = $('#leagueName').html();
 
-                    chat.server.determineDraftOrder(leagueCount, leagueId, roomName)
+                    chat.server.determineDraftOrder(leagueCount, leagueId, roomName);
                 });
             });
         });
