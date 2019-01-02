@@ -18,7 +18,7 @@
                         @Html.HiddenFor(m => m.commish.Id)
                     </div>
                     <div class="col-lg-3 dropdown-inline p-2">
-                        @Html.LabelFor(m => m.calendarYear, "Select Regular Season Year", htmlAttributes: new { @class = "text-blueSummer" })
+                        @Html.LabelFor(m => m.calendarYear, "Select Year (2018 Regular Season = 2019 Year)", htmlAttributes: new { @class = "text-blueSummer" })
                         @Html.DropDownListFor(m => m.calendarYear.Id, new SelectList(Model.calendarYears, "Id", "year" ) ,new { @class = "form-control", id = "password" })
                     </div>
                     <div class="col-lg-2 dropdown-inline p-2">

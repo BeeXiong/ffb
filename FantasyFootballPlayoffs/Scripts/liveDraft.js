@@ -105,6 +105,7 @@
                         });
 
                         chat.server.receiveSelection(playerId, detailsId, btnid, lastPickName, lastPickTeam, lastPickPosition, lastPickNumber, userTeam, leagueName);
+                        location.reload();
                     }
                     else {
                         //do nothing because incorrect user tried to make selection
