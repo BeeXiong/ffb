@@ -112,11 +112,15 @@
                 }
             </div>
         }
-        else
+        else if (Model.lastPick == null)
         {
             <div class="mx-auto my-2">
                 <button class="btn btn-lg btn-primary" id="draftOrderBtn">Create Draft Order</button>
             </div>
+        }
+        else if (Model.lastPick.draftPickNumber == 84)
+        {
+            //do nothing
         }
 
     @*last player taken table*@

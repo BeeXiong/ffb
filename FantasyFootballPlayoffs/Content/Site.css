@@ -240,22 +240,22 @@ textarea {
     }
 
     .table.stats td {
-    font-size:xx-small;
+        font-size:xx-small;
     }
 
     .league-Section {
-     width:350px;
+        width:350px;
     }
     .score-Section {
-     width:380px;
+        width:380px;
     }
     .my-boxes{
-    margin:5px;
-    background-color:#FFFFFF;
-    padding:10px;
-    width: 330px;
-    border-radius:10px;
-    font-size:small;
+        margin:5px;
+        background-color:#FFFFFF;
+        padding:10px;
+        width: 330px;
+        border-radius:10px;
+        font-size:small;
     }
     
     .pick-tables{
@@ -264,12 +264,18 @@ textarea {
         padding-left:55px;
         width:400px;
     }
-
     .draftBoard-Order{
-    margin-left:10px;
-    width:85%;
-    height:100px;
-    overflow-x:auto;
-    overflow-y:hidden;
-}
+        margin-left:10px;
+        width:85%;
+        height:100px;
+        overflow-x:auto;
+        overflow-y:hidden;
+    }
+    .draftBoard-selection{
+        width:90px;
+        height:100px;
+    }
+    .draftBoard-TeamName{
+    	font-size:xx-small;
+    }
 }

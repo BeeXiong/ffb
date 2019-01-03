@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Microsoft.AspNet.SignalR;
 
 namespace FantasyFootballPlayoffs
 {
@@ -16,6 +17,8 @@ namespace FantasyFootballPlayoffs
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(15);
+            GlobalHost.Configuration.KeepAlive = TimeSpan.FromSeconds(5);
         }
         //protected void Application_BeginRequest()
         //{
