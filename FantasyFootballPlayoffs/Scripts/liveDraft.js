@@ -118,6 +118,13 @@
                     chat.server.determineDraftOrder(leagueCount, leagueId, roomName);
                 });
             });
+
+            $.connection.hub.disconnected(function () {
+                setTimeout(function () {
+                    location.reload();
+                }, 3000); // Restart connection after 5 seconds.
+            });
+
         });
 // This optional function html-encodes messages for display in the page.
 function htmlEncode(value) {

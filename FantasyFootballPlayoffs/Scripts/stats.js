@@ -213,6 +213,10 @@ function saveStat() {
         gameStat.isAtdOver50 = true;
     }
 
+    if ($("#2ptCon").is(':checked') === true) {
+        gameStat.isA2Point = true;
+    }
+
     if ($("#PAT").is(':checked') === true) {
         gameStat.PAT = true;
     }

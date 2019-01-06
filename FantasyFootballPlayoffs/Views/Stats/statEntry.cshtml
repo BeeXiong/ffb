@@ -146,6 +146,9 @@
                         <div>
                             @Html.CheckBoxFor(m => m.gameStat.isAtdOver50, new { @type = "checkbox", id = "TDOver50" }) <label class="checkbox-inline text-blueSummer" for="TDOver50" style="padding-right:20px">Touchdown 50+</label>
                         </div>
+                        <div>
+                            @Html.CheckBoxFor(m => m.gameStat.isA2Point, new { @type = "checkbox", id = "2ptCon" }) <label class="checkbox-inline text-blueSummer" for="2ptcon" style="padding-right:20px">2pt Con</label>
+                        </div>
                     </div>
 
 
@@ -220,6 +223,7 @@
                             <th align="center">Att</th>
                             <th align="center">Yards</th>
                             <th align="center">TD</th>
+                            <th align="center">Int</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -233,6 +237,7 @@
                                     <td align="center">@playerStatRecord.Att</td>
                                     <td align="center">@playerStatRecord.PassingYards</td>
                                     <td align="center">@playerStatRecord.PassTD</td>
+                                    <td align="center">@playerStatRecord.Int</td>
                                 </tr>
                             }
                         }
@@ -249,6 +254,7 @@
                             <th align="center">Att</th>
                             <th align="center">Yards</th>
                             <th align="center">TD</th>
+                            <th align="center">Int</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -262,6 +268,7 @@
                                     <td align="center">@playerStatRecord.Att</td>
                                     <td align="center">@playerStatRecord.PassingYards</td>
                                     <td align="center">@playerStatRecord.PassTD</td>
+                                    <td align="center">@playerStatRecord.Int</td>
                                 </tr>
                             }
                         }
@@ -418,7 +425,6 @@
                                     <td align="center">@playerStatRecord.Int</td>
                                     <td align="center">@playerStatRecord.Sack</td>
                                     <td align="center">@playerStatRecord.Safety</td>
-                                    @*Need to figure out how to put points allowed in*@
                                 </tr>
                             }
                         }
@@ -442,15 +448,15 @@
                     <tbody>
                         @foreach (var playerStatRecord in Model.boxScoreStats)
                         {
-                            if (playerStatRecord.playerPositionId == 19 && playerStatRecord.teamId == Model.game.awayTeamId)
+                            if (playerStatRecord.playerPositionId == 5 && playerStatRecord.teamId == Model.game.awayTeamId)
                             {
                                 <tr>
                                     <td align="center">@playerStatRecord.firstName @playerStatRecord.lastName</td>
-                                    <td align="center">@playerStatRecord.PAT</td>
-                                    <td align="center">@playerStatRecord.FG39</td>
-                                    <td align="center">@playerStatRecord.FG49</td>
-                                    <td align="center">@playerStatRecord.FG59</td>
-                                    <td align="center">@playerStatRecord.FG60</td>
+                                    <td align="center">@playerStatRecord.DefTD</td>
+                                    <td align="center">@playerStatRecord.FumRec</td>
+                                    <td align="center">@playerStatRecord.Int</td>
+                                    <td align="center">@playerStatRecord.Sack</td>
+                                    <td align="center">@playerStatRecord.Safety</td>
                                 </tr>
                             }
                         }
