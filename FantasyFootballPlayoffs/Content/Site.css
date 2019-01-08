@@ -67,6 +67,11 @@ p.reversed-Text{
     font-size: 1.25rem;
     font-weight:bolder;
 }
+.leaderBoard-Text{
+    font-size: 1.25rem;
+    font-weight:bolder;
+    color: #3256A8;
+}
 .text-blueSummer{
     color: #3256A8;
 }
