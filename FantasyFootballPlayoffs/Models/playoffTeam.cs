@@ -18,6 +18,8 @@ namespace FantasyFootballPlayoffs.Models
 
         [Display(Name = "Playoff Seed")]
         public int playoffSeed { get; set; }
+        
+        public bool isEliminated { get; set; }
 
         public virtual homeTeam homeTeam { get; set; } 
         public virtual conference conference { get; set; }

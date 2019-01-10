@@ -60,6 +60,10 @@ h2{
 td, th, tr{
     color: #3256A8;
 }
+td.eliminated-Text{
+    color:red;
+    text-decoration:line-through;
+}
 p.reversed-Text{
     color: #ffffff;
 }

@@ -358,13 +358,15 @@ namespace FantasyFootballPlayoffs.Controllers
             var conferences = _context.conferences.ToList();
             var calendarYears = _context.calendarYears.ToList();
             var currentYearPlayoffTeams = _context.playoffTeams.Where(m => m.calendarYearId == contextDateNowYear.Id).ToList();
+            var currentYearEliminated = _context.playoffTeams.Where(m => m.calendarYearId == contextDateNowYear.Id).Where(m => m.isEliminated == true).ToList();
 
             CreateGameViewModel viewModel = new CreateGameViewModel()
             {
                 teams = selectTeams,
                 conferences = conferences,
                 years = calendarYears,
-                playoffTeams = currentYearPlayoffTeams
+                playoffTeams = currentYearPlayoffTeams,
+                eliminatedPlayoffTeams = currentYearEliminated
             };
 
             return View(viewModel);
@@ -409,6 +411,42 @@ namespace FantasyFootballPlayoffs.Controllers
             }            
         }
 
+        public ActionResult EliminatePlayoffTeam(int playoffTeamId)
+        {
+            try
+            {
+                var teamToEliminate = new playoffTeam();
+                teamToEliminate = _context.playoffTeams.SingleOrDefault(m => m.Id == playoffTeamId);
+
+                teamToEliminate.isEliminated = true;
+
+                _context.SaveChanges();
+
+                return RedirectToAction("selectPlayoffTeams", "Stats");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult ActivatePlayoffTeam(int playoffTeamId)
+        {
+            try
+            {
+                var teamToEliminate = new playoffTeam();
+                teamToEliminate = _context.playoffTeams.SingleOrDefault(m => m.Id == playoffTeamId);
+
+                teamToEliminate.isEliminated = false;
+
+                _context.SaveChanges();
+
+                return RedirectToAction("selectPlayoffTeams", "Stats");
+            }
+            catch
+            {
+                return View();
+            }
+        }
         public ActionResult AddPlayers(int playoffTeamId)
         {
             var currentTeamSelection = _context.playoffTeams.SingleOrDefault(m => m.Id == playoffTeamId);

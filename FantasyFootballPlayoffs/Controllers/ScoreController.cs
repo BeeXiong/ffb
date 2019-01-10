@@ -39,6 +39,7 @@ namespace FantasyFootballPlayoffs.Controllers
             string currentUserId = User.Identity.GetUserId();
             var leagueRosters = _context.fantasy_Rosters.Where(m => m.fantasy_League_Detail.fantasy_LeagueId == leagueId ).ToList();
             var leagueTeams = _context.fantasy_League_Details.Where(m => m.fantasy_LeagueId == leagueId).ToList();
+            var eliminatedTeams = _context.playoffTeams.Where(m => m.calendarYearId == leagueYear).Where(m => m.isEliminated == true).ToList();
             //var playoffRounds = _context.playoffRounds.ToList();
 
             var sqlText = "SELECT        stats.playerId, SUM(CAST(stats.passCompletion AS INT)) AS Comp, SUM(CAST(stats.passAttempt AS INT)) AS Att, COALESCE (SUM(stats.passYards), 0) AS PassingYards, SUM(CAST(stats.isAPassTouchdown AS INT)) AS PassTD, " + Environment.NewLine +
@@ -184,6 +185,7 @@ namespace FantasyFootballPlayoffs.Controllers
                 leagueRosters = leagueRosters,
                 leagueTeams = leagueTeams,
                 points = playerPoints,
+                eliminatedTeams = eliminatedTeams
             };
 
             return View(viewModel);

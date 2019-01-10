@@ -17,6 +17,7 @@ namespace FantasyFootballPlayoffs.ViewModels
         public ICollection<conference> conferences { get; set; }
         public ICollection<calendarYear> years { get; set; }
         public ICollection<playoffTeam> playoffTeams {get;set;}
+        public ICollection<playoffTeam> eliminatedPlayoffTeams { get; set; }
         public playoffTeam playoffTeam { get; set; }
 
         [Key]

@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "ManageTeam";
 }
-
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <div class="row card-header-green">
         <h2>Scores</h2>
@@ -13,37 +13,53 @@
     </div>
 
 </div>
-<div class="row py-3 bg-white">
+<div class="row py-3 bg-white" id="leaderBoardApp">
 
-    <div class="col-lg-4 mx-5">       
-        <div class="row d-flex justify-content-between">
-            <div class="leaderBoard-Text" id="firstPlace"></div>
-            <div class="leaderBoard-Text text-right" id="firstPlaceScore"></div>
-        </div>
+    <div class="col-lg-5 mx-5">      
+        <table  class="table table-responsive-md table-condensed table-hover table-striped stats">
+            <thead>
+                <tr>
+                    <td>Team</td>
+                    <td class="text-right">Score</td>
+                    <td class="text-center">Players remaining</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="leaderBoard-Text">{{firstPlaceName}}</td>
+                    <td class="leaderBoard-Text text-right">{{firstPlaceScore}}</td>
+                    <td class="leaderBoard-Text text-center">{{firstPlaceRemaining}}</td>
+                </tr>
+                <tr>
+                    <td class="leaderBoard-Text">{{secondPlaceName}}</td>
+                    <td class="leaderBoard-Text text-right">{{secondPlaceScore}}</td>
+                    <td class="leaderBoard-Text text-center">{{secondPlaceRemaining}}</td>
+                </tr>                
+                <tr>
+                    <td class="leaderBoard-Text">{{thirdPlaceName}}</td>
+                    <td class="leaderBoard-Text text-right">{{thirdPlaceScore}}</td>
+                    <td class="leaderBoard-Text text-center">{{thirdPlaceRemaining}}</td>
+                </tr>
+                <tr>
+                    <td class="leaderBoard-Text">{{fourthPlaceName}}</td>
+                    <td class="leaderBoard-Text text-right">{{fourthPlaceScore}}</td>
+                    <td class="leaderBoard-Text text-center">{{fourthPlaceRemaining}}</td>
+                </tr>
+                <tr>
+                    <td class="leaderBoard-Text">{{fifthPlaceName}}</td>
+                    <td class="leaderBoard-Text text-right">{{fifthPlaceScore}}</td>
+                    <td class="leaderBoard-Text text-center">{{fifthPlaceRemaining}}</td>
+                </tr>
+                <tr>
+                    <td class="leaderBoard-Text">{{lastPlaceName}}</td>
+                    <td class="leaderBoard-Text text-right">{{lastPlaceScore}}</td>
+                    <td class="leaderBoard-Text text-center">{{lastPlaceRemaining}}</td>
+                </tr>
+            </tbody>
+        </table>
 
-        <div class="row d-flex justify-content-between">
-            <div class="leaderBoard-Text" id="secondPlace"></div>
-            <div class="leaderBoard-Text" id="secondPlaceScore"></div>
-        </div>
-        <div class="row d-flex justify-content-between">
-            <div class="leaderBoard-Text" id="thirdPlace"></div>
-            <div class="leaderBoard-Text" id="thirdPlaceScore"></div>
-        </div>
-        <div class="row d-flex justify-content-between">
-            <div class="leaderBoard-Text" id="fourthPlace"></div>
-            <div class="leaderBoard-Text" id="fourthPlaceScore"></div>
-        </div>
-        <div class="row d-flex justify-content-between">
-            <div class="leaderBoard-Text" id="fifthPlace"></div>
-            <div class="leaderBoard-Text" id="fifthPlaceScore"></div>
-        </div>
-        <div class="row d-flex justify-content-between">
-            <div class="leaderBoard-Text" id="lastPlace"></div>
-            <div class="leaderBoard-Text" id="lastPlaceScore"></div>
-        </div>     
     </div>
 </div>
-
 
 <div class="row py-3 bg-white">
     @{ var counter = 0;
@@ -51,6 +67,7 @@
         {
             var teamRoster = @Model.leagueRosters.Where(m => m.fantasy_League_Detail.fantasy_TeamId == team.fantasy_TeamId).OrderBy(m => m.fantasy_Player_SlotId);
             decimal? totalPoints = 0;
+            int remainingPlayers = 0;
         <div class="col-lg-6 dropdown-inline py-2">
             <h3 id="@counter-teamName">@team.fantasy_Team.teamName @team.fantasy_Team.nickName</h3>
             <table id="myRosterTable" class="table table-responsive-md table-condensed table-hover table-striped stats">
@@ -89,11 +106,19 @@
                         totalPoints = totalPoints + totalPlayerPoints;
                         <tr>
                             <td>@rosterSpot.fantasy_Player_Slot.playerSlot</td>
-                            <td>@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
+                            @if (rosterSpot.player.playoffTeam.isEliminated == true)
+                            {
+                                <td class="eliminated-Text">@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
+                            }
+                            else
+                            {
+                                <td>@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
+                                remainingPlayers = remainingPlayers + 1;
+                            }
+                            
                             @if (playerStats.Any(m => m.playoffRoundId == 1) == true)
                             {
                                 <td>@playerStats.Find(m => m.playoffRoundId == 1).playerPoints</td>
-
                             }
                             else
                             {
@@ -141,6 +166,7 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="invisible" id="@counter-Remaining">@remainingPlayers</div>
         </div>
                 counter = counter + 1;
             }

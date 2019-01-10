@@ -52,6 +52,7 @@
                 <th id="seedPosition">Seed</th>
                 <th id="playoffYear">Year</th>
                 <th>Add Players</th>
+                <th>Eliminate Team</th>
                 <th>Delete Team</th>
             </tr>
         </thead>
@@ -64,6 +65,14 @@
                     <td>@team.playoffSeed</td>
                     <td>@team.calendarYear.year</td>
                     <td>@Html.ActionLink("Add Players", "addPlayers", "Stats", new { playoffTeamId = team.Id }, new { @class = "btn btn-primary" })</td>
+                    @if (Model.eliminatedPlayoffTeams.Any(m => m.Id == team.Id) == false)
+                    {
+                        <td>@Html.ActionLink("Eliminate From Playoffs", "EliminatePlayoffTeam", "Stats", new { playoffTeamId = team.Id }, new { @class = "btn btn-warning" })</td>
+                    }
+                    else
+                    {
+                        <td>@Html.ActionLink("Eliminated", "EliminatePlayoffTeam", "Stats", new { playoffTeamId = team.Id }, new { @class = "btn btn-warning disabled" }) @Html.ActionLink("Activate", "ActivatePlayoffTeam", "Stats", new { playoffTeamId = team.Id }, new { @class = "btn btn-primary" })</td>
+                    }
                     <td>@Html.ActionLink("Delete Team", "DeletetPlayoffTeam", "Stats", new { playoffTeamId = team.Id }, new { @class = "btn btn-danger" })</td>
                 </tr>
             }
