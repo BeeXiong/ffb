@@ -13,5 +13,6 @@ namespace FantasyFootballPlayoffs.ViewModels
         public fantasy_League_Detail teamDetail { get; set; }
 
         public ICollection<roundPoints> points { get; set; }
+        public ICollection<playoffTeam> eliminatedTteams { get; set; }
     }
 }

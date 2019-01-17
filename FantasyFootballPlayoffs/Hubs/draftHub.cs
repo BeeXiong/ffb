@@ -5,6 +5,7 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using FantasyFootballPlayoffs.Controllers;
+using FantasyFootballPlayoffs.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -13,17 +14,39 @@ namespace FantasyFootballPlayoffs.Hubs
     [HubName("draftHub")]
     public class DraftHub : Hub
     {
+        private readonly draftTicker _draftTicker;
+
+        public DraftHub() : this(draftTicker.Instance) { }
+
+        public DraftHub(draftTicker draftTicker)
+        {
+            _draftTicker = draftTicker;
+        }
+
         public async Task AddUserToChatRoom(string roomName)
         {
-            await Groups.Add(Context.ConnectionId, roomName);
-            Clients.Group(roomName).addNewMessageToPage("Draft HQ:   " + Context.User.Identity.Name + " has joined the Draft.");
+            string userName = Context.User.Identity.Name;
+            string connectionId = Context.ConnectionId;
+            await _draftTicker.AddUserToGroup(connectionId, roomName, userName); 
+
         }
 
         public void Send(string name, string message, string roomName)
         {
-            // Call the addNewMessageToPage method to update clients.
-            Clients.Group(roomName).addNewMessageToPage(name, message);  
+            _draftTicker.Send(name, message, roomName);
         }
+
+        //public async Task AddUserToChatRoom(string roomName)
+        //{
+        //    await Groups.Add(Context.ConnectionId, roomName);
+        //    Clients.Group(roomName).addNewMessageToPage("Draft HQ:   " + Context.User.Identity.Name + " has joined the Draft.");
+        //}
+
+        //public void Send(string name, string message, string roomName)
+        //{
+        //    // Call the addNewMessageToPage method to update clients.
+        //    Clients.Group(roomName).addNewMessageToPage(name, message);  
+        //}
 
         public void ReceiveSelection(int playerId, int detailsId, string btnId, string lastPickName, string lastPickTeam, string lastPickPosition, int lastPickNumber, List<string[]> currentTeam, string roomName)
         {

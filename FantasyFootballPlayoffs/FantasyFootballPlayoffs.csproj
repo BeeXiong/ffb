@@ -662,6 +662,7 @@
     <Compile Include="Models\conference.cs" />
     <Compile Include="Models\currentYear.cs" />
     <Compile Include="Models\draftPosition.cs" />
+    <Compile Include="Models\draftTicker.cs" />
     <Compile Include="Models\playoffTeam.cs" />
     <Compile Include="Models\fantasy_League_Detail.cs" />
     <Compile Include="Models\fantasy_Player_Slot.cs" />

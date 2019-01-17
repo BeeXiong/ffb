@@ -317,7 +317,14 @@
                                 totalPoints = totalPoints + totalPlayerPoints;
                                 <tr>
                                     <td>@rosterSpot.fantasy_Player_Slot.playerSlot</td>
-                                    <td>@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
+                                    @if (rosterSpot.player.playoffTeam.isEliminated == true)
+                                    {
+                                        <td class="eliminated-Text">@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@rosterSpot.player.firstName @rosterSpot.player.lastName</td>
+                                    }
                                     @if (playerStats.Any(m => m.playoffRoundId == 1) == true)
                                     {
                                         <td>@playerStats.Find(m => m.playoffRoundId == 1).playerPoints</td>
